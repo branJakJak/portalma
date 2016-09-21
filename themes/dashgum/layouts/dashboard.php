@@ -276,6 +276,12 @@ DashGumAssetBundle::register($this);
                   <li class="">
                       <?= Html::a('<i class="fa fa-download"></i><span>Download All</span>', ['/download'], ['class' => '']); ?>   
                   </li>
+                  <?php if (Yii::$app->user->can('admin')): ?>
+                  
+                    <li class="">
+                        <?= Html::a('<i class="fa fa-users"></i><span>User Accounts</span>', ['/user-accounts/index'], ['class' => '']); ?>   
+                    </li>
+                  <?php endif ?>
 
                   <li class="sub-menu hidden">
                       <a href="javascript:;" >

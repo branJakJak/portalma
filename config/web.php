@@ -4,6 +4,7 @@ $params = require(__DIR__ . '/params.php');
 
 $config = [
     'id' => 'basic',
+    'name' => 'Portal Money Active',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
@@ -19,15 +20,24 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'vLpCrGmyUHg$34z+Y=s:',
         ],
+        'dataretriever'=>[
+            'class'=>'app\components\PbDataRetriever'
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => 'app\models\UserAccount',
             'enableAutoLogin' => true,
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],        
         'errorHandler' => [
             'errorAction' => 'site/error',
+        ],
+        'formatter' => [
+            'dateFormat' => 'medium',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -50,7 +60,9 @@ $config = [
             'showScriptName' => false,
             'enablePrettyUrl' => true,
             'rules' => array(
-                '<controller:\w+>/<id:\d+>' => '<controller>/view',
+                'register' => '/user-accounts/create',
+                'login' => '/site/login',
+                'logout' => '/site/logout',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ),
@@ -69,6 +81,7 @@ if (YII_DEBUG) {
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
+        'allowedIPs'=>['*.*.*.*']
     ];
      $config['components']['db'] = require(__DIR__ . '/dev_db.php');
 }else {

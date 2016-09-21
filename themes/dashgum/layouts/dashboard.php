@@ -6,6 +6,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
 use app\assets\DashGumAssetBundle;
@@ -62,6 +63,15 @@ EOL;
     // $this->registerJs($initComponentsJs, $this::POS_READY);
 
 
+$customCss = <<< SCRIPT
+  .team-members-panel {
+    height: 500px;
+    overflow-y: scroll;
+  }
+SCRIPT;
+$this->registerCss($customCss);
+
+
 DashGumAssetBundle::register($this);
 ?>
 <!DOCTYPE html>
@@ -91,9 +101,8 @@ DashGumAssetBundle::register($this);
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="index.html" class="logo"><b>DASHGUM FREE</b></a>
-            <!--logo end-->
-            <div class="nav notify-row" id="top_menu">
+            <?= Html::a(Yii::$app->name, Url::home(true), ['class' => 'logo']); ?>
+            <div class="nav notify-row hidden" id="top_menu">
                 <!--  notification start -->
                 <ul class="nav top-menu">
                     <!-- settings start -->
@@ -235,7 +244,9 @@ DashGumAssetBundle::register($this);
             </div>
             <div class="top-menu">
             	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="login.html">Logout</a></li>
+                    <li>
+                        <?= Html::a("Logout (".Yii::$app->user->identity->username.") ",['/logout'],['class'=>'logout'])?>
+                    </li>
             	</ul>
             </div>
         </header>
@@ -250,19 +261,23 @@ DashGumAssetBundle::register($this);
 
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
+
               <ul class="sidebar-menu" id="nav-accordion">
-              
-              	  <p class="centered"><a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered">Marcel Newman</h5>
-              	  	
+                  <p class="centered"><a href="profile.html">
+                    <img src="/img/admin.png" class="img-circle" width="60" style="background-color: white"></a>
+                  </p>
+              	  <h5 class="centered">
+                    <?= Yii::$app->user->identity->username?>
+              	  </h5>
+                    
                   <li class="mt">
-                      <a class="active" href="index.html">
-                          <i class="fa fa-dashboard"></i>
-                          <span>Dashboard</span>
-                      </a>
+                      <?= Html::a('<i class="fa fa-dashboard"></i><span>Dashboard</span>', ['/dashboard'], ['class' => 'active']); ?>   
+                  </li>
+                  <li class="">
+                      <?= Html::a('<i class="fa fa-download"></i><span>Download All</span>', ['/download'], ['class' => '']); ?>   
                   </li>
 
-                  <li class="sub-menu">
+                  <li class="sub-menu hidden">
                       <a href="javascript:;" >
                           <i class="fa fa-desktop"></i>
                           <span>UI Elements</span>
@@ -274,7 +289,7 @@ DashGumAssetBundle::register($this);
                       </ul>
                   </li>
 
-                  <li class="sub-menu">
+                  <li class="sub-menu  hidden">
                       <a href="javascript:;" >
                           <i class="fa fa-cogs"></i>
                           <span>Components</span>
@@ -285,7 +300,7 @@ DashGumAssetBundle::register($this);
                           <li><a  href="todo_list.html">Todo List</a></li>
                       </ul>
                   </li>
-                  <li class="sub-menu">
+                  <li class="sub-menu  hidden">
                       <a href="javascript:;" >
                           <i class="fa fa-book"></i>
                           <span>Extra Pages</span>
@@ -296,7 +311,7 @@ DashGumAssetBundle::register($this);
                           <li><a  href="lock_screen.html">Lock Screen</a></li>
                       </ul>
                   </li>
-                  <li class="sub-menu">
+                  <li class="sub-menu  hidden">
                       <a href="javascript:;" >
                           <i class="fa fa-tasks"></i>
                           <span>Forms</span>
@@ -305,7 +320,7 @@ DashGumAssetBundle::register($this);
                           <li><a  href="form_component.html">Form Components</a></li>
                       </ul>
                   </li>
-                  <li class="sub-menu">
+                  <li class="sub-menu  hidden">
                       <a href="javascript:;" >
                           <i class="fa fa-th"></i>
                           <span>Data Tables</span>
@@ -315,7 +330,7 @@ DashGumAssetBundle::register($this);
                           <li><a  href="responsive_table.html">Responsive Table</a></li>
                       </ul>
                   </li>
-                  <li class="sub-menu">
+                  <li class="sub-menu  hidden">
                       <a href="javascript:;" >
                           <i class=" fa fa-bar-chart-o"></i>
                           <span>Charts</span>
@@ -339,7 +354,7 @@ DashGumAssetBundle::register($this);
       <?php echo $content ?>
       <!--main content end-->
       <!--footer start-->
-      <footer class="site-footer">
+      <footer class="site-footer  hidden">
           <div class="text-center">
               2014 - Alvarez.is
               <a href="index.html#" class="go-top">

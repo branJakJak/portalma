@@ -10,38 +10,44 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+<div class="row">
 
-    <?php $form = ActiveForm::begin([
-        'id' => 'login-form',
-        'options' => ['class' => 'form-horizontal'],
-        'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-            'labelOptions' => ['class' => 'col-lg-1 control-label'],
-        ],
-    ]); ?>
+<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+</div>
+    
 
-        <?= $form->field($model, 'username') ?>
-
-        <?= $form->field($model, 'password')->passwordInput() ?>
-
-        <?= $form->field($model, 'rememberMe')->checkbox([
-            'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-        ]) ?>
-
-        <div class="form-group">
-            <div class="col-lg-offset-1 col-lg-11">
-                <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-            </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    <div class="site-login">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+                <div class="panel-title">
+                    <p>Please fill out the following fields to login:</p>
+                </div>
+            </h3>
+          </div>
+          <div class="panel-body" style="padding: 30px">
+            <?php $form = ActiveForm::begin([
+                'id' => 'login-form',
+                'options' => ['class' => 'form-horizontal'],
+                'fieldConfig' => [
+                ],
+            ]); ?>
+               <?= $form->field($model, 'username') ?>
+                <?= $form->field($model, 'password')->passwordInput() ?>
+                <?= $form->field($model, 'rememberMe')->checkbox([
+                ]) ?>
+                <div class="form-group">
+                        <?= Html::submitButton('Login', ['class' => 'btn btn-primary btn-block', 'name' => 'login-button']) ?>
+                    </div>
+                </div>
+            <?php ActiveForm::end(); ?>
+          </div>
         </div>
 
-    <?php ActiveForm::end(); ?>
+</div>
+    
+</div>
 
-    <div class="col-lg-offset-1" style="color:#999;">
-        You may login with <strong>admin/admin</strong> or <strong>demo/demo</strong>.<br>
-        To modify the username/password, please check out the code <code>app\models\User::$users</code>.
-    </div>
 </div>

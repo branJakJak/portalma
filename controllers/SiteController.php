@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use yii\web\NotFoundHttpException;
 
 class SiteController extends Controller
 {
@@ -25,12 +26,12 @@ class SiteController extends Controller
                     ],
                 ],
             ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
+            // 'verbs' => [
+            //     'class' => VerbFilter::className(),
+            //     'actions' => [
+            //         'logout' => ['post'],
+            //     ],
+            // ],
         ];
     }
 
@@ -49,7 +50,20 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        if (Yii::$app->user->isGuest) {
+            # code...
+            return $this->redirect("/login");
+        }
+        else {
+            if (Yii::$app->user->can('admin')) {
+                return $this->redirect("/dashboard");
+            }else if (Yii::$app->user->can('agent')) {
+                return $this->redirect("/entries/new");
+            }else {
+                Yii::$app->user->logout();
+                return $this->redirect("/login");
+            }
+        }
     }
 
     public function actionLogin()

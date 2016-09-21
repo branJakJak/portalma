@@ -1,11 +1,22 @@
 <?php
 
+
+defined('YII_DEBUG') or define('YII_DEBUG', true);
+defined('YII_ENV') or define('YII_ENV', 'dev');
+
+
 Yii::setAlias('@tests', dirname(__DIR__) . '/tests');
 
 $params = require(__DIR__ . '/params.php');
-$db = require(__DIR__ . '/db.php');
 
-return [
+if (YII_ENV && YII_ENV == 'dev') {
+    $db = require(__DIR__ . '/dev_db.php');
+}else{
+    $db = require(__DIR__ . '/db.php');
+}
+
+
+$consoleConfig = [
     'id' => 'basic-console',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log', 'gii'],
@@ -14,6 +25,9 @@ return [
         'gii' => 'yii\gii\Module',
     ],
     'components' => [
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],        
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
@@ -29,3 +43,4 @@ return [
     ],
     'params' => $params,
 ];
+return $consoleConfig;

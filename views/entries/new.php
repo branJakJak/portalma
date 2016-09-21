@@ -19,12 +19,12 @@ use yii\helpers\Html;
 			<h3 class="panel-title">New Money Active Claim</h3>
 		</div>
 		<div class="panel-body">
-			<div class="alert alert-success">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<?php if (Yii::$app->session->hasFlash('success')): ?>
-					<?= Yii::$app->session->getFlash('success') ?>
+				<div class="alert alert-success">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						<?= Yii::$app->session->getFlash('success') ?>
+				</div>
 				<?php endif ?>
-			</div>
 		
 			<?= Html::errorSummary($model) ?>
 			<div class="money-active-claims-form">

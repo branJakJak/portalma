@@ -17,7 +17,7 @@ use yii\helpers\Html;
 		<h3 class="panel-title"><?= Yii::$app->user->identity->username ?></h3>
 	</div>
 	<div class="panel-body">
-		Panel content
+		<?= Html::a("My Entries", ['/entries/index','agent_name'=>Yii::$app->user->identity->username], ['option' => 'value']); ?>
 	</div>
 </div>
 </div>

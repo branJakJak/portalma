@@ -21,7 +21,9 @@ $this->registerCss($customCss);
                 <div class="ds content-panel entries-agent">
                         <h1>
                                 Data submitted by <?= Html::encode($agentModel->username); ?>
-                                <?= Html::a("Export this record",['/download/agent','agentName'=>$agentModel->username], ['class'=>'btn btn-default']); ?>
+                                <?php if (Yii::$app->user->can('admin')): ?>
+                                    <?= Html::a("Export this record",['/download/agent','agentName'=>$agentModel->username], ['class'=>'btn btn-default']); ?>
+                                <?php endif ?>
                         </h1>
                         <hr>
                         <p>

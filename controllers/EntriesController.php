@@ -82,14 +82,20 @@ class EntriesController extends \yii\web\Controller
 
         /*panel datasources*/
         $pendingClaims = new ActiveDataProvider([
-            'query'=>MoneyActiveClaims::find()->where(['claim_status'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_PENDING])->orderBy('id DESC')
+            'query'=>MoneyActiveClaims::find()
+            ->where(['claim_status'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_PENDING,'submitted_by'=>Yii::$app->user->id])
+            ->orderBy('id DESC')
         ]);
         $ongoingClaims = new ActiveDataProvider([
-            'query'=>MoneyActiveClaims::find()->where(['claim_status'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_ONGOING])->orderBy('id DESC')
+            'query'=>MoneyActiveClaims::find()
+            ->where(['claim_status'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_ONGOING,'submitted_by'=>Yii::$app->user->id])
+            ->orderBy('id DESC')
         ]);
 
         $completedClaims = new ActiveDataProvider([
-            'query'=>MoneyActiveClaims::find()->where(['claim_status'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_DONE])->orderBy('id DESC')
+            'query'=>MoneyActiveClaims::find()
+            ->where(['claim_status'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_DONE,'submitted_by'=>Yii::$app->user->id])
+            ->orderBy('id DESC')
         ]);
 
         /*money active momdel*/
@@ -113,9 +119,11 @@ class EntriesController extends \yii\web\Controller
         if ($newFormEntry->load(Yii::$app->request->post()) ) {
             if ($newFormEntry->isNewRecord) {
                 $newFormEntry->claim_status = MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_PENDING;
+                $newFormEntry->submitted_by = Yii::$app->user->id;
                 $newFormEntry->save();
             }else{
                 $newFormEntry->claim_status = MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_DONE;
+                $newFormEntry->submitted_by = Yii::$app->user->id;
                 $newFormEntry->touch('updated_at');
                 $newFormEntry->update(false);
             }

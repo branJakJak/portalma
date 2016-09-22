@@ -83,12 +83,12 @@ class EntriesController extends \yii\web\Controller
         /*panel datasources*/
         $pendingClaims = new ActiveDataProvider([
             'query'=>MoneyActiveClaims::find()
-            ->where(['claim_status'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_PENDING,'submitted_by'=>Yii::$app->user->id])
+            ->where(['claim_status'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_PENDING])
             ->orderBy('id DESC')
         ]);
         $ongoingClaims = new ActiveDataProvider([
             'query'=>MoneyActiveClaims::find()
-            ->where(['claim_status'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_ONGOING,'submitted_by'=>Yii::$app->user->id])
+            ->where(['claim_status'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_ONGOING])
             ->orderBy('id DESC')
         ]);
 

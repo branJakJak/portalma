@@ -17,9 +17,11 @@ $config = [
             ],
         ],
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'vLpCrGmyUHg$34z+Y=s:',
-        ],
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ],
+            'cookieValidationKey' => 'vLpCrGmyUHg$34z+Y=s:', 
+       ],
         'dataretriever'=>[
             'class'=>'app\components\PbDataRetriever'
         ],
@@ -67,6 +69,11 @@ $config = [
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ),
         ],
+    ],
+    'modules'=>[
+        'api'=>[
+            'class'=>'app\modules\Api\ApiModule'
+        ]
     ],
     'params' => $params,
 ];

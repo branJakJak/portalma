@@ -34,19 +34,20 @@ AppAsset::register($this);
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'User Accts', 'url' => ['/user-accounts/index'],'visible'=>Yii::$app->user->can('admin')],
-            ['label' => 'Dashboard', 'url' => ['/dashboard'],'visible'=>Yii::$app->user->can('admin')],
-            ['label' => 'Register', 'url' => ['/register'] , 'visible'=>!Yii::$app->user->isGuest],
-            Yii::$app->user->isGuest ?
-                ['label' => 'Login', 'url' => ['/login']] :
-                [
-                    'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-                    'url' => ['/logout'],
-                    'linkOptions' => ['data-method' => 'post']
-                ],
-        ],
+        'items' => \yii\helpers\ArrayHelper::merge([
+                ['label' => 'Home', 'url' => ['/site/index']],
+                ['label' => 'User Accts', 'url' => ['/user-accounts/index'],'visible'=>Yii::$app->user->can('admin')],
+                ['label' => 'Dashboard', 'url' => ['/dashboard'],'visible'=>Yii::$app->user->can('admin')],
+                ['label' => 'My Entries', 'url' => ['/entries/index','agent'=>Yii::$app->user->identity->username],'visible'=>Yii::$app->user->can('agent')],
+                ['label' => 'Register', 'url' => ['/register'] , 'visible'=>!Yii::$app->user->isGuest],
+                Yii::$app->user->isGuest ?
+                    ['label' => 'Login', 'url' => ['/login']] :
+                    [
+                        'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+                        'url' => ['/logout'],
+                        'linkOptions' => ['data-method' => 'post']
+                    ],
+            ], Yii::$app->params['menu']),
     ]);
     NavBar::end();
     ?>

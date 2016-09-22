@@ -6,9 +6,11 @@ use app\components\PbDataRetriever;
 use app\models\MoneyActiveClaims;
 use app\models\UserAccount;
 use Yii;
+use yii\base\Exception;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\Controller;
@@ -39,7 +41,7 @@ class EntriesController extends \yii\web\Controller
         ];
     }
 
-    public function actionIndex($agent_name)
+    public function actionIndex($agent)
     {
         if (Yii::$app->user->can('admin')) {
             $this->layout = "dashboard";
@@ -49,16 +51,16 @@ class EntriesController extends \yii\web\Controller
 
 
         /*make sure the current user is either the admin or agent == current agent*/
-        if (Yii::$app->user->can('admin') || (Yii::$app->user->identity->username === $agent_name)) {
+        if (Yii::$app->user->can('admin') || (Yii::$app->user->identity->username === $agent)) {
 
         }
         $agentId = null;
-        if (!isset($agent_name)) {
-            throw new NotFoundHttpException("Agent $agent_name doesn't exists");
+        if (!isset($agent)) {
+            throw new NotFoundHttpException("Agent $agent doesn't exists");
         }
         //check agentname
-        if (UserAccount::find()->where(['username'=>$agent_name])->exists()) {
-            $agentModel = UserAccount::find()->where(['username' => $agent_name])->one();
+        if (UserAccount::find()->where(['username'=>$agent])->exists()) {
+            $agentModel = UserAccount::find()->where(['username' => $agent])->one();
             $agentId = $agentModel->id;
         }else {
             throw new \yii\base\Exception("Agent doesnt exists");
@@ -74,10 +76,49 @@ class EntriesController extends \yii\web\Controller
      **/
     public function actionNew()
     {
-        $newFormEntry = new MoneyActiveClaims();
-        $newFormEntry->submitted_by = Yii::$app->user->id;
-        $newFormEntry->tm = Yii::$app->user->identity->username;
-        if ($newFormEntry->load(Yii::$app->request->post()) && $newFormEntry->save() ) {
+        /**
+         * @var $newFormEntry MoneyActiveClaims
+         */
+
+        /*panel datasources*/
+        $pendingClaims = new ActiveDataProvider([
+            'query'=>MoneyActiveClaims::find()->where(['claim_status'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_PENDING])->orderBy('id DESC')
+        ]);
+        $ongoingClaims = new ActiveDataProvider([
+            'query'=>MoneyActiveClaims::find()->where(['claim_status'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_ONGOING])->orderBy('id DESC')
+        ]);
+
+        $completedClaims = new ActiveDataProvider([
+            'query'=>MoneyActiveClaims::find()->where(['claim_status'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_DONE])->orderBy('id DESC')
+        ]);
+
+        /*money active momdel*/
+        $newFormEntry = new MoneyActiveClaims([
+                'submitted_by'=>Yii::$app->user->id,
+            ]);
+            
+        if (isset(Yii::$app->request->queryParams['claim'])) {
+            $claimId = intval(Yii::$app->request->queryParams['claim']);
+            if (!MoneyActiveClaims::find()->where(['id' => $claimId])->exists()) {
+                throw new Exception("The claim must have been deleted");
+            }else {
+                $newFormEntry = MoneyActiveClaims::find()->where(['id' => $claimId])->one();
+                $newFormEntry->claim_status = MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_ONGOING;
+                $newFormEntry->submitted_by = Yii::$app->user-> id;
+                $newFormEntry->update(false);
+            }
+        }
+
+        /*form submit*/
+        if ($newFormEntry->load(Yii::$app->request->post()) ) {
+            if ($newFormEntry->isNewRecord) {
+                $newFormEntry->claim_status = MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_PENDING;
+                $newFormEntry->save();
+            }else{
+                $newFormEntry->claim_status = MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_DONE;
+                $newFormEntry->touch('updated_at');
+                $newFormEntry->update(false);
+            }
             //create url to view submitted data
             $viewSubmittedDataLink =  Html::a("View submitted data", ['/money-active-claims/view', 'id' => $newFormEntry->id], ['class' => 'btn btn-default']);
             $messcontainer = sprintf("Success! New claim was saved . %s", $viewSubmittedDataLink);
@@ -85,6 +126,15 @@ class EntriesController extends \yii\web\Controller
             $newFormEntry = new MoneyActiveClaims;
             return $this->redirect(['entries/new']);
         }
-        return $this->render("new", ['model'=>$newFormEntry]);
+
+        $viewBag = ['model'=>$newFormEntry];
+        $viewBag  = ArrayHelper::merge($viewBag, compact(
+            'pendingClaims',
+            'ongoingClaims',
+            'completedClaims'
+        ));
+        return $this->render("new", $viewBag);
     }
+
+
 }

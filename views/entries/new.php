@@ -52,7 +52,7 @@ use yii\helpers\Html;
 
 					    <?= $form->field($model, 'mobile')->textInput() ?>
 
-					    <?= $form->field($model, 'tm')->textInput(['maxlength' => true]) ?>
+					    <?= $form->field($model, 'tm')->textInput(['maxlength' => true,'disabled'=>true]) ?>
 
 					    <?= $form->field($model, 'acc_rej')->textInput(['maxlength' => true]) ?>
 

@@ -63,7 +63,7 @@ class MoneyActiveClaims extends \yii\db\ActiveRecord
             'postcode' => 'Postcode',
             'address' => 'Address',
             'mobile' => 'Mobile',
-            'tm' => 'Tm',
+            'tm' => 'TM',
             'acc_rej' => 'Acc Rej',
             'outcome' => 'Outcome',
             'packs_out' => 'Packs Out',

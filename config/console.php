@@ -9,10 +9,10 @@ Yii::setAlias('@tests', dirname(__DIR__) . '/tests');
 
 $params = require(__DIR__ . '/params.php');
 
-if (YII_ENV && YII_ENV == 'dev') {
+$db = require(__DIR__ . '/db.php');
+
+if (defined('YII_DEBUG')) {
     $db = require(__DIR__ . '/dev_db.php');
-}else{
-    $db = require(__DIR__ . '/db.php');
 }
 
 

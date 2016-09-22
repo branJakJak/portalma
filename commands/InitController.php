@@ -58,4 +58,67 @@ class InitController extends Controller
             die;
         }
     }
+    public function actionAgent()
+    {
+        /*creates initial agents*/
+        if ( $this->confirm("Are you sure you want to initialize the creation of agents.  Running this will delete all agents record ?")) {
+            UserAccount::deleteAll(["account_type"=>UserAccount::USER_ACCOUNT_TYPE_AGENT]);
+            $agentCollection  = [
+                [
+                    "username"=>"CANNOT LOCATE LEAD",
+                    "password"=>"TW6F5OBvyr"
+                ],
+                [
+                    "username"=>"DUP SEE ABOVE",
+                    "password"=>"RuCb07r3Kl"
+                ],
+                [
+                    "username"=>"KEITH",
+                    "password"=>"1Cmdq9kcut"
+                ],
+                [
+                    "username"=>"LEENA",
+                    "password"=>"0B7mv5DJVu"
+                ],
+                [
+                    "username"=>"REMY",
+                    "password"=>"DO9327kJAV"
+                ],
+                [
+                    "username"=>"SEREN",
+                    "password"=>"2dYAxGKEPT"
+                ],
+                [
+                    "username"=>"STACEY",
+                    "password"=>"xF9YG0oIhl"
+                ],
+                [
+                    "username"=>"THARUN",
+                    "password"=>"j7TCc1fA3v"
+                ],
+                [
+                    "username"=>"TM",
+                    "password"=>"FWAx3c6bsO"
+                ]
+            ];
+            foreach ($agentCollection as $currentVal) {
+                $authManager = \Yii::$app->authManager;
+                $agentRole = $authManager->getRole("agent");
+
+                $newUserAccount = new UserAccount();
+                $newUserAccount->username = $currentVal['username'];
+                $newUserAccount->password = $currentVal['password'];
+                $newUserAccount->account_type = UserAccount::USER_ACCOUNT_TYPE_AGENT;
+                if ($newUserAccount->save()) {
+                    $authManager->assign($agentRole, $newUserAccount->id);
+                    echo("Done admin account created : \n");
+                    echo('username : '.$currentVal['username'].PHP_EOL);
+                    echo('password : '.$currentVal['password'] . PHP_EOL.PHP_EOL);
+                } else {
+                    echo \yii\helpers\Html::errorSummary($newUserAccount, []); 
+                    die();
+                }
+            }
+        }
+    }
 } 

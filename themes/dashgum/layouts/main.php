@@ -38,7 +38,7 @@ AppAsset::register($this);
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'User Accts', 'url' => ['/user-accounts/index'],'visible'=>Yii::$app->user->can('admin')],
             ['label' => 'Dashboard', 'url' => ['/dashboard'],'visible'=>Yii::$app->user->can('admin')],
-            ['label' => 'Register', 'url' => ['/register'] , 'visible'=>Yii::$app->user->isGuest],
+            ['label' => 'Register', 'url' => ['/register'] , 'visible'=>!Yii::$app->user->isGuest],
             Yii::$app->user->isGuest ?
                 ['label' => 'Login', 'url' => ['/login']] :
                 [

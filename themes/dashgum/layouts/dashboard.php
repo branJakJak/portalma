@@ -245,7 +245,9 @@ DashGumAssetBundle::register($this);
             <div class="top-menu">
             	<ul class="nav pull-right top-menu">
                     <li>
+                      <?php if (!Yii::$app->user->isGuest): ?>                        
                         <?= Html::a("Logout (".Yii::$app->user->identity->username.") ",['/logout'],['class'=>'logout'])?>
+                      <?php endif ?>
                     </li>
             	</ul>
             </div>

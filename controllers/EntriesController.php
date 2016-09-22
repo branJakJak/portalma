@@ -76,6 +76,7 @@ class EntriesController extends \yii\web\Controller
     {
         $newFormEntry = new MoneyActiveClaims();
         $newFormEntry->submitted_by = Yii::$app->user->id;
+        $newFormEntry->tm = Yii::$app->user->identity->username;
         if ($newFormEntry->load(Yii::$app->request->post()) && $newFormEntry->save() ) {
             //create url to view submitted data
             $viewSubmittedDataLink =  Html::a("View submitted data", ['/money-active-claims/view', 'id' => $newFormEntry->id], ['class' => 'btn btn-default']);

@@ -32,6 +32,13 @@ TODO
 	  	Outcome	
 	  	Packs Out
 	
+	TM is the name of the agent 
+		@TODO update the export and view
+
+
+
+		@creating new enties . 
+		make the TM field default to the current agent logged in 
 
 
     Fill dashboard with submitted data by agents
@@ -43,7 +50,7 @@ TODO
   	download for specific agent only
 
 
-
+  	todo , allow current agent to see all its entry
 
   	and then we can have an admin to run reports of each agent here and there, and MA and have a % of POX1  V’S  leads
 

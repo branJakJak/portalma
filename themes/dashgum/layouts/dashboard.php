@@ -262,20 +262,26 @@ DashGumAssetBundle::register($this);
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
 
-              <ul class="sidebar-menu" id="nav-accordion">
+
+
+
+              <ul class="sidebar-menu " id="nav-accordion">
                   <p class="centered"><a href="profile.html">
                     <img src="/img/admin.png" class="img-circle" width="60" style="background-color: white"></a>
                   </p>
-              	  <h5 class="centered">
+                  <h5 class="centered">
                     <?= Yii::$app->user->identity->username?>
-              	  </h5>
+                  </h5>
                     
                   <li class="mt">
                       <?= Html::a('<i class="fa fa-dashboard"></i><span>Dashboard</span>', ['/dashboard'], ['class' => 'active']); ?>   
                   </li>
+                  <?php if (Yii::$app->user->can('admin')): ?>
+                    
                   <li class="">
                       <?= Html::a('<i class="fa fa-download"></i><span>Download All</span>', ['/download'], ['class' => '']); ?>   
                   </li>
+                  <?php endif ?>
                   <?php if (Yii::$app->user->can('admin')): ?>
                   
                     <li class="">
@@ -346,7 +352,6 @@ DashGumAssetBundle::register($this);
                           <li><a  href="chartjs.html">Chartjs</a></li>
                       </ul>
                   </li>
-
               </ul>
               <!-- sidebar menu end-->
           </div>

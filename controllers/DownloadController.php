@@ -42,7 +42,10 @@ class DownloadController extends \yii\web\Controller
         $filename = sprintf("%s.%s.csv", Yii::$app->formatter->asDate(date("Y-m-d"), "long"), Yii::$app->name);
         $tempNameContainer = tempnam(sys_get_temp_dir(), "asd");
         $fileres = fopen($tempNameContainer, "r+");
-        $resultArr = MoneyActiveClaims::find()->select(['title','firstname','surname','postcode','address','mobile','tm','acc_rej','outcome','packs_out','date_submitted'])->asArray(true)->all();
+        $resultArr = MoneyActiveClaims::find()
+            ->select(["date_submitted","concat(title,' ',firstname,' ',surname)","postcode","address","mobile","tm","acc_rej","outcome","packs_out"])
+            ->asArray(true)
+            ->all();
         header("Pragma: public");
         header("Expires: 0");
         header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
@@ -51,9 +54,8 @@ class DownloadController extends \yii\web\Controller
         header("Content-Disposition: attachment; filename=\"$filename.csv\";");
         header("Content-Transfer-Encoding: binary");
         $headers = [
-            'Title',
-            'Firstname',
-            'Surname',
+            'Submitted',
+            'Name',
             'Postcode',
             'Address',
             'Mobile',
@@ -61,8 +63,8 @@ class DownloadController extends \yii\web\Controller
             'ACC/REJ',
             'OUTCOME',
             'PACKS OUT',
-            'Submitted',
         ];
+
         fputcsv($fileres, $headers);
         foreach ($resultArr as $currentRow) {
             fputcsv($fileres, $currentRow);
@@ -84,7 +86,10 @@ class DownloadController extends \yii\web\Controller
         }
         //check agentname
         if (UserAccount::find()->where(['username'=>$agentName])->exists()) {
-            $searchAgentResult = UserAccount::find()->where(['username' => $agentName])->one();
+            $searchAgentResult = UserAccount::find()
+            ->select(["date_submitted","concat(title,' ',firstname,' ',surname)","postcode","address","mobile","tm","acc_rej","outcome","packs_out"])
+            ->where(['username' => $agentName])
+            ->one();
             $agentId = $searchAgentResult->id;
         }else {
             throw new \yii\base\Exception("Agent doesnt exists");
@@ -103,17 +108,15 @@ class DownloadController extends \yii\web\Controller
         header("Content-Disposition: attachment; filename=\"$filename.csv\";");
         header("Content-Transfer-Encoding: binary");
         $headers = [
-            'Firstname',
-            'Surname',
+            'Submitted',
+            'Name',
             'Postcode',
-            'Title',
             'Address',
             'Mobile',
             'TM',
             'ACC/REJ',
             'OUTCOME',
             'PACKS OUT',
-            'Submitted',
         ];
         fputcsv($fileres, $headers);
         foreach ($resultArr as $currentRow) {

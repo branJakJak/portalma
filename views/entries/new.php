@@ -12,6 +12,14 @@ use yii\helpers\Html;
 
 
 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title"><?= Yii::$app->user->identity->username ?></h3>
+	</div>
+	<div class="panel-body">
+		Panel content
+	</div>
+</div>
 </div>
 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 	<div class="panel panel-default">

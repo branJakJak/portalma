@@ -9,28 +9,40 @@ use yii\grid\GridView;
 $this->title = 'User Accounts';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="user-account-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<section id="main-content">
+<section class="wrapper">
+    
 
-    <p>
-        <?= Html::a('Create User Account', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+<div class="sd">
+    <div class="user-account-index">
 
-            'id',
-            'username',
-            'password',
-            'account_type',
-            'authkey',
-            // 'accesstoken',
-            // 'date_joined',
-            // 'date_last_update',
+        <h1><?= Html::encode($this->title) ?></h1>
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+        <p>
+            <?= Html::a('Create User Account', ['create'], ['class' => 'btn btn-success']) ?>
+        </p>
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+
+                'id',
+                'username',
+                'password',
+                'account_type',
+                'authkey',
+                // 'accesstoken',
+                // 'date_joined',
+                // 'date_last_update',
+
+                ['class' => 'yii\grid\ActionColumn'],
+            ],
+        ]); ?>
+    </div>
+
+            
 </div>
+
+</section>
+</section>

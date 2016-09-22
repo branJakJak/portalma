@@ -15,6 +15,7 @@ use yii\filters\VerbFilter;
  */
 class UserAccountsController extends Controller
 {
+    public $layout= 'dashboard';
     /**
      * @inheritdoc
      */
@@ -80,6 +81,7 @@ class UserAccountsController extends Controller
      */
     public function actionCreate()
     {
+        $this->layout = "main";
         $model = new UserAccount();
         $model->account_type = UserAccount::USER_ACCOUNT_TYPE_AGENT;
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {

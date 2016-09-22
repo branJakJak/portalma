@@ -6,10 +6,15 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\UserAccount */
 
-$this->title = $model->id;
+$this->title = $model->username;
 $this->params['breadcrumbs'][] = ['label' => 'User Accounts', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+
+<section id="main-content">
+<section class="wrapper">
+
 <div class="user-account-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -40,3 +45,6 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
 </div>
+
+</section>
+</section>

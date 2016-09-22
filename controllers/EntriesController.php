@@ -27,7 +27,7 @@ class EntriesController extends \yii\web\Controller
                     [
                         'allow' => true,
                         'actions' => ['index'],
-                        'roles' => ['admin'],
+                        'roles' => ['admin','agent'],
                     ],
                     [
                         'allow' => true,
@@ -41,8 +41,17 @@ class EntriesController extends \yii\web\Controller
 
     public function actionIndex($agent_name)
     {
-        $this->layout = "dashboard";
+        if (Yii::$app->user->can('admin')) {
+            $this->layout = "dashboard";
+        }else if (Yii::$app->user->can('agent')) {
+            $this->layout = "main";
+        }
 
+
+        /*make sure the current user is either the admin or agent == current agent*/
+        if (Yii::$app->user->can('admin') || (Yii::$app->user->identity->username === $agent_name)) {
+
+        }
         $agentId = null;
         if (!isset($agent_name)) {
             throw new NotFoundHttpException("Agent $agent_name doesn't exists");

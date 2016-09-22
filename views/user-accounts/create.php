@@ -11,8 +11,6 @@ $this->title = 'Register Account';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-account-create">
-
-
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>

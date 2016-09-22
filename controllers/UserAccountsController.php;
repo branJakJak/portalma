@@ -15,6 +15,7 @@ use yii\web\NotFoundHttpException;
  */
 
 class UserAccountsController extends Controller {
+	public $layout = 'dashboard';
 	/**
 	 * @inheritdoc
 	 */
@@ -76,6 +77,7 @@ class UserAccountsController extends Controller {
 	 * @return mixed
 	 */
 	public function actionCreate() {
+		$this->layout        = "main";
 		$model               = new UserAccount();
 		$model->account_type = UserAccount::USER_ACCOUNT_TYPE_AGENT;
 		if ($model->load(Yii::$app->request->post()) && $model->validate()) {

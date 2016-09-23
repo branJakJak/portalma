@@ -38,7 +38,7 @@ class DashboardController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query'=> MoneyActiveClaims::find()
+            'query'=> MoneyActiveClaims::find()->orderBy("date_submitted DESC")
         ]);
 
         $listViewDataProvider = new ActiveDataProvider([

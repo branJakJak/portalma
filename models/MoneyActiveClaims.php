@@ -26,6 +26,14 @@ use yii\db\Expression;
  * @property string $notes
  * @property string $comment
  * @property string $pb_agent
+ * @property string date_of_birth
+ * @property string email
+ * @property string bank_name
+ * @property integer approx_month
+ * @property integer approx_date
+ * @property integer approx_year
+ * @property integer paid_per_month
+ * @property string bank_account_type
  * @property integer $submitted_by
  * @property integer $date_submitted
  * @property integer $updated_at
@@ -37,6 +45,8 @@ class MoneyActiveClaims extends \yii\db\ActiveRecord
     const MONEY_ACTIVE_CLAIM_STATUS_PENDING = 'pending';
     const MONEY_ACTIVE_CLAIM_STATUS_DONE = 'done';
     const MONEY_ACTIVE_CLAIM_STATUS_ONGOING = 'ongoing';
+    const MONEY_ACTIVE_BANK_ACCOUNT_TYPE_SINGLE = 'single';
+    const MONEY_ACTIVE_BANK_ACCOUNT_TYPE_JOINT = 'joint';
     /**
      * @inheritdoc
      */
@@ -52,8 +62,8 @@ class MoneyActiveClaims extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'firstname', 'surname', 'submitted_by'], 'required'],
-            [['submitted_by', 'date_submitted', 'updated_at'], 'integer'],
-            [['title', 'firstname', 'surname', 'postcode', 'address', 'tm', 'acc_rej', 'outcome', 'packs_out' ,'mobile', 'claim_status','pb_agent'], 'string', 'max' => 255],
+            [['approx_month','approx_date','approx_year','paid_per_month','submitted_by', 'date_submitted', 'updated_at'], 'integer'],
+            [['title', 'firstname', 'surname', 'postcode', 'address', 'tm', 'acc_rej', 'outcome', 'packs_out' ,'mobile', 'claim_status','pb_agent','date_of_birth','email','bank_name','bank_account_type'], 'string', 'max' => 255],
             [['notes','comment'], 'safe'],
             [['submitted_by'], 'exist', 'skipOnError' => true, 'targetClass' => UserAccount::className(), 'targetAttribute' => ['submitted_by' => 'id']],
         ];

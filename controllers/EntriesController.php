@@ -83,18 +83,28 @@ class EntriesController extends \yii\web\Controller
         /*panel datasources*/
         $pendingClaims = new ActiveDataProvider([
             'query'=>MoneyActiveClaims::find()
-            ->where(['claim_status'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_PENDING])
-            ->orderBy('id DESC')
+                ->where(['claim_status'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_PENDING])
+                ->orderBy('id DESC'),
+                'pagination'=>['pageSize'=>5]
         ]);
         $ongoingClaims = new ActiveDataProvider([
             'query'=>MoneyActiveClaims::find()
-            ->where(['claim_status'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_ONGOING])
-            ->orderBy('id DESC')
+                ->where(['claim_status'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_ONGOING])
+                ->orderBy('id DESC'),
+            'pagination'=>['pageSize'=>5]
+
         ]);
         $completedClaims = new ActiveDataProvider([
             'query'=>MoneyActiveClaims::find()
-            ->where(['claim_status'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_DONE,'submitted_by'=>Yii::$app->user->id])
-            ->orderBy('id DESC')
+                ->where(
+                        [
+                            'claim_status'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_DONE,
+                            'submitted_by'=>Yii::$app->user->id
+                        ]
+                    )
+                ->orderBy('id DESC'),
+            'pagination'=>['pageSize'=>5]
+
         ]);
 
         /*money active momdel*/
@@ -107,21 +117,21 @@ class EntriesController extends \yii\web\Controller
             if (!MoneyActiveClaims::find()->where(['id' => $claimId])->exists()) {
                 throw new Exception("The claim must have been deleted");
             }else {
-                $newFormEntry = MoneyActiveClaims::find()->where(['id' => $claimId])->one();
-                // if status is ongoing skip the update and alert the user ,
-//                if ($newFormEntry->claim_status === MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_ONGOING) {
-//                    $messcontainer = sprintf("! New claim was saved . %s", $viewSubmittedDataLink);
-//                    Yii::$app->session->setFlash("info",$messcontainer );
-//                    $newFormEntry = new MoneyActiveClaims;
-//                } else if($newFormEntry->claim_status === MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_PENDING){
-//                    // if status is pending , update status to ongoing
-//                }
-                
+                $newFormEntry = MoneyActiveClaims::find()->where(['id' => $claimId])->one();                
                 $newFormEntry->claim_status = MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_ONGOING;
                 $newFormEntry->submitted_by = Yii::$app->user-> id;
                 $newFormEntry->update(false);
 
             }
+        }
+        else {
+            //get the next claim that is pending , 
+            if (MoneyActiveClaims::find()->where(['claim_status'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_PENDING])->exists()) {
+                $topPending = MoneyActiveClaims::findOne(['claim_status'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_PENDING]);
+                return $this->redirect(Url::to(['/entries/new','claim'=>$topPending->id]));
+            }
+            //if exists , then redirect , 
+            //if no more pending , proceed empty 
         }
 
         /*form submit*/

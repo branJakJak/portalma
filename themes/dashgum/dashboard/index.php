@@ -224,7 +224,7 @@ $this->registerCss($customCss);
             GridView::widget([
                 'dataProvider' => $dataProvider,
                 'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
+                    // ['class' => 'yii\grid\SerialColumn'],
                     [
                         'attribute'=>'date_submitted',
                         'value'=>function($model){

@@ -21,6 +21,19 @@ use yii\widgets\ListView;
 
 // TODO auto update for pending and ongoing listview
 $customScript = <<< SCRIPT
+
+jQuery("body").on('click', '#pendingClaims a , #ongoingClaims a', function(event) {
+	event.preventDefault();
+	window.location.href = jQuery(this).attr('href');
+});
+
+
+setInterval(function () {
+	$.pjax.reload({container:'#pendingClaims',async:false});
+	$.pjax.reload({container:'#ongoingClaims',async:false});
+	$.pjax.reload({container:'#completedClaims',async:false});
+}, 2000);
+
 SCRIPT;
 $this->registerJs($customScript, \yii\web\View::POS_READY);
 
@@ -180,44 +193,46 @@ $outcomeDatasource = [
     "USES BENEFITS" => "USES BENEFITS",
     "USES MULTIPLE BENEFITS" => "USES MULTIPLE BENEFITS",
 ];
-
-
 ?>
 
 
-<script type="text/javascript">
-
-</script>
-
-
+<?php \yii\widgets\Pjax::begin([
+    'id' => 'ajaxRefresh',
+    'enablePushState' => false
+]);?>
 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+	<?php \yii\widgets\Pjax::begin([
+	    'id' => 'pendingClaims',
+	]);?>
     <div class="panel panel-info">
         <div class="panel-heading">
             <h3 class="panel-title">
-                New Claims Arrived <span class="label label-info pull-right"><?= $pendingClaims->count ?></span>
+                New Claims Arrived <span class="label label-info pull-right"><?= $pendingClaims->totalCount ?></span>
             </h3>
         </div>
         <div class="panel-body">
-            <?php \yii\widgets\Pjax::begin([
-                'id' => 'pendingClaims'
-            ]);
-            ?>
+
             <?=
             ListView::widget([
+                'id' => 'pendingClaimsList',
                 'dataProvider' => $pendingClaims,
                 'itemView' => '_new_arrival',
             ]);
             ?>
-            <?php \yii\widgets\Pjax::end(); ?>
         </div>
     </div>
+    <?php \yii\widgets\Pjax::end(); ?>
+	<?php \yii\widgets\Pjax::begin([
+	    'id' => 'ongoingClaims'
+	]);?>
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">
-                Ongoing <span class="label label-default pull-right"><?= $ongoingClaims->count ?></span>
+                Ongoing <span class="label label-default pull-right"><?= $ongoingClaims->totalCount ?></span>
             </h3>
         </div>
         <div class="panel-body">
+
             <?=
             ListView::widget([
                 'dataProvider' => $ongoingClaims,
@@ -226,7 +241,10 @@ $outcomeDatasource = [
             ?>
         </div>
     </div>
+	<?php \yii\widgets\Pjax::end(); ?>
 </div>
+<?php \yii\widgets\Pjax::end(); ?>
+
 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -245,7 +263,7 @@ $outcomeDatasource = [
 
                 <?php $form = ActiveForm::begin(); ?>
 
-                <?= $form->field($model, 'title')->dropDownList(['Ms.' => 'Ms.', 'Mr.' => 'Mr.', 'Mrs.' => 'Mrs.'], []); ?>
+                <?= $form->field($model, 'title')->dropDownList(['Ms.' => 'Ms.', 'Mr.' => 'Mr.', 'Mrs.' => 'Mrs.'], ['autofocus'=>'autofocus']); ?>
 
                 <?= $form->field($model, 'firstname')->textInput(['maxlength' => true]) ?>
 
@@ -281,23 +299,34 @@ $outcomeDatasource = [
         </div>
     </div>
 </div>
+
+
+
+<?php \yii\widgets\Pjax::begin([
+    'id' => 'completedClaims'
+]);?>
+
 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
     <div class="panel panel-success">
         <div class="panel-heading">
             <h3 class="panel-title">
-                Completed
+                Completed 
 					<span class="label label-success pull-right">
-					<?= $completedClaims->count ?>
+					<?= $completedClaims->totalCount ?>
 					</span>
             </h3>
         </div>
         <div class="panel-body">
+
             <?=
             ListView::widget([
                 'dataProvider' => $completedClaims,
                 'itemView' => '_completed',
             ]);
             ?>
+
         </div>
     </div>
 </div>
+<?php \yii\widgets\Pjax::end(); ?>
+

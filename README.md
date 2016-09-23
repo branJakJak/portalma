@@ -121,19 +121,24 @@ para mabalikan yiung mga ongoing
 @DONE 
 
 
-@TODO - ajax refresh content @ 
-/entries/new 
-
 
 @TODO - use layout of dashboard 
 for agent
 
 @TODO - check the format of mobile number 
+@DONE
+
 
 
 @TODO - save the data comment from pb.site8
 @DONE
 
 
-backupcode for 
-<?= $form->field($model,'outcome')->widget( \yii\jui\AutoComplete::className(),['options'=>['class'=>'form-control'],'clientOptions' => ['source'=>$outcomeDatasource]])  ?>
+@TODo - add the rest of pb.site8 fields
+DONE
+
+
+
+@TODO - ajax refresh content @ 
+/entries/new 
+

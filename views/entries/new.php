@@ -32,7 +32,7 @@ setInterval(function () {
 	$.pjax.reload({container:'#pendingClaims',async:false});
 	$.pjax.reload({container:'#ongoingClaims',async:false});
 	$.pjax.reload({container:'#completedClaims',async:false});
-}, 2000);
+}, 5000);
 
 SCRIPT;
 $this->registerJs($customScript, \yii\web\View::POS_READY);

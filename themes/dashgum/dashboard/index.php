@@ -226,27 +226,23 @@ $this->registerCss($customCss);
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
                     [
-                        'attribute' => 'date_submitted',
-                        'header' => 'Submitted',
+                        'attribute'=>'date_submitted',
                         'value'=>function($model){
-                            return Yii::$app->formatter->asDatetime($model->date_submitted);
-                        }
+                            return \Yii::$app->formatter->asDatetime($model->date_submitted, "php:d/m/y H:i:s");
+                        },
                     ],
-                    [
-                        'attribute' => 'firstname',
-                        'header' => 'Name',
-                        'filter' => 'firstaname',
-                        'value'=>function($model){
-                            return sprintf("%s %s %s",$model->title,$model->firstname,$model->surname);
-                        }
-                    ],
-                    'postcode',
-                    'address',
+                    'pb_agent',
+                    'title',
+                    'firstname',
+                    'surname',
                     'mobile',
+                    'comment',
                     'tm',
+                    // 'postcode',
+                    // 'address',
                     'acc_rej',
                     'outcome',
-                    'packs_out'
+                    // 'packs_out'
                 ]
             ]);
             ?>

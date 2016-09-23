@@ -91,7 +91,6 @@ class EntriesController extends \yii\web\Controller
             ->where(['claim_status'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_ONGOING])
             ->orderBy('id DESC')
         ]);
-
         $completedClaims = new ActiveDataProvider([
             'query'=>MoneyActiveClaims::find()
             ->where(['claim_status'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_DONE,'submitted_by'=>Yii::$app->user->id])
@@ -109,9 +108,19 @@ class EntriesController extends \yii\web\Controller
                 throw new Exception("The claim must have been deleted");
             }else {
                 $newFormEntry = MoneyActiveClaims::find()->where(['id' => $claimId])->one();
+                // if status is ongoing skip the update and alert the user ,
+//                if ($newFormEntry->claim_status === MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_ONGOING) {
+//                    $messcontainer = sprintf("! New claim was saved . %s", $viewSubmittedDataLink);
+//                    Yii::$app->session->setFlash("info",$messcontainer );
+//                    $newFormEntry = new MoneyActiveClaims;
+//                } else if($newFormEntry->claim_status === MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_PENDING){
+//                    // if status is pending , update status to ongoing
+//                }
+                
                 $newFormEntry->claim_status = MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_ONGOING;
                 $newFormEntry->submitted_by = Yii::$app->user-> id;
                 $newFormEntry->update(false);
+
             }
         }
 

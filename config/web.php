@@ -4,7 +4,7 @@ $params = require(__DIR__ . '/params.php');
 
 $config = [
     'id' => 'basic',
-    'name' => 'Portal Money Active',
+    'name' => 'MA',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [

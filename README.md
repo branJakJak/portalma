@@ -106,31 +106,34 @@ para mabalikan yiung mga ongoing
 
 
 
-@TODO - create module for REST API. for submitted data
+
+
 
 @TODO - when data arrived , set status to pending
+@DONE
 
 @TODO  - when a claim is picked , set it to pending . 
 	when other agents are trying to pick it , 
+@DONE
 
-@TODO - allow admin to reset the status of claim
-	- this happens when a claim is not saved after picking it . 
-	there must a way to reset the status to pending. 
-	allow admin to do this
-
-@ todo = dashboard - allow admin to see 
-	number of 
-		ongoing claims total
-		pending total 
-		done total
 
 @TODO - /dashboard = contains the quality checked claims
+@DONE 
 
 
+@TODO - ajax refresh content @ 
+/entries/new 
 
 
-pb.site8
-	submits the data
+@TODO - use layout of dashboard 
+for agent
 
-	reportsma.site8.co captures the submitted data
+@TODO - check the format of mobile number 
 
+
+@TODO - save the data comment from pb.site8
+@DONE
+
+
+backupcode for 
+<?= $form->field($model,'outcome')->widget( \yii\jui\AutoComplete::className(),['options'=>['class'=>'form-control'],'clientOptions' => ['source'=>$outcomeDatasource]])  ?>

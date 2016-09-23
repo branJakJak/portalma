@@ -17,13 +17,15 @@ use yii\db\Expression;
  * @property string $surname
  * @property string $postcode
  * @property string $address
- * @property double $mobile
+ * @property string $mobile
  * @property string $tm
  * @property string $acc_rej
  * @property string $outcome
  * @property string $packs_out
  * @property string $claim_status
  * @property string $notes
+ * @property string $comment
+ * @property string $pb_agent
  * @property integer $submitted_by
  * @property integer $date_submitted
  * @property integer $updated_at
@@ -50,10 +52,9 @@ class MoneyActiveClaims extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'firstname', 'surname', 'submitted_by'], 'required'],
-            [['mobile'], 'number'],
             [['submitted_by', 'date_submitted', 'updated_at'], 'integer'],
-            [['title', 'firstname', 'surname', 'postcode', 'address', 'tm', 'acc_rej', 'outcome', 'packs_out' , 'claim_status'], 'string', 'max' => 255],
-            [['notes'], 'safe'],
+            [['title', 'firstname', 'surname', 'postcode', 'address', 'tm', 'acc_rej', 'outcome', 'packs_out' ,'mobile', 'claim_status','pb_agent'], 'string', 'max' => 255],
+            [['notes','comment'], 'safe'],
             [['submitted_by'], 'exist', 'skipOnError' => true, 'targetClass' => UserAccount::className(), 'targetAttribute' => ['submitted_by' => 'id']],
         ];
     }
@@ -76,7 +77,9 @@ class MoneyActiveClaims extends \yii\db\ActiveRecord
             'outcome' => 'Outcome',
             'packs_out' => 'Packs Out',
             'notes' => 'Notes',
+            'comment' => 'Comment',
             'claim_status' => 'Claim Status',
+            'pb_agent' => 'PB Agent',
             'submitted_by' => 'Submitted By',
             'date_submitted' => 'Date Submitted',
             'updated_at' => 'Updated At',

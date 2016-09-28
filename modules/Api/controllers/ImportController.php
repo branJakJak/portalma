@@ -1,43 +1,49 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: user
+ * Date: 9/29/16
+ * Time: 1:43 AM
+ */
 
 namespace app\modules\Api\controllers;
 
 
-use Yii;
+
 use app\models\MoneyActiveClaims;
 use app\models\UserAccount;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\Response;
-use yii\web\YiiAsset;
+use Yii;
 
-/**
- * Default controller for the `modules` module
- */
-class DefaultController extends Controller
-{
-    public function init()
-    {
+class ImportController extends Controller{
+
+    public function init(){
         \Yii::$app->request->enableCsrfValidation = false;
-        parent::init(); 
+        parent::init();
     }
 
-    /**
-     * Renders the index view for the module
-     * @return string
-     */
     public function actionIndex()
     {
         $jsonMessage = [];
         \Yii::$app->response->format = Response::FORMAT_JSON;
         if ( !is_null(\Yii::$app->request->post('API_KEY',null))  && \Yii::$app->request->post('API_KEY') === \Yii::$app->params['API_KEY']) {
-            $model = new MoneyActiveClaims();
+            $model = new MoneyActiveClaims([
+                'scenario'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_API_IMPORT
+            ]);
             if ($model->load(\Yii::$app->request->post())) {
                 //add default submitted by
                 $userAccount = UserAccount::find()->where(['username' => 'moneyactive'])->one();
+                if (isset($model->tm)) {
+                    if (UserAccount::find()->where(['username' => strtoupper( $model->tm )])->exists()) {
+                        $userAccount = UserAccount::find()->where(['username' => strtoupper( $model->tm ) ])->one();
+                    }
+                }
                 $model->submitted_by = $userAccount->id;
                 if($model->save()){
+                    $model->claim_status = MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_DONE;
                     $jsonMessage = [
                         "status"=>'success',
                         "message"=>'New claim saved',
@@ -57,4 +63,4 @@ class DefaultController extends Controller
         }
         echo Json::encode($jsonMessage);
     }
-}
+} 

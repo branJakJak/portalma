@@ -2,6 +2,8 @@
 
 namespace app\modules\Api\controllers;
 
+
+use Yii;
 use app\models\MoneyActiveClaims;
 use app\models\UserAccount;
 use yii\helpers\Html;
@@ -28,9 +30,12 @@ class DefaultController extends Controller
     public function actionIndex()
     {
         $jsonMessage = [];
-        \Yii::$app->response->format = Response::FORMAT_JSON;
+        // \Yii::$app->response->format = Response::FORMAT_JSON;
         if ( !is_null(\Yii::$app->request->post('API_KEY',null))  && \Yii::$app->request->post('API_KEY') === \Yii::$app->params['API_KEY']) {
             $model = new MoneyActiveClaims();
+            if (Yii::$app->request->post('CONSOLE_IMPORT', null)) {
+                $model->scenario =  MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_API_IMPORT;
+            }
             if ($model->load(\Yii::$app->request->post())) {
                 //add default submitted by
                 $userAccount = UserAccount::find()->where(['username' => 'moneyactive'])->one();

@@ -47,6 +47,7 @@ class MoneyActiveClaims extends \yii\db\ActiveRecord
     const MONEY_ACTIVE_CLAIM_STATUS_ONGOING = 'ongoing';
     const MONEY_ACTIVE_BANK_ACCOUNT_TYPE_SINGLE = 'single';
     const MONEY_ACTIVE_BANK_ACCOUNT_TYPE_JOINT = 'joint';
+    const MONEY_ACTIVE_CLAIM_STATUS_API_IMPORT = 'api_import';
     /**
      * @inheritdoc
      */
@@ -62,10 +63,16 @@ class MoneyActiveClaims extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'firstname', 'surname', 'submitted_by'], 'required'],
-            [['approx_month','approx_date','approx_year','paid_per_month','submitted_by', 'date_submitted', 'updated_at'], 'integer'],
+            [['approx_month','approx_date','approx_year','paid_per_month','submitted_by'], 'integer'],
             [['title', 'firstname', 'surname', 'postcode', 'address', 'tm', 'acc_rej', 'outcome', 'packs_out' ,'mobile', 'claim_status','pb_agent','date_of_birth','email','bank_name','bank_account_type'], 'string', 'max' => 255],
-            [['date_submitted','notes','comment','claim_status'], 'safe'],
             [['submitted_by'], 'exist', 'skipOnError' => true, 'targetClass' => UserAccount::className(), 'targetAttribute' => ['submitted_by' => 'id']],
+        ];
+    }
+    public function scenarios()
+    {
+        return [
+            'default'=>["id" ,"title","firstname","surname","postcode","address","mobile","tm","acc_rej","outcome","packs_out","claim_status","notes","comment","pb_agent","date_of_birth","email","bank_name","approx_month","approx_date","approx_year","paid_per_month","bank_account_type","submitted_by"],
+            self::MONEY_ACTIVE_CLAIM_STATUS_API_IMPORT=>[ "title","firstname","surname","postcode","address","mobile","tm","acc_rej","outcome","packs_out","claim_status","notes","comment","pb_agent","date_of_birth","email","bank_name","approx_month","approx_date","approx_year","paid_per_month","bank_account_type","submitted_by","date_submitted"],
         ];
     }
 
@@ -112,24 +119,40 @@ class MoneyActiveClaims extends \yii\db\ActiveRecord
                 $this->title = "Mr.";
             }
             if (!isset($this->claim_status)) {
-                $this->claim_status = MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_PENDING;
+                $this->claim_status = self::MONEY_ACTIVE_CLAIM_STATUS_PENDING;
+            }
+            if ($this->scenario === self::MONEY_ACTIVE_CLAIM_STATUS_API_IMPORT) {
+                $this->claim_status = self::MONEY_ACTIVE_CLAIM_STATUS_DONE;
             }
         }
         parent::init();
     }
-
-
-    public function behaviors()
+    public function beforeSave($insert)
     {
-        return [
-            [
-                'class' => TimestampBehavior::className(),
-                'createdAtAttribute' => 'date_submitted',
-                'updatedAtAttribute' => 'updated_at',
-                'value'=>new Expression("NOW()")
-            ],
-        ];
+        if ($this->isNewRecord) {
+            if ($this->scenario === self::MONEY_ACTIVE_CLAIM_STATUS_API_IMPORT) {
+                $this->claim_status = self::MONEY_ACTIVE_CLAIM_STATUS_DONE;
+            } 
+            else {
+                $this->date_submitted = date("Y-m-d H:i:s",time());
+                $this->updated_at = date("Y-m-d H:i:s",time());
+            }
+        }
+        return parent::beforeSave($insert);
     }
+
+
+    // public function behaviors()
+    // {
+    //     return [
+    //         [
+    //             'class' => TimestampBehavior::className(),
+    //             'createdAtAttribute' => 'date_submitted',
+    //             'updatedAtAttribute' => 'updated_at',
+    //             'value'=>new Expression("NOW()")
+    //         ],
+    //     ];
+    // }
 
 
 }

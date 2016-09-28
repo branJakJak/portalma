@@ -64,7 +64,7 @@ class MoneyActiveClaims extends \yii\db\ActiveRecord
             [['title', 'firstname', 'surname', 'submitted_by'], 'required'],
             [['approx_month','approx_date','approx_year','paid_per_month','submitted_by', 'date_submitted', 'updated_at'], 'integer'],
             [['title', 'firstname', 'surname', 'postcode', 'address', 'tm', 'acc_rej', 'outcome', 'packs_out' ,'mobile', 'claim_status','pb_agent','date_of_birth','email','bank_name','bank_account_type'], 'string', 'max' => 255],
-            [['notes','comment'], 'safe'],
+            [['date_submitted','notes','comment','claim_status'], 'safe'],
             [['submitted_by'], 'exist', 'skipOnError' => true, 'targetClass' => UserAccount::className(), 'targetAttribute' => ['submitted_by' => 'id']],
         ];
     }
@@ -107,8 +107,13 @@ class MoneyActiveClaims extends \yii\db\ActiveRecord
 
     public function init()
     {
-        if($this->isNewRecord){
-            $this->claim_status = MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_PENDING;
+        if($this->isNewRecord ){
+            if (!isset($this->title)) {
+                $this->title = "Mr.";
+            }
+            if (!isset($this->claim_status)) {
+                $this->claim_status = MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_PENDING;
+            }
         }
         parent::init();
     }

@@ -141,4 +141,5 @@ DONE
 
 @TODO - ajax refresh content @ 
 /entries/new 
+@DONE
 

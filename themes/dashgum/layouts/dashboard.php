@@ -14,6 +14,7 @@ use app\assets\DashGumAssetBundle;
 if (Yii::$app->session->hasFlash('notification')) {
   $title  = Yii::$app->session->getFlash('notification_title');
   $content  = Yii::$app->session->getFlash('notification_content');
+
   $javascript_code = <<<EOL
         var unique_id = $.gritter.add({
             title: '$title',
@@ -24,7 +25,7 @@ if (Yii::$app->session->hasFlash('notification')) {
             class_name: 'my-sticky-class'
         });
 EOL;
-  // $this->registerJs($javascript_code,$this::POS_READY);
+  $this->registerJs($javascript_code,$this::POS_READY);
 }
 
 /*init some javascript components*/
@@ -60,7 +61,7 @@ $initComponentsJs = <<<EOL
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 EOL;
-    // $this->registerJs($initComponentsJs, $this::POS_READY);
+//    $this->registerJs($initComponentsJs, $this::POS_READY);
 
 
 $customCss = <<< SCRIPT

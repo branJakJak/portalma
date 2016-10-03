@@ -15,9 +15,22 @@ $this->registerCss($customCss);
 
 ?>
 <br>
-<br>
+<br>k
 <section id="main-content">
-        <section class="wrapper">
+    <section class="wrapper">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="ds content-panel entries-agent">
+
+
+                </div>
+            </div>
+        </div>        
+    </section>
+    <section class="wrapper">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                
                 <div class="ds content-panel entries-agent">
                         <h1>
                                 Data submitted by <?= Html::encode($agentModel->username); ?>
@@ -48,6 +61,7 @@ $this->registerCss($customCss);
                         ]);?>
                         </p>
                 </div>
-
-        </section>
+            </div>
+        </div>
+    </section>
 </section>

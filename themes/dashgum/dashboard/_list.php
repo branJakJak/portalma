@@ -5,7 +5,7 @@
 
 
 ?>
-<a href="<?php echo \yii\helpers\Url::to(["/entries/index","agent_name"=>$model->username])?>">
+<a href="<?php echo \yii\helpers\Url::to(["/entries/index","agent"=>$model->username])?>">
 	<div class="desc">
 	    <div class="thumb">
 	        <img class="img-circle" src="/img/agent-img.png" width="35px" height="35px" align="">

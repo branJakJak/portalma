@@ -5,9 +5,25 @@ MA = money active  or  admin
 
 
 
+@TODO - report over month
+
+@TODO - report over week 
+
+@TODO 
+	report for each agent 
+		> weekly submission
+		> monhtly submission 
+		> submitted today and conversion
+		> submitted this week and conversion
+		> submitted this month and conversion
+		> total conversion
+		> total submission
+
 and then we can have an admin to run reports of each agent here and there, and 
 MA  have a % of POX1 V’S leads
 
+
+@TODO - test cases for each computations
 
 
 

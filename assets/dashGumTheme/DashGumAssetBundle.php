@@ -29,7 +29,7 @@ class DashGumAsset extends AssetBundle{
         "js/common-scripts.js",
         "js/gritter/js/jquery.gritter.js",
         "js/gritter-conf.js",
-        "js/sparkline-chart.js",
+        // "js/sparkline-chart.js",
         "js/zabuto_calendar.js"
     ];
     public $depends = [

@@ -142,6 +142,11 @@ class MoneyActiveClaims extends \yii\db\ActiveRecord
         return parent::beforeSave($insert);
     }
 
+    public function filterSearch()
+    {
+        
+    }
+
 
     // public function behaviors()
     // {

@@ -8,12 +8,8 @@ var Script = function () {
         $(this).sparkline( $data.data || "html", $data,
         {
             tooltipFormat: '<span style="display:block; padding:0px 10px 12px 0px;">' +
-            '<span style="color: {{color}}">&#9679;</span> {{offset:names}} ({{percent.1}}%)</span>'
+            '<span style="color: {{color}}">&#9679;</span>&pound; {{offset:names}} ({{percent.1}}%)</span>'
         });
-
-
-
-
     });
 
 //sparkline chart
@@ -46,9 +42,6 @@ var Script = function () {
         highlightLineColor: '#ffffff'
 //        tooltipFormat: '<span style="display:block; padding:0px 10px 12px 0px;">' +
 //            '<span style="color: {{color}}">&#9679;</span> {{offset:names}} ({{percent.1}}%)</span>'
-
-
-
     });
 
     $("#pie-chart").sparkline([2,1,1,1], {

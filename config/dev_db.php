@@ -2,8 +2,8 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=portal_site8',
-    'username' => 'root',
-    'password' => '',
+    'dsn' => getenv('APP_DSN'),
+    'username' => getenv('APP_USERNAME'),
+    'password' => getenv('APP_PASSWORD'),
     'charset' => 'utf8',
 ];

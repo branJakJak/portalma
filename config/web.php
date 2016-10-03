@@ -8,6 +8,18 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
+
+        'totalRevenueRetriever'=>[
+            'class'=>'app\components\TotalRevenueRetriever'
+        ],
+        'weeklyRevenueRetriever'=>[
+            'class'=>'app\components\TotalRevenueRetriever',
+            'dayRevenueRetriever'=>'app\components\DayRevenueRetriever'
+        ],
+        'monthlyRevenueRetriever'=>[
+            'class'=>'app\components\TotalRevenueRetriever'
+        ],
+
         'view' => [
             'theme' => [
                 'pathMap' => [
@@ -90,9 +102,6 @@ if (YII_DEBUG) {
         'class' => 'yii\gii\Module',
         'allowedIPs'=>['*.*.*.*']
     ];
-     $config['components']['db'] = require(__DIR__ . '/dev_db.php');
-}else {
-     $config['components']['db'] = require(__DIR__ . '/db.php');
 }
 
 return $config;

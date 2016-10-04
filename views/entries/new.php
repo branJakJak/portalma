@@ -35,7 +35,8 @@ setInterval(function () {
 }, 5000);
 
 SCRIPT;
-$this->registerJs($customScript, \yii\web\View::POS_READY);
+/*disable auto update*/
+// $this->registerJs($customScript, \yii\web\View::POS_READY);
 
 // datasource for outcome  , dropdown
 // $outcomeDatasource = [

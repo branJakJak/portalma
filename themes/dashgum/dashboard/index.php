@@ -19,20 +19,22 @@ $this->registerCss($customCss);
         <div class="row ">
             <div class="col-md-4 col-sm-4 mb">
                 <!-- Revenue Today -->
-                <?= $this->render('_revenue_today', []); ?>
+                <?php //$this->render('_revenue_today', compact('total_revenue_today')); ?>
+                <!-- pox vs all leads -->
+                <?= $this->render('_pox1_percent_all', compact('pox_vs_lead','poxLeadPercentage')); ?>
             </div>
             <!-- /col-md-4 -->
 
             <div class="col-md-4 col-sm-4 mb">
                 <!-- revenue this week -->
-                <?= $this->render('_this_week_revenue', ['this_week_revenue_data'=>range(00, 30)]); ?>
+                <?= $this->render('_this_week_revenue', compact('weeklyRevenueDataCollection')); ?>
 
             </div>
             <!-- /col-md-4 -->
 
             <div class="col-md-4 col-sm-4 mb">
                 <!-- revenue this month -->
-                <?= $this->render('_this_month_revenue', []); ?>
+                <?= $this->render('_this_month_revenue', compact('monthlyRevenueCollection')); ?>
             </div>
             <!-- /col-md-4 -->
         </div>

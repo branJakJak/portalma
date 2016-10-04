@@ -8,6 +8,11 @@ defined('YII_TEST_ENTRY_FILE') or define('YII_TEST_ENTRY_FILE', dirname(dirname(
 require_once(__DIR__ . '/../../vendor/autoload.php');
 require_once(__DIR__ . '/../../vendor/yiisoft/yii2/Yii.php');
 
+$dotenv = new Dotenv\Dotenv(__DIR__.'/../../', 'APP_ENV.env');
+$dotenv->load();
+
+
+
 $_SERVER['SCRIPT_FILENAME'] = YII_TEST_ENTRY_FILE;
 $_SERVER['SCRIPT_NAME'] = YII_TEST_ENTRY_URL;
 $_SERVER['SERVER_NAME'] = parse_url(\Codeception\Configuration::config()['config']['test_entry_url'], PHP_URL_HOST);

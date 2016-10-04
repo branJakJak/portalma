@@ -2,10 +2,11 @@
 namespace app\controllers;
 
 use app\components\MonthlyRevenueRetriever;
-use app\components\TotalRevenueRetriever;
-use app\components\WeeklyRevenuRetriever;
+use app\components\TotalRevenueTodayRetriever;
+use app\components\WeeklyRevenueRetriever;
 use app\models\MoneyActiveClaims;
 use app\models\UserAccount;
+use Faker\Provider\ka_GE\DateTime;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
@@ -39,26 +40,35 @@ class DashboardController extends Controller
     public function actionIndex()
     {
         $agentSubmittionFilterModel = MoneyActiveClaims::find()->orderBy("date_submitted DESC");
-        
+
         $dataProvider = new ActiveDataProvider([
-            'query'=> $agentSubmittionFilterModel
+            'query' => $agentSubmittionFilterModel
         ]);
 
         $listViewDataProvider = new ActiveDataProvider([
-            'query'=>UserAccount::find()->where(['account_type'=>UserAccount::USER_ACCOUNT_TYPE_AGENT])
+            'query' => UserAccount::find()->where(['account_type' => UserAccount::USER_ACCOUNT_TYPE_AGENT])
         ]);
 
         /*Total Revenue Today*/
         /**
-         * @var $totalRevenueRetriever TotalRevenueRetriever
+         * @var $totalRevenueTodayRetriever TotalRevenueTodayRetriever
          */
-        $totalRevenueRetriever = Yii::$app->totalRevenueRetriever;
-        $total_revenue_today = $totalRevenueRetriever->getValue();
+        // $totalRevenueTodayRetriever = Yii::$app->totalRevenueTodayRetriever;
+        // $total_revenue_today = $totalRevenueTodayRetriever->getValue();
+
+        /**
+         * @var $poxVsLeadRetriever
+         */
+        $poxVsLeadRetriever = Yii::$app->poxVsLeadRetriever;
+        $pox_vs_lead = $poxVsLeadRetriever->getValue();
+        $poxLeadPercentage = $poxVsLeadRetriever->getPercentage();
         /*Weekly Revenue*/
         /**
-         * @var $weeklyRevenueRetriever WeeklyRevenuRetriever
+         * @var $weeklyRevenueRetriever WeeklyRevenueRetriever
          */
         $weeklyRevenueRetriever = Yii::$app->weeklyRevenueRetriever;
+        $dt = new \DateTime(date("Y-m-d"));
+        $weeklyRevenueRetriever->week = $dt->format("W");
         $weeklyRevenueDataCollection = $weeklyRevenueRetriever->getValue();
 
         /* Monthyl Revenue */
@@ -71,7 +81,9 @@ class DashboardController extends Controller
         return $this->render(
             'index',
             compact(
-                'total_revenue_today',
+                'pox_vs_lead',
+                'poxLeadPercentage',
+                // 'total_revenue_today',
                 'weeklyRevenueDataCollection',
                 'monthlyRevenueCollection',
                 'dataProvider',

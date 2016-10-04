@@ -8,16 +8,18 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
-
-        'totalRevenueRetriever'=>[
-            'class'=>'app\components\TotalRevenueRetriever'
+        'poxVsLeadRetriever'=>[
+            'class'=>'app\components\PoxLeadRetriever'
+        ],
+        'totalRevenueTodayRetriever'=>[
+            'class'=>'app\components\TotalRevenueTodayRetriever'
         ],
         'weeklyRevenueRetriever'=>[
-            'class'=>'app\components\TotalRevenueRetriever',
+            'class'=>'app\components\WeeklyRevenueRetriever',
             'dayRevenueRetriever'=>'app\components\DayRevenueRetriever'
         ],
         'monthlyRevenueRetriever'=>[
-            'class'=>'app\components\TotalRevenueRetriever'
+            'class'=>'app\components\MonthlyRevenueRetriever'
         ],
 
         'view' => [
@@ -81,6 +83,7 @@ $config = [
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ),
         ],
+        'db'=>require(__DIR__ . '/db.php'),
     ],
     'modules'=>[
         'api'=>[
@@ -103,5 +106,4 @@ if (YII_DEBUG) {
         'allowedIPs'=>['*.*.*.*']
     ];
 }
-
 return $config;

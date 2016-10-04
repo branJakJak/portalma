@@ -143,7 +143,7 @@ class EntriesController extends \yii\web\Controller
             }else{
                 $newFormEntry->claim_status = MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_DONE;
                 $newFormEntry->submitted_by = Yii::$app->user->id;
-                $newFormEntry->touch('updated_at');
+                $newFormEntry->updated_at = date("Y-m-d H:i:s");
                 $newFormEntry->update(false);
             }
             //create url to view submitted data

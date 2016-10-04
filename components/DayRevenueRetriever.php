@@ -13,6 +13,11 @@ use app\models\MoneyActiveClaims;
 use yii\base\Component;
 
 class DayRevenueRetriever extends Component{
+    /**
+     * The day to which revenue will be calculated
+     * Must be formatted in Y-m-d format
+     * @var string
+     */
     public $date;
 
     public function init()
@@ -29,5 +34,14 @@ class DayRevenueRetriever extends Component{
         $value = 0;
         $value = MoneyActiveClaims::find()->where(['date(date_submitted)' => $this->date])->count();
         return $value;
+    }
+
+    /**
+     *
+     * @param $date
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
     }
 }

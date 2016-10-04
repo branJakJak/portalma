@@ -6,8 +6,10 @@ MA = money active  or  admin
 
 
 @TODO - report over month
+@dONE
 
 @TODO - report over week 
+@DONE
 
 @TODO 
 	report for each agent 

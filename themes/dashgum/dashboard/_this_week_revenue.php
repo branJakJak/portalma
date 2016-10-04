@@ -8,16 +8,12 @@ unset($this_week_revenue_data);
 $this_week_revenue_data = [];
 /*upto this*/
 
-/*test data*/
 $sparklineData = array();
-foreach (range(1, 7) as $key => $value) {
-    if ($value >=5 ) {
-        $this_week_revenue_data[] = 0;    
-    } else {
-    	$this_week_revenue_data[] = rand(0,1000);
-    }
+$totalWeekRevenue = 0;
+foreach ($weeklyRevenueDataCollection as $key => $value) {
+	$this_week_revenue_data[] = $value;
+    $totalWeekRevenue += floatval($value);
 }
-/*end of test data*/
 
 /*use this at production*/
 $sparklineData = implode($this_week_revenue_data, ',');
@@ -54,14 +50,18 @@ $this->registerJs($lineChartCode, \yii\web\View::POS_READY);
 ?>
 <div class="darkblue-panel pn">
     <div class="darkblue-header">
-        <h5>WEEKLY REVENUE <small>@TODO</small> </h5>
+        <h5>
+        WEEKLY REVENUE 
+        <br>
+            <small>@TODO - verify computation of revenue calculation</small> 
+        </h5>
     </div>
     <div class="chart mt">
         <div id="this_week_revenue"></div>
     </div>
     <p class="mt">
     	<strong style="color: white">
-        	<b>$ <?= number_format(rand(10000,50000)) ?></b>
+        	<b>$ <?= number_format($totalWeekRevenue) ?></b>
         </strong>
         <br/>
         Income This Week

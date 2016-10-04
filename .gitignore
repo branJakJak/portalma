@@ -1,6 +1,6 @@
 
-.env
-.ENV
+*.env
+*.ENV
 
 
 

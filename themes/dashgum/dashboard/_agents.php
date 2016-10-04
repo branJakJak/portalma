@@ -3,7 +3,7 @@ use yii\grid\GridView;
 
 ?>
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <h1>Agent Submissions</h1>
+    <h1>Submissions</h1>
     <?=
     GridView::widget([
         'filterModel' => $agentSubmittionFilterModel,

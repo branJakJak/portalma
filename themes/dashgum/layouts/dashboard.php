@@ -286,9 +286,6 @@ DashGumAssetBundle::register($this);
                     <li class="">
                         <?= Html::a('<i class="fa fa-users"></i><span>User Accounts</span>', ['/user-accounts/index'], ['class' => '']); ?>   
                     </li>
-                  <li class="">
-                      <?= Html::a('<i class="fa fa-user"></i><span>Agent</span>', ['/user-accounts/index'], ['class' => '']); ?>   
-                  </li>
                   <?php endif ?>
 
                   <li class="sub-menu hidden">

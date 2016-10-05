@@ -37,7 +37,7 @@ class AgentEntriesReport extends Component
         if ($submissionTodayCount != 0 && $poxLeadCountToday !=0 ) {
             $retVal = \Yii::$app->formatter->asPercent(($poxLeadCountToday / $submissionTodayCount), 2);
         } else {
-            throw new Exception("An error occured while retrieving todays percentage report");
+            // throw new Exception("An error occured while retrieving todays percentage report");
         }
         return $retVal;
     }
@@ -57,7 +57,7 @@ class AgentEntriesReport extends Component
         if ($totalLeadsWeek !== 0 && $poxThisWeek !== 0) {
             $retVal = \Yii::$app->formatter->asPercent(($poxThisWeek / $totalLeadsWeek), 2);
         } else {
-            throw new Exception("An error occured while retrieving this week's percentage report");
+            // throw new Exception("An error occured while retrieving this week's percentage report");
         }
         return $retVal;
     }
@@ -77,7 +77,7 @@ class AgentEntriesReport extends Component
         if ($totalMonthSubmission !== 0 && $poxThisMonth !== 0) {
             $retVal = \Yii::$app->formatter->asPercent(($poxThisMonth / $totalMonthSubmission), 2);
         } else {
-            throw new Exception("An error occured while retrieving current month's percentage report");
+            // throw new Exception("An error occured while retrieving current month's percentage report");
         }
         return $retVal;
     }
@@ -89,7 +89,7 @@ class AgentEntriesReport extends Component
             'pb_agent' => $this->agent_name
         ])->count();
         if ($retValContainer == false) {
-            throw new Exception("Can't compute total submission today");
+            // throw new Exception("Can't compute total submission today");
         }
         return $retValContainer;
     }
@@ -101,7 +101,7 @@ class AgentEntriesReport extends Component
             ->where(['pb_agent' => $this->agent_name, 'week(date_submitted)' => date('W', time())])
             ->count();
         if (!$retValContainer) {
-            throw new Exception("Cant compute total week submission");
+            // throw new Exception("Cant compute total week submission");
         }
         return $retValContainer;
     }
@@ -113,7 +113,7 @@ class AgentEntriesReport extends Component
             ->where(['pb_agent' => $this->agent_name, 'month(date_submitted)' => date("m")])
             ->count();
         if (!$retValContainer) {
-            throw new Exception("Cant compute total month submission");
+            // throw new Exception("Cant compute total month submission");
         }
         return $retValContainer;
     }
@@ -123,7 +123,7 @@ class AgentEntriesReport extends Component
         if ($this->total_leads == 0) {
             $this->total_leads = MoneyActiveClaims::find()->where(['pb_agent' => $this->agent_name])->count();
             if ($this->total_leads == 0) {
-                throw new Exception("No total lead computed");
+                // throw new Exception("No total lead computed");
             }
         }
         return $this->total_leads;

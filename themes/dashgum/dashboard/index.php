@@ -129,7 +129,7 @@ RIGHT SIDEBAR CONTENT
 
         <?=
         ListView::widget([
-            'dataProvider' => $listViewDataProvider,
+            'dataProvider' => $agentsList,
             'itemView' => '_list',
             'layout' => "{pager}{summary}\n{items}\n{pager}",
         ]);?>

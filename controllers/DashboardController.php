@@ -9,7 +9,11 @@ use app\models\UserAccount;
 use Faker\Provider\ka_GE\DateTime;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
+use yii\db\cubrid\QueryBuilder;
+use yii\db\Query;
 use yii\filters\AccessControl;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 
 
@@ -39,15 +43,24 @@ class DashboardController extends Controller
 
     public function actionIndex()
     {
-        $agentSubmittionFilterModel = MoneyActiveClaims::find()->orderBy("date_submitted DESC");
-
+        $agentSubmittionFilterModel = MoneyActiveClaims::find();
+        $agentSubmittionFilterModel->orderBy("date_submitted DESC");
         $dataProvider = new ActiveDataProvider([
             'query' => $agentSubmittionFilterModel
         ]);
 
-        $listViewDataProvider = new ActiveDataProvider([
-            'query' => UserAccount::find()->where(['account_type' => UserAccount::USER_ACCOUNT_TYPE_AGENT])
+        $agentsListCollection = (new Query())
+            ->select(['pb_agent'])
+            ->from("ma_claims")
+            ->groupBy(['pb_agent'])
+            ->all();
+        $agentsList = new ArrayDataProvider([
+            'models' => $agentsListCollection
         ]);
+
+
+
+
 
         /*Total Revenue Today*/
         /**
@@ -87,7 +100,7 @@ class DashboardController extends Controller
                 'weeklyRevenueDataCollection',
                 'monthlyRevenueCollection',
                 'dataProvider',
-                'listViewDataProvider',
+                'agentsList',
                 'agentSubmittionFilterModel')
         );
     }

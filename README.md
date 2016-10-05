@@ -11,6 +11,27 @@ MA = money active  or  admin
 @TODO - report over week 
 @DONE
 
+@TODO - 
+agents on the left 
+should be unique agents from money active
+pb_agents
+@DONE
+
+
+@TODO - 
+all POX for each agent
+
+@TODO
+Per agent
+	POX1 percentage out of all leads
+		DAY
+		WEEK
+		CURRENT MONTH  
+
+
+@TODO- 
+	POX1 = all agents
+
 @TODO 
 	report for each agent 
 		> weekly submission

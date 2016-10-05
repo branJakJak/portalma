@@ -51,9 +51,9 @@ $this->registerJs($lineChartCode, \yii\web\View::POS_READY);
 <div class="darkblue-panel pn">
     <div class="darkblue-header">
         <h5>
-        WEEKLY REVENUE 
+        WEEK SUBMISSION 
         <br>
-            <small>@TODO - verify computation of revenue calculation</small> 
+            <small class="hidden">@TODO - verify computation of revenue calculation</small> 
         </h5>
     </div>
     <div class="chart mt">
@@ -64,6 +64,6 @@ $this->registerJs($lineChartCode, \yii\web\View::POS_READY);
         	<b>$ <?= number_format($totalWeekRevenue) ?></b>
         </strong>
         <br/>
-        Income This Week
+        Submission This Week
     </p>
 </div>

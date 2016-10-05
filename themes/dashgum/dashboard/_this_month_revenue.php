@@ -59,9 +59,9 @@ $this->registerJs($lineChartCode, \yii\web\View::POS_READY);
 <div class="darkblue-panel pn">
     <div class="darkblue-header">
         <h5>
-            MONTHLY REVENUE 
+            MONTHLY SUBMISSION
             <br>
-            <small>@TODO - computation</small> 
+            <small class="hidden">@TODO - computation</small> 
         </h5>
     </div>
     <div class="chart mt">
@@ -72,6 +72,6 @@ $this->registerJs($lineChartCode, \yii\web\View::POS_READY);
             <b>$ <?= number_format($totalMonthRev) ?></b>
         </strong>
         <br/>
-        This Months Revenue
+        This Months Submission
     </p>
 </div>

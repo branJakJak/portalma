@@ -6,7 +6,6 @@ use yii\grid\GridView;
     <h1>Submissions</h1>
     <?=
     GridView::widget([
-        'filterModel' => $agentSubmittionFilterModel,
         'dataProvider' => $dataProvider,
         'tableOptions' => [
             'class'=>'table table-striped table-condensed table-bordered'

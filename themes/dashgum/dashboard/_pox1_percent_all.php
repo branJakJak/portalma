@@ -26,7 +26,7 @@ $this->registerJs($doughnutChart, \yii\web\View::POS_READY);
 
 <div class="darkblue-panel pn">
 	<div class="darkblue-header">
-		<h5>POX1 vs Lead</h5>
+		<h5>POX1 ALL AGENTS</h5>
 	</div>
 <canvas id="POXLeadChart" height="120" width="120" style="width: 120px; height: 120px;"></canvas>
 <p>

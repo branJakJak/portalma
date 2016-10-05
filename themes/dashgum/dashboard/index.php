@@ -10,37 +10,64 @@ $customCss = <<< SCRIPT
 SCRIPT;
 $this->registerCss($customCss);
 
+
+$this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css');
+
 ?>
+
+<style type="text/css">
+    #pox-today{
+        background: #444c57;
+    }
+    #pox-week{
+        background: #444c57;
+    }
+    #pox-month{
+        background: #444c57;
+    }
+</style>
+
+
 <section id="main-content">
 <section class="wrapper">
 
 <div class="row">
     <div class="col-lg-9 main-chart">
         <div class="row ">
-            <div class="col-md-4 col-sm-4 mb">
+            <div class="col-md-4 col-sm-4 mb hidden">
                 <!-- Revenue Today -->
-                <?php //$this->render('_revenue_today', compact('total_revenue_today')); ?>
+                <?php 
+                    //$this->render('_revenue_today', compact('total_revenue_today')); 
+                ?>
                 <!-- pox vs all leads -->
-                <?= $this->render('_pox1_percent_all', compact('pox_vs_lead','poxLeadPercentage')); ?>
+                <?php 
+                // 
+                    //$this->render('_pox1_percent_all', compact('pox_vs_lead','poxLeadPercentage')); 
+                ?>
             </div>
             <!-- /col-md-4 -->
 
             <div class="col-md-4 col-sm-4 mb">
-                <!-- revenue this week -->
-                <?= $this->render('_this_week_revenue', compact('weeklyRevenueDataCollection')); ?>
-
+                <!-- percentage this week -->
+                <?php 
+                    //$this->render('_this_week_revenue', compact('weeklyRevenueDataCollection')); 
+                ?>
+                <?= $this->render('_percentage_this_week', compact('percentageThisWeek','poxThisWeek','leadThisWeek') ); ?>
             </div>
             <!-- /col-md-4 -->
 
             <div class="col-md-4 col-sm-4 mb">
-                <!-- revenue this month -->
-                <?= $this->render('_this_month_revenue', compact('monthlyRevenueCollection')); ?>
+                <!-- percentage this month -->
+                <?php 
+                    //$this->render('_this_month_revenue', compact('monthlyRevenueCollection')); 
+                ?>
+                <?= $this->render('_percentage_this_month', compact('percentageThisMonth','poxThisMonth','leadThisMonth') ); ?>
             </div>
             <!-- /col-md-4 -->
         </div>
         <!-- /row -->
         <div class="ds content-panel">
-            <?= $this->render('_agents', compact('dataProvider','agentSubmittionFilterModel')); ?>
+            <?= $this->render('_agents', compact('dataSubmissiondataProvider','agentSubmittionFilterModel')); ?>
         </div>
     </div>
     <!-- /col-lg-9 END SECTION MIDDLE -->
@@ -129,7 +156,7 @@ RIGHT SIDEBAR CONTENT
 
         <?=
         ListView::widget([
-            'dataProvider' => $listViewDataProvider,
+            'dataProvider' => $agentsList,
             'itemView' => '_list',
             'layout' => "{pager}{summary}\n{items}\n{pager}",
         ]);?>

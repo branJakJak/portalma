@@ -8,6 +8,9 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
+        'agentEntriesReport'=>[
+            'class'=>'app\components\AgentEntriesReport'
+        ],
         'poxVsLeadRetriever'=>[
             'class'=>'app\components\PoxLeadRetriever'
         ],

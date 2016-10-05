@@ -54,7 +54,7 @@ class AgentEntriesReport extends Component
             ])
             ->count();
         $totalLeadsWeek = $this->getWeekSubmission();
-        if ($totalLeadsWeek !== 0 && $poxThisWeek !== 0) {
+        if ($totalLeadsWeek != 0 && $poxThisWeek != 0) {
             $retVal = \Yii::$app->formatter->asPercent(($poxThisWeek / $totalLeadsWeek), 2);
         } else {
             // throw new Exception("An error occured while retrieving this week's percentage report");
@@ -74,7 +74,7 @@ class AgentEntriesReport extends Component
             ->count();
         $totalMonthSubmission = $this->getMonthSubmission();
 
-        if ($totalMonthSubmission !== 0 && $poxThisMonth !== 0) {
+        if ($totalMonthSubmission != 0 && $poxThisMonth != 0) {
             $retVal = \Yii::$app->formatter->asPercent(($poxThisMonth / $totalMonthSubmission), 2);
         } else {
             // throw new Exception("An error occured while retrieving current month's percentage report");

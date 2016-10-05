@@ -16,7 +16,7 @@ class LocalDataPopulatorController extends Controller{
     public function actionIndex()
     {
 //        $nextWeek = date("Y-m-d H:i:s", strtotime("next week wednesday"));
-        $thisweekasd = date("Y-m-d H:i:s", strtotime("wednesday"));
+        $thisweekasd = date("Y-m-d H:i:s", strtotime("last month"));
         echo "Preparing to submit data \r\n";
         $dataCollection = MoneyActiveDataPopulator::insertData(10, [
             'date_submitted'=>$thisweekasd,

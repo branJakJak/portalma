@@ -64,6 +64,7 @@ class EntriesController extends \yii\web\Controller
                 $dataProvider = new ActiveDataProvider([
                     'query' => MoneyActiveClaims::find()->where(['pb_agent' => $agent])
                 ]);
+                                
                 /**
                  * @var $agentReportRetriever AgentEntriesReport
                  */

@@ -25,7 +25,7 @@ class AgentEntriesReport extends Component
 
     public function getTodaysPercentage()
     {
-        $retVal = "";
+        $retVal = "0.00%";        
         $poxLeadCountToday = MoneyActiveClaims::find()->where([
             'date_format(date_submitted,"%Y-%m-%d")' => date("Y-m-d"),
             'outcome' => 'POX1',
@@ -44,7 +44,7 @@ class AgentEntriesReport extends Component
 
     public function getWeekPercentage()
     {
-        $retVal = "";
+        $retVal = "0.00%";
 
         $poxThisWeek = MoneyActiveClaims::find()
             ->where([
@@ -64,7 +64,7 @@ class AgentEntriesReport extends Component
 
     public function getMonthPercentage()
     {
-        $retVal = "";
+        $retVal = "0.00%";        
         $poxThisMonth = MoneyActiveClaims::find()
             ->where([
                 'pb_agent' => $this->agent_name,

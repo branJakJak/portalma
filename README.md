@@ -24,9 +24,21 @@ all POX for each agent
 @TODO
 Per agent
 	POX1 percentage out of all leads
-		DAY
-		WEEK
-		CURRENT MONTH  
+		DAY = POX1 vs leads submitted today
+		WEEK = POX1 vs leads submitted the whole week
+		CURRENT MONTH = POX1 vs submitted the whole month
+@DONE
+
+
+
+@TODOs
+POX1 %  last 30 days
+POX1 % of current week 
+
+
+
+@TODO - remove total overall POX1 percentage
+
 
 
 @TODO- 

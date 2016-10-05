@@ -2,6 +2,7 @@
 namespace app\controllers;
 
 use app\components\MonthlyRevenueRetriever;
+use app\components\PoxLeadRetriever;
 use app\components\TotalRevenueTodayRetriever;
 use app\components\WeeklyRevenueRetriever;
 use app\models\MoneyActiveClaims;
@@ -45,7 +46,7 @@ class DashboardController extends Controller
     {
         $agentSubmittionFilterModel = MoneyActiveClaims::find();
         $agentSubmittionFilterModel->orderBy("date_submitted DESC");
-        $dataProvider = new ActiveDataProvider([
+        $dataSubmissiondataProvider = new ActiveDataProvider([
             'query' => $agentSubmittionFilterModel
         ]);
 
@@ -58,48 +59,29 @@ class DashboardController extends Controller
             'models' => $agentsListCollection
         ]);
 
-
-
-
-
-        /*Total Revenue Today*/
         /**
-         * @var $totalRevenueTodayRetriever TotalRevenueTodayRetriever
-         */
-        // $totalRevenueTodayRetriever = Yii::$app->totalRevenueTodayRetriever;
-        // $total_revenue_today = $totalRevenueTodayRetriever->getValue();
-
-        /**
-         * @var $poxVsLeadRetriever
+         * @var $poxVsLeadRetriever PoxLeadRetriever
          */
         $poxVsLeadRetriever = Yii::$app->poxVsLeadRetriever;
-        $pox_vs_lead = $poxVsLeadRetriever->getValue();
-        $poxLeadPercentage = $poxVsLeadRetriever->getPercentage();
-        /*Weekly Revenue*/
-        /**
-         * @var $weeklyRevenueRetriever WeeklyRevenueRetriever
-         */
-        $weeklyRevenueRetriever = Yii::$app->weeklyRevenueRetriever;
-        $dt = new \DateTime(date("Y-m-d"));
-        $weeklyRevenueRetriever->week = $dt->format("W");
-        $weeklyRevenueDataCollection = $weeklyRevenueRetriever->getValue();
-
-        /* Monthyl Revenue */
-        /**
-         * @var $monthlyRevenueRetriever MonthlyRevenueRetriever
-         */
-        $monthlyRevenueRetriever = Yii::$app->monthlyRevenueRetriever;
-        $monthlyRevenueCollection = $monthlyRevenueRetriever->getValue();
+        /*POX this week*/
+        $percentageThisWeek = $poxVsLeadRetriever->getPoxPercentageThisWeek();
+        $poxThisWeek = $poxVsLeadRetriever->getTotalPoxThisWeek();
+        $leadThisWeek = $poxVsLeadRetriever->getLeadsThisWeek();
+        $percentageThisMonth = $poxVsLeadRetriever->getPoxPercentageThisMonth();
+        $poxThisMonth = $poxVsLeadRetriever->getTotalPoxThisMonth();
+        $leadThisMonth = $poxVsLeadRetriever->getTotalLeadsThisMonth();
 
         return $this->render(
             'index',
             compact(
-                'pox_vs_lead',
+                'percentageThisWeek',
+                'poxThisWeek',
+                'leadThisWeek',
+                'percentageThisMonth',
+                'poxThisMonth',
+                'leadThisMonth',
                 'poxLeadPercentage',
-                // 'total_revenue_today',
-                'weeklyRevenueDataCollection',
-                'monthlyRevenueCollection',
-                'dataProvider',
+                'dataSubmissiondataProvider',
                 'agentsList',
                 'agentSubmittionFilterModel')
         );

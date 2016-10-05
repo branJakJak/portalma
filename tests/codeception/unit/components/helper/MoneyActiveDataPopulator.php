@@ -11,6 +11,7 @@ namespace tests\codeception\unit\components\helper;
 
 use Faker\Factory;
 use yii\helpers\ArrayHelper;
+use yii\helpers\VarDumper;
 
 class MoneyActiveDataPopulator
 {

@@ -61,10 +61,10 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-aw
                     </h1>
                     <div class="info">
                         <div class="row">
-                                <h3 class="centered">MADRID</h3>
+                                <h3 class="centered"><?= $todayPercentage ?></h3>
                             <div class="col-sm-6 col-xs-6 pull-left">
                                 <p class="goleft">
-                                    <i class="fa fa-tint"></i> 
+                                     
                                     <?= $todayPercentage ?>
                                 </p>
                             </div>
@@ -84,10 +84,10 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-aw
                     <h1>Week</h1>
                     <div class="info">
                         <div class="row">
-                                <h3 class="centered">MADRID</h3>
+                                <h3 class="centered"><?= $weekPercentage ?></h3>
                             <div class="col-sm-6 col-xs-6 pull-left">
                                 <p class="goleft">
-                                    <i class="fa fa-tint"></i>
+                                    
                                     <?= $weekPercentage ?>
                                 </p>
                             </div>
@@ -107,10 +107,10 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-aw
                     <h1>Month</h1>
                     <div class="info">
                         <div class="row">
-                                <h3 class="centered">MADRID</h3>
+                                <h3 class="centered"><?= $monthPercentage ?></h3>
                             <div class="col-sm-6 col-xs-6 pull-left">
                                 <p class="goleft">
-                                    <i class="fa fa-tint"></i> 
+                                     
                                     <?= $monthPercentage ?>
                                 </p>
                             </div>

@@ -77,7 +77,16 @@ class EntriesController extends \yii\web\Controller
                 $weekSubmission = $agentReportRetriever->getWeekSubmission();
                 $monthSubmission = $agentReportRetriever->getMonthSubmission();
                 
-               return $this->render('index', compact('dataProvider', 'agent','todayPercentage','weekPercentage','monthPercentage'));
+               return $this->render('index', compact(
+                    'dataProvider', 
+                    'agent',
+                    'todayPercentage',
+                    'weekPercentage',
+                    'monthPercentage',
+                    'todaySubmission',
+                    'weekSubmission',
+                    'monthSubmission'
+                ));
             }
         } else {
             throw new NotFoundHttpException("Sorry you are ");

@@ -33,7 +33,9 @@ Per agent
 
 @TODOs
 POX1 %  last 30 days
+@DONE
 POX1 % of current week 
+@DONE
 
 
 

@@ -28,6 +28,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'acc_rej')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'date_of_birth') ?>
+
     <?= $form->field($model, 'outcome')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'packs_out')->textInput(['maxlength' => true]) ?>

@@ -99,7 +99,7 @@ class DownloadController extends \yii\web\Controller
             header("Content-Disposition: attachment; filename=\"$filename.csv\";");
             header("Content-Transfer-Encoding: binary");
             $headers = [
-                'Submitted',
+                'Title',
                 'Name',
                 'Postcode',
                 'Address',
@@ -108,6 +108,7 @@ class DownloadController extends \yii\web\Controller
                 'ACC/REJ',
                 'OUTCOME',
                 'PACKS OUT',
+                'Date Submitted',
             ];
             fputcsv($fileres, $headers);
             foreach ($resultArr as $currentRow) {

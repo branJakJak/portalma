@@ -60,6 +60,7 @@ if (Yii::$app->user->can("admin")) {
             'approx_date',
             'approx_year',
             'paid_per_month',
+            'pb_agent',
             'bank_account_type',            
             [
                 'label'=>'Submitted by',

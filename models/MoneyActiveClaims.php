@@ -26,14 +26,14 @@ use yii\db\Expression;
  * @property string $notes
  * @property string $comment
  * @property string $pb_agent
- * @property string date_of_birth
- * @property string email
- * @property string bank_name
- * @property integer approx_month
- * @property integer approx_date
- * @property integer approx_year
- * @property integer paid_per_month
- * @property string bank_account_type
+ * @property string $date_of_birth
+ * @property string $email
+ * @property string $bank_name
+ * @property integer $approx_month
+ * @property integer $approx_date
+ * @property integer $approx_year
+ * @property integer $paid_per_month
+ * @property string $bank_account_type
  * @property integer $submitted_by
  * @property integer $date_submitted
  * @property integer $updated_at

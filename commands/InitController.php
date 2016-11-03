@@ -58,6 +58,26 @@ class InitController extends Controller
             die;
         }
     }
+    public function actionNewAdmin()
+    {
+        $authManager = \Yii::$app->authManager;
+        $adminRole = $authManager->getRole("admin");
+        //create role
+        /*check if no probs , create admin account */
+        $newUserAccount = new UserAccount();
+        $newUserAccount->username = "MT";
+        $newUserAccount->password = "5hEMKq8uUn3pHN6VebB4";
+        $newUserAccount->account_type = UserAccount::USER_ACCOUNT_TYPE_ADMIN;
+        //register the user admin role
+        if ($newUserAccount->save()) {
+            $authManager->assign($adminRole, $newUserAccount->id);
+            echo("Done admin account created : \n");
+            echo('username : MT'.PHP_EOL);
+            echo('password : 5hEMKq8uUn3pHN6VebB4' . PHP_EOL);
+        }else{
+            throw new Exception(Html::errorSummary($newUserAccount));
+        }        
+    }
     public function actionAgent()
     {
         /*creates initial agents*/

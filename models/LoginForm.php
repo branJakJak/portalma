@@ -49,7 +49,6 @@ class LoginForm extends Model
              * @var $useraccount UserAccount
              */
             $useraccount = UserAccount::find()->where(['username' => $this->username])->one();
-
             if (!$useraccount || !Yii::$app->security->validatePassword($this->password,$useraccount->password)) {
                 $this->addError($attribute, 'Incorrect username or password.');
             }

@@ -86,7 +86,7 @@ class DownloadController extends \yii\web\Controller
             throw new \yii\base\Exception("Nothing to export");
         }
         //check agentname
-        if (UserAccount::find()->where(['pb_agent' => $agentName])->exists()) {
+        if (MoneyActiveClaims::find()->where(['pb_agent' => $agentName])->exists()) {
             $filename = sprintf("%s.%s.csv", Yii::$app->formatter->asDate(date("Y-m-d"), "long"), Yii::$app->name);
             $tempNameContainer = tempnam(sys_get_temp_dir(), "asd");
             $fileres = fopen($tempNameContainer, "r+");

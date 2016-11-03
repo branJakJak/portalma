@@ -44,6 +44,10 @@ class UserAccount extends \yii\db\ActiveRecord implements \yii\web\IdentityInter
             [['username', 'password', 'account_type'], 'required'],
             [['date_joined', 'date_last_update'], 'safe'],
             [['username', 'password', 'account_type', 'authkey', 'accesstoken'], 'string', 'max' => 255],
+            [['username'], 'unique','on'=>'update'],
+            [['username', 'password', 'account_type'], 'required','on'=>'update'],
+            [['date_joined', 'date_last_update'], 'safe','on'=>'update'],
+            [['username', 'password', 'account_type', 'authkey', 'accesstoken'], 'string', 'max' => 255,'on'=>'update'],
         ];
     }
 
@@ -160,7 +164,7 @@ class UserAccount extends \yii\db\ActiveRecord implements \yii\web\IdentityInter
 
     public function beforeSave($insert)
     {
-        if ($this->isNewRecord) {
+        if ($this->isNewRecord || $this->scenario === 'update') {
             $this->password = Yii::$app->security->generatePasswordHash($this->password);
         }
         return parent::beforeSave($insert);

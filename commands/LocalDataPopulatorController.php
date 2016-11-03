@@ -20,7 +20,7 @@ class LocalDataPopulatorController extends Controller{
         echo "Preparing to submit data \r\n";
         $dataCollection = MoneyActiveDataPopulator::insertData(10, [
             'date_submitted'=>$thisweekasd,
-            'pb_agent'=>'agentx44',
+            'pb_agent'=>'',
             'outcome'=>'POX1',
         ]);
 
@@ -33,7 +33,7 @@ class LocalDataPopulatorController extends Controller{
         }
         $dataCollection = MoneyActiveDataPopulator::insertData(10, [
             'date_submitted'=>$thisweekasd,
-            'pb_agent'=>'agentx44',
+            'pb_agent'=>'',
             'outcome'=>'CALL BACK',
         ]);
         foreach ($dataCollection as $currentData) {

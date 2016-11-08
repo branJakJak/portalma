@@ -277,7 +277,7 @@ DashGumAssetBundle::register($this);
                   </h5>
                     
                   <li class="mt">
-                      <?= Html::a('<i class="fa fa-dashboard"></i><span>Dashboard</span>', ['/dashboard'], ['class' => 'active']); ?>   
+                      <?= Html::a('<i class="fa fa-dashboard"></i><span>Dashboard</span>', ['/dashboard'], ['class' => '']); ?>   
                   </li>
                   <?php if (Yii::$app->user->can('admin')): ?>
                     <li class="">

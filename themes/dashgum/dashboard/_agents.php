@@ -29,6 +29,7 @@ use yii\grid\GridView;
             // 'address',
             'acc_rej',
             'outcome',
+            'notes',
             // 'packs_out'
         ]
     ]);

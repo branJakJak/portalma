@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\components\AgentEntriesReport;
 use app\components\PbDataRetriever;
 use app\models\MoneyActiveClaims;
+use app\models\QuickLeadSearchForm;
 use app\models\UserAccount;
 use Yii;
 use yii\base\Exception;
@@ -104,7 +105,11 @@ class EntriesController extends \yii\web\Controller
         /**
          * @var $newFormEntry MoneyActiveClaims
          */
-
+        $formModel = new QuickLeadSearchForm();
+        $foundModels = null;
+        if($formModel->load(Yii::$app->request->post())){
+            $foundModels = $formModel->search();
+        }
         /*panel datasources*/
         $pendingClaims = new ActiveDataProvider([
             'query' => MoneyActiveClaims::find()
@@ -182,7 +187,9 @@ class EntriesController extends \yii\web\Controller
         $viewBag = ArrayHelper::merge($viewBag, compact(
             'pendingClaims',
             'ongoingClaims',
-            'completedClaims'
+            'completedClaims',
+            'formModel',
+            'foundModels'
         ));
         return $this->render("new", $viewBag);
     }

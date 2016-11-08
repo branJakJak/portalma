@@ -67,7 +67,9 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-aw
         </div>
         <!-- /row -->
         <div class="ds content-panel">
-            <?= $this->render('_agents', compact('dataSubmissiondataProvider','agentSubmittionFilterModel')); ?>
+            <?= 
+            $this->render('_agents', compact('dataSubmissiondataProvider','agentSubmittionFilterModel')); 
+            ?>
         </div>
     </div>
     <!-- /col-lg-9 END SECTION MIDDLE -->
@@ -155,11 +157,12 @@ RIGHT SIDEBAR CONTENT
         <br>
 
         <?=
-        ListView::widget([
-            'dataProvider' => $agentsList,
-            'itemView' => '_list',
-            'layout' => "{pager}{summary}\n{items}\n{pager}",
-        ]);?>
+            ListView::widget([
+                'dataProvider' => $agentsList,
+                'itemView' => '_list',
+                'layout' => "{pager}{summary}\n{items}\n{pager}",
+            ]);
+        ?>
     </aside>
 </div>
 <!-- /col-lg-3 -->
@@ -167,3 +170,17 @@ RIGHT SIDEBAR CONTENT
 <! --/row -->
 </section>
 </section>
+
+
+<?php $this->beginBlock('mt_agents') ?>
+    <?php foreach ($mtAgentsCollection as $currentMtAgent): ?>
+        <li>
+          <a href="javascript:;">
+            <?php 
+                $mTAgentEntriesReport->setMtAgent($currentMtAgent->id);
+            ?>
+            <?= $currentMtAgent->username ?> | <?= $mTAgentEntriesReport->getPercentageAll() ?>
+          </a>
+        </li>
+    <?php endforeach ?>
+<?php $this->endBlock(); ?>

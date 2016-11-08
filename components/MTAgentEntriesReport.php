@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: user
- * Date: 10/5/16
- * Time: 2:27 AM
+ * Date: 11/9/16
+ * Time: 1:25 AM
  */
 
 namespace app\components;
@@ -13,10 +13,9 @@ use app\models\MoneyActiveClaims;
 use yii\base\Component;
 use yii\base\Exception;
 
-class AgentEntriesReport extends Component
-{
+class MTAgentEntriesReport extends Component{
     protected $total_leads = 0;
-    protected $agent_name;
+    protected $mt_agent;
 
     public function init()
     {
@@ -29,25 +28,24 @@ class AgentEntriesReport extends Component
         $poxLeadCountToday = MoneyActiveClaims::find()->where([
             'date_format(date_submitted,"%Y-%m-%d")' => date("Y-m-d"),
             'outcome' => 'POX1',
-            'pb_agent' => $this->agent_name
+            'submitted_by' => $this->mt_agent
         ])->count();
 
         $submissionTodayCount = $this->getTodaysSubmission();
 
-        if ($submissionTodayCount != 0 && $poxLeadCountToday != 0) {
+        if ($submissionTodayCount != 0 && $poxLeadCountToday !=0 ) {
             $retVal = \Yii::$app->formatter->asPercent(($poxLeadCountToday / $submissionTodayCount), 2);
         } else {
             // throw new Exception("An error occured while retrieving todays percentage report");
         }
         return $retVal;
     }
-
     public function getPercentageAll()
     {
         $retVal = "0.00%";
         $poxAll = MoneyActiveClaims::find()
             ->where([
-                'pb_agent' => $this->agent_name,
+                'submitted_by' => $this->mt_agent,
                 'outcome' => 'POX1'
             ])
             ->count();
@@ -59,13 +57,12 @@ class AgentEntriesReport extends Component
         }
         return $retVal;
     }
-
     public function getWeekPercentage()
     {
         $retVal = "0.00%";
         $poxThisWeek = MoneyActiveClaims::find()
             ->where([
-                'pb_agent' => $this->agent_name,
+                'submitted_by' => $this->mt_agent,
                 'week(date_submitted)' => date('W', time()),
                 'outcome' => 'POX1'
             ])
@@ -84,7 +81,7 @@ class AgentEntriesReport extends Component
         $retVal = "0.00%";
         $poxThisMonth = MoneyActiveClaims::find()
             ->where([
-                'pb_agent' => $this->agent_name,
+                'submitted_by' => $this->mt_agent,
                 'outcome' => 'POX1',
                 'month(date_submitted)' => date("m")
             ])
@@ -103,7 +100,7 @@ class AgentEntriesReport extends Component
     {
         $retValContainer = MoneyActiveClaims::find()->where([
             'date_format(date_submitted,"%Y-%m-%d")' => date("Y-m-d"),
-            'pb_agent' => $this->agent_name
+            'submitted_by' => $this->mt_agent
         ])->count();
         if ($retValContainer == false) {
             // throw new Exception("Can't compute total submission today");
@@ -115,7 +112,7 @@ class AgentEntriesReport extends Component
     {
         $retValContainer = 0;
         $retValContainer = MoneyActiveClaims::find()
-            ->where(['pb_agent' => $this->agent_name, 'week(date_submitted)' => date('W', time())])
+            ->where(['submitted_by' => $this->mt_agent, 'week(date_submitted)' => date('W', time())])
             ->count();
         if (!$retValContainer) {
             // throw new Exception("Cant compute total week submission");
@@ -127,7 +124,7 @@ class AgentEntriesReport extends Component
     {
         $retValContainer = 0;
         $retValContainer = MoneyActiveClaims::find()
-            ->where(['pb_agent' => $this->agent_name, 'month(date_submitted)' => date("m")])
+            ->where(['submitted_by' => $this->mt_agent, 'month(date_submitted)' => date("m")])
             ->count();
         if (!$retValContainer) {
             // throw new Exception("Cant compute total month submission");
@@ -138,7 +135,7 @@ class AgentEntriesReport extends Component
     public function getTotalLead()
     {
         if ($this->total_leads == 0) {
-            $this->total_leads = MoneyActiveClaims::find()->where(['pb_agent' => $this->agent_name])->count();
+            $this->total_leads = MoneyActiveClaims::find()->where(['submitted_by' => $this->mt_agent])->count();
             if ($this->total_leads == 0) {
                 // throw new Exception("No total lead computed");
             }
@@ -146,14 +143,18 @@ class AgentEntriesReport extends Component
         return $this->total_leads;
     }
 
-    public function setAgent($agent)
+    public function setMtAgent($agent)
     {
-        $this->agent_name = $agent;
+        if (is_integer($agent)) {
+            //check if user exists
+            $this->mt_agent = $agent;
+        }   else {
+            throw new Exception("Please pass the ID of the agent");
+        }
     }
 
-    public function getAgent()
+    public function getMtAgent()
     {
-        return $this->agent_name;
+        return $this->mt_agent;
     }
-
-} 
+}

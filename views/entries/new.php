@@ -226,6 +226,34 @@ $outcomeDatasource = [
 	//     'id' => 'pendingClaims',
 	// ]);
     ?>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Seach</h3>
+        </div>
+        <div class="panel-body">
+            <?php 
+                $form = ActiveForm::begin([]); 
+            ?>
+                <?= $form->field($formModel, 'searchTerm') ?>
+
+                <?php if (!is_null($foundModels) && !empty($foundModels)): ?>
+                    <strong><?= count($foundModels) ?> records found : </strong>
+                    <div class="list-group">
+                    <?php foreach ($foundModels as $currentFoundModel): ?>
+                        <?= Html::a( 
+                            $currentFoundModel->title .' '.$currentFoundModel->firstname.' '.$currentFoundModel->surname,
+                            ['/leads/view','id'=>$currentFoundModel->id], ['class' => 'list-group-item']); ?>                    
+                    <?php endforeach ?>
+                    </div>
+                <?php endif ?>
+                <?php if (empty($foundModels) && isset($formModel->searchTerm)): ?>
+                    <i>Sorry , we can't find that record in the database </i>
+                <?php endif ?>
+                <?= Html::submitButton('Seach', ['class' => 'btn btn-primary btn-block']) ?>
+
+            <?php ActiveForm::end(); ?>
+        </div>
+    </div>
     <div class="panel panel-info">
         <div class="panel-heading">
             <h3 class="panel-title">

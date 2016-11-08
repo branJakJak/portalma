@@ -285,10 +285,15 @@ DashGumAssetBundle::register($this);
                     </li>
                     <li class="">
                         <?= Html::a('<i class="fa fa-users"></i><span>User Accounts</span>', ['/user-accounts/index'], ['class' => '']); ?>   
-                    </li>                    
+                    </li>
                     <li class="">
                         <?= Html::a('<i class="fa fa-table"></i><span>Leads</span>', ['/leads'], ['class' => '']); ?>   
                     </li>
+                    <li class="">
+                        <hr>
+                    </li>
+                    <?= $this->blocks['mt_agents'] ?>
+
                   <?php endif ?>
 
                   <li class="sub-menu hidden">

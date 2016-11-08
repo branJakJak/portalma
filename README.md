@@ -196,3 +196,26 @@ DONE
 /entries/new 
 @DONE
 
+
+
+
+@TODO-
+
+so the %'s are our conversions PO individual per agent and also their agents % po from their conversions
+
+
+
+@TODO
+
+Leighton Power, [08.11.16 23:52]
+on their agents the need to be able to go back into the records e.g for callbacks etc  and then update them
+
+Leighton Power, [08.11.16 23:52]
+a search ? maybe ?
+
+@DONE
+
+
+pb_agent = our agent
+
+their agent = currently logged in

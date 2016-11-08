@@ -6,8 +6,9 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = sprintf("%s %s %s",$this->title,$this->firstname,$this->surname) .' record';
-$this->params['breadcrumbs'][] = sprintf("%s %s %s",$this->title,$this->firstname,$this->surname);
+$this->title = 'Leads Submitted';
+$this->params['breadcrumbs'][] = "Leads";
+
 ?>
 <div class="money-active-claims-index">
 

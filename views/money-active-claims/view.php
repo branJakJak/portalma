@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\MoneyActiveClaims */
 
-$this->title = sprintf("%s %s %s",$this->title,$this->firstname,$this->surname) .' record';
+$this->title = sprintf("%s %s %s",$model->title,$model->firstname,$model->surname) .' record';
 if (Yii::$app->user->can("admin")) {
     $this->params['breadcrumbs'][] = ['label' => 'Leads', 'url' => ['index']];
 }else if (Yii::$app->user->can("agent")) {

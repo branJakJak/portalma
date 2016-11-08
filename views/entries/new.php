@@ -212,14 +212,19 @@ $outcomeDatasource = [
 ?>
 
 
-<?php \yii\widgets\Pjax::begin([
-    'id' => 'ajaxRefresh',
-    'enablePushState' => false
-]);?>
+<?php 
+// \yii\widgets\Pjax::begin([
+//     'id' => 'ajaxRefresh',
+//     'enablePushState' => false
+// ]);
+?>
 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-	<?php \yii\widgets\Pjax::begin([
-	    'id' => 'pendingClaims',
-	]);?>
+	<?php
+
+ //     \yii\widgets\Pjax::begin([
+	//     'id' => 'pendingClaims',
+	// ]);
+    ?>
     <div class="panel panel-info">
         <div class="panel-heading">
             <h3 class="panel-title">
@@ -237,10 +242,15 @@ $outcomeDatasource = [
             ?>
         </div>
     </div>
-    <?php \yii\widgets\Pjax::end(); ?>
-	<?php \yii\widgets\Pjax::begin([
-	    'id' => 'ongoingClaims'
-	]);?>
+
+    <?php //\yii\widgets\Pjax::end(); ?>
+
+	<?php 
+ //    \yii\widgets\Pjax::begin([
+	//     'id' => 'ongoingClaims'
+	// ]);
+
+    ?>
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">
@@ -257,9 +267,13 @@ $outcomeDatasource = [
             ?>
         </div>
     </div>
-	<?php \yii\widgets\Pjax::end(); ?>
+	<?php 
+    // \yii\widgets\Pjax::end(); 
+    ?>
 </div>
-<?php \yii\widgets\Pjax::end(); ?>
+<?php 
+// \yii\widgets\Pjax::end(); 
+?>
 
 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
     <div class="panel panel-default">
@@ -318,9 +332,11 @@ $outcomeDatasource = [
 
 
 
-<?php \yii\widgets\Pjax::begin([
-    'id' => 'completedClaims'
-]);?>
+<?php 
+// \yii\widgets\Pjax::begin([
+//     'id' => 'completedClaims'
+// ]);
+?>
 
 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
     <div class="panel panel-success">
@@ -344,5 +360,7 @@ $outcomeDatasource = [
         </div>
     </div>
 </div>
-<?php \yii\widgets\Pjax::end(); ?>
+<?php 
+// \yii\widgets\Pjax::end(); 
+?>
 

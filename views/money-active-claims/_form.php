@@ -42,9 +42,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'packs_out')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'notes')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'notes')->textarea(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'comment')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'comment')->textarea(['maxlength' => true]) ?>
 
     <div class="form-group">
         <h1>

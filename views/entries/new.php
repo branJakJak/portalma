@@ -291,7 +291,7 @@ $outcomeDatasource = [
 
                 <?= $form->field($model, 'mobile')->textInput() ?>
 
-                <?= $form->field($model, 'pb_agent')->textInput(['disabled' => true]) ?>
+                <?= $form->field($model, 'pb_agent')->textInput() ?>
 
                 <?= $form->field($model, 'tm')->dropDownList(ArrayHelper::map(UserAccount::find()->where(['account_type' => UserAccount::USER_ACCOUNT_TYPE_AGENT])->all(), 'username', 'username')) ?>
 

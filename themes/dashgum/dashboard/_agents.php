@@ -23,12 +23,13 @@ use yii\grid\GridView;
             'firstname',
             'surname',
             'mobile',
-            'comment',
             'tm',
             // 'postcode',
             // 'address',
             'acc_rej',
             'outcome',
+            'notes',
+            'comment',
             // 'packs_out'
         ]
     ]);

@@ -14,12 +14,12 @@ SCRIPT;
 $this->registerCss($customCss);
 
 
-$sidebarToggleBox = <<< SCRIPT
-    setTimeout(function(){
-        jQuery(".sidebar-toggle-box .fa-bars").click();
-    }, 200);
-SCRIPT;
-$this->registerJs($sidebarToggleBox, \yii\web\View::POS_READY);
+// $sidebarToggleBox = <<< SCRIPT
+//     setTimeout(function(){
+//         jQuery(".sidebar-toggle-box .fa-bars").click();
+//     }, 200);
+// SCRIPT;
+// $this->registerJs($sidebarToggleBox, \yii\web\View::POS_READY);
 
 
 

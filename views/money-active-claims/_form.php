@@ -28,20 +28,29 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'acc_rej')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'pb_agent')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'paid_per_month'); ?>
+
+    <?= $form->field($model, 'bank_name')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'date_of_birth') ?>
 
     <?= $form->field($model, 'outcome')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'packs_out')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'submitted_by')->textInput() ?>
+    <?= $form->field($model, 'notes')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'date_submitted')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
+    <?= $form->field($model, 'comment')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <h1>
+            
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success btn-block' : 'btn btn-primary btn-block']) ?>
+        </h1>
     </div>
 
     <?php ActiveForm::end(); ?>

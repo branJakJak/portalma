@@ -280,11 +280,14 @@ DashGumAssetBundle::register($this);
                       <?= Html::a('<i class="fa fa-dashboard"></i><span>Dashboard</span>', ['/dashboard'], ['class' => 'active']); ?>   
                   </li>
                   <?php if (Yii::$app->user->can('admin')): ?>
-                  <li class="">
-                      <?= Html::a('<i class="fa fa-download"></i><span>Download All</span>', ['/download'], ['class' => '']); ?>   
-                  </li>                  
+                    <li class="">
+                        <?= Html::a('<i class="fa fa-download"></i><span>Download All</span>', ['/download'], ['class' => '']); ?>   
+                    </li>
                     <li class="">
                         <?= Html::a('<i class="fa fa-users"></i><span>User Accounts</span>', ['/user-accounts/index'], ['class' => '']); ?>   
+                    </li>                    
+                    <li class="">
+                        <?= Html::a('<i class="fa fa-table"></i><span>Leads</span>', ['/leads'], ['class' => '']); ?>   
                     </li>
                   <?php endif ?>
 

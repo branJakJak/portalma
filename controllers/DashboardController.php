@@ -2,6 +2,7 @@
 namespace app\controllers;
 
 use app\components\MonthlyRevenueRetriever;
+use app\components\MTAgentEntriesReport;
 use app\components\PoxLeadRetriever;
 use app\components\TotalRevenueTodayRetriever;
 use app\components\WeeklyRevenueRetriever;
@@ -44,12 +45,14 @@ class DashboardController extends Controller
 
     public function actionIndex()
     {
+        $mTAgentEntriesReport = new MTAgentEntriesReport();
         $agentSubmittionFilterModel = MoneyActiveClaims::find();
         $agentSubmittionFilterModel->orderBy("date_submitted DESC");
         $dataSubmissiondataProvider = new ActiveDataProvider([
             'query' => $agentSubmittionFilterModel
         ]);
 
+        /*our agents*/
         $agentsListCollection = (new Query())
             ->select(['pb_agent'])
             ->from("ma_claims")
@@ -59,14 +62,24 @@ class DashboardController extends Controller
             'models' => $agentsListCollection
         ]);
 
+
+        /* MT Agents*/
+        $mtAgentsCollection = UserAccount::find()->where(['account_type'=>UserAccount::USER_ACCOUNT_TYPE_AGENT])->all();
+
+
         /**
          * @var $poxVsLeadRetriever PoxLeadRetriever
          */
         $poxVsLeadRetriever = Yii::$app->poxVsLeadRetriever;
+        /*POX today*/
+        $poxToday = $poxVsLeadRetriever->getTotalPoxToday();
+        $leadToday = $poxVsLeadRetriever->getLeadsToday();
+        $percentageToday = $poxVsLeadRetriever->getPoxPercentageToday();
         /*POX this week*/
-        $percentageThisWeek = $poxVsLeadRetriever->getPoxPercentageThisWeek();
         $poxThisWeek = $poxVsLeadRetriever->getTotalPoxThisWeek();
         $leadThisWeek = $poxVsLeadRetriever->getLeadsThisWeek();
+        $percentageThisWeek = $poxVsLeadRetriever->getPoxPercentageThisWeek();
+        /*POX this month*/
         $percentageThisMonth = $poxVsLeadRetriever->getPoxPercentageThisMonth();
         $poxThisMonth = $poxVsLeadRetriever->getTotalPoxThisMonth();
         $leadThisMonth = $poxVsLeadRetriever->getTotalLeadsThisMonth();
@@ -74,16 +87,23 @@ class DashboardController extends Controller
         return $this->render(
             'index',
             compact(
-                'percentageThisWeek',
-                'poxThisWeek',
-                'leadThisWeek',
-                'percentageThisMonth',
-                'poxThisMonth',
-                'leadThisMonth',
-                'poxLeadPercentage',
-                'dataSubmissiondataProvider',
-                'agentsList',
-                'agentSubmittionFilterModel')
+                    'poxToday',
+                    'leadToday',
+                    'percentageToday',
+                    'percentageThisWeek',
+                    'poxThisWeek',
+                    'leadThisWeek',
+                    'percentageThisMonth',
+                    'poxThisMonth',
+                    'leadThisMonth',
+                    'poxLeadPercentage',
+                    'dataSubmissiondataProvider',
+                    'agentsList',
+                    'agentSubmittionFilterModel',
+                    'agentReportRetriever',
+                    'mtAgentsCollection',
+                    'mTAgentEntriesReport'
+                )
         );
     }
 }

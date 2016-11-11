@@ -196,3 +196,44 @@ DONE
 /entries/new 
 @DONE
 
+
+
+
+@TODO-
+
+so the %'s are our conversions PO individual per agent and also their agents % po from their conversions
+@DONE
+
+
+@TODO
+
+Leighton Power, [08.11.16 23:52]
+on their agents the need to be able to go back into the records e.g for callbacks etc  and then update them
+
+Leighton Power, [08.11.16 23:52]
+a search ? maybe ?
+
+@DONE
+
+
+
+add DAY into the reporta ma so we knwo where we are today without counting, 
+to see our current DAY Packout rate and how their agents %PO
+@ONDE
+	
+these figures are out
+when you click on the name (screenshot attached) the percentage is correct but on the dashboard its not, maybe use the figures inside their name then.
+@TO BE TESTED
+
+
+when you get a chance guys, just count how many packs our agent have send and do the maths then
+guest01 4 pox1 out of 6 so defenitely nnot 17.39 %a
+nyway its obiviously piccking up more leads than 6 somehow
+total we sent is 23, so just break it down
+
+
+
+all the data is there just check guys
+also need DAY on the dashboard also when u guys have a chance eg. "Day Week Month"
+@DONE
+

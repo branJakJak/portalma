@@ -199,6 +199,7 @@ $outcomeDatasource = [
     "POX1"=>"POX1",
     "CALL BACK"=>"CALL BACK",
     "NOT INTERESTED"=>"NOT INTERESTED",
+    "DROPPED CALL" => "DROPPED CALL",
     "CANNOT LOCATE"=>"CANNOT LOCATE",
     "LEAD OUT OF CRITERIA"=>"LEAD OUT OF CRITERIA",
     "ALREADY CLAIMED"=>"ALREADY CLAIMED",
@@ -212,14 +213,47 @@ $outcomeDatasource = [
 ?>
 
 
-<?php \yii\widgets\Pjax::begin([
-    'id' => 'ajaxRefresh',
-    'enablePushState' => false
-]);?>
+<?php 
+// \yii\widgets\Pjax::begin([
+//     'id' => 'ajaxRefresh',
+//     'enablePushState' => false
+// ]);
+?>
 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-	<?php \yii\widgets\Pjax::begin([
-	    'id' => 'pendingClaims',
-	]);?>
+	<?php
+
+ //     \yii\widgets\Pjax::begin([
+	//     'id' => 'pendingClaims',
+	// ]);
+    ?>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Seach</h3>
+        </div>
+        <div class="panel-body">
+            <?php 
+                $form = ActiveForm::begin([]); 
+            ?>
+                <?= $form->field($formModel, 'searchTerm') ?>
+
+                <?php if (!is_null($foundModels) && !empty($foundModels)): ?>
+                    <strong><?= count($foundModels) ?> records found : </strong>
+                    <div class="list-group">
+                    <?php foreach ($foundModels as $currentFoundModel): ?>
+                        <?= Html::a( 
+                            $currentFoundModel->title .' '.$currentFoundModel->firstname.' '.$currentFoundModel->surname,
+                            ['/leads/view','id'=>$currentFoundModel->id], ['class' => 'list-group-item']); ?>                    
+                    <?php endforeach ?>
+                    </div>
+                <?php endif ?>
+                <?php if (empty($foundModels) && isset($formModel->searchTerm)): ?>
+                    <i>Sorry , we can't find that record in the database </i>
+                <?php endif ?>
+                <?= Html::submitButton('Seach', ['class' => 'btn btn-primary btn-block']) ?>
+
+            <?php ActiveForm::end(); ?>
+        </div>
+    </div>
     <div class="panel panel-info">
         <div class="panel-heading">
             <h3 class="panel-title">
@@ -237,10 +271,15 @@ $outcomeDatasource = [
             ?>
         </div>
     </div>
-    <?php \yii\widgets\Pjax::end(); ?>
-	<?php \yii\widgets\Pjax::begin([
-	    'id' => 'ongoingClaims'
-	]);?>
+
+    <?php //\yii\widgets\Pjax::end(); ?>
+
+	<?php 
+ //    \yii\widgets\Pjax::begin([
+	//     'id' => 'ongoingClaims'
+	// ]);
+
+    ?>
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">
@@ -257,9 +296,13 @@ $outcomeDatasource = [
             ?>
         </div>
     </div>
-	<?php \yii\widgets\Pjax::end(); ?>
+	<?php 
+    // \yii\widgets\Pjax::end(); 
+    ?>
 </div>
-<?php \yii\widgets\Pjax::end(); ?>
+<?php 
+// \yii\widgets\Pjax::end(); 
+?>
 
 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
     <div class="panel panel-default">
@@ -318,9 +361,11 @@ $outcomeDatasource = [
 
 
 
-<?php \yii\widgets\Pjax::begin([
-    'id' => 'completedClaims'
-]);?>
+<?php 
+// \yii\widgets\Pjax::begin([
+//     'id' => 'completedClaims'
+// ]);
+?>
 
 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
     <div class="panel panel-success">
@@ -344,5 +389,7 @@ $outcomeDatasource = [
         </div>
     </div>
 </div>
-<?php \yii\widgets\Pjax::end(); ?>
+<?php 
+// \yii\widgets\Pjax::end(); 
+?>
 

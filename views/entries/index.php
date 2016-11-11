@@ -14,12 +14,12 @@ SCRIPT;
 $this->registerCss($customCss);
 
 
-$sidebarToggleBox = <<< SCRIPT
-    setTimeout(function(){
-        jQuery(".sidebar-toggle-box .fa-bars").click();
-    }, 200);
-SCRIPT;
-$this->registerJs($sidebarToggleBox, \yii\web\View::POS_READY);
+// $sidebarToggleBox = <<< SCRIPT
+//     setTimeout(function(){
+//         jQuery(".sidebar-toggle-box .fa-bars").click();
+//     }, 200);
+// SCRIPT;
+// $this->registerJs($sidebarToggleBox, \yii\web\View::POS_READY);
 
 
 
@@ -64,8 +64,8 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-aw
                                 <h3 class="centered"><?= $todayPercentage ?></h3>
                             <div class="col-sm-6 col-xs-6 pull-left">
                                 <p class="goleft">
-                                     
-                                    <?= $todayPercentage ?>
+                                   <i class="fa fa-check"></i>                                 
+                                    <?= $todayPoxSubmission ?>
                                 </p>
                             </div>
                             <div class="col-sm-6 col-xs-6 pull-right">
@@ -87,8 +87,8 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-aw
                                 <h3 class="centered"><?= $weekPercentage ?></h3>
                             <div class="col-sm-6 col-xs-6 pull-left">
                                 <p class="goleft">
-                                    
-                                    <?= $weekPercentage ?>
+                                    <i class="fa fa-check"></i> 
+                                    <?= $weekPoxSubmission ?>
                                 </p>
                             </div>
                             <div class="col-sm-6 col-xs-6 pull-right">
@@ -110,8 +110,8 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-aw
                                 <h3 class="centered"><?= $monthPercentage ?></h3>
                             <div class="col-sm-6 col-xs-6 pull-left">
                                 <p class="goleft">
-                                     
-                                    <?= $monthPercentage ?>
+                                   <i class="fa fa-check"></i> 
+                                    <?= $monthPoxSubmission ?>
                                 </p>
                             </div>
                             <div class="col-sm-6 col-xs-6 pull-right">

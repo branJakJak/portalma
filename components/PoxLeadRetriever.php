@@ -141,4 +141,31 @@ class PoxLeadRetriever extends Component
         ])->count();
     }
 
+    public function getTotalPoxToday()
+    {
+        return MoneyActiveClaims::find()->where([
+            'date(date_submitted)'=>date("Y-m-d"),
+            'outcome'=>"POX1",
+        ])->count();
+    }
+
+    public function getLeadsToday()
+    {
+        return MoneyActiveClaims::find()->where([
+            'date(date_submitted)'=>date("Y-m-d"),
+        ])->count();
+    }
+
+    public function getPoxPercentageToday()
+    {
+        $retVal = "0%";
+        $totalLeadsToday =$this->getLeadsToday();
+        $totalPoxLeadsToday = $this->getTotalPoxToday();
+        if($totalLeadsToday != 0 && $totalPoxLeadsToday != 0){
+            $retVal = \Yii::$app->formatter->asPercent(($totalPoxLeadsToday/$totalLeadsToday), 2);
+        }
+        return $retVal;
+    }
+
+
 }

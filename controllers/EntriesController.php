@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\components\AgentEntriesReport;
 use app\components\PbDataRetriever;
 use app\models\MoneyActiveClaims;
+use app\models\QuickLeadSearchForm;
 use app\models\UserAccount;
 use Yii;
 use yii\base\Exception;
@@ -73,10 +74,14 @@ class EntriesController extends \yii\web\Controller
                 $todayPercentage = $agentReportRetriever->getTodaysPercentage();
                 $weekPercentage = $agentReportRetriever->getWeekPercentage();
                 $monthPercentage = $agentReportRetriever->getMonthPercentage();
-
+                /*all submission*/
                 $todaySubmission = $agentReportRetriever->getTodaysSubmission();
                 $weekSubmission = $agentReportRetriever->getWeekSubmission();
                 $monthSubmission = $agentReportRetriever->getMonthSubmission();
+                /*POX submissions*/
+                $todayPoxSubmission = $agentReportRetriever->getTodaysPoxSubmission();
+                $weekPoxSubmission = $agentReportRetriever->getWeekPoxSubmission();
+                $monthPoxSubmission = $agentReportRetriever->getMonthPoxSubmission();
                 
                return $this->render('index', compact(
                     'dataProvider', 
@@ -86,7 +91,10 @@ class EntriesController extends \yii\web\Controller
                     'monthPercentage',
                     'todaySubmission',
                     'weekSubmission',
-                    'monthSubmission'
+                    'monthSubmission',
+                    'todayPoxSubmission',
+                    'weekPoxSubmission',
+                    'monthPoxSubmission'
                 ));
             }
         } else {
@@ -104,7 +112,11 @@ class EntriesController extends \yii\web\Controller
         /**
          * @var $newFormEntry MoneyActiveClaims
          */
-
+        $formModel = new QuickLeadSearchForm();
+        $foundModels = null;
+        if($formModel->load(Yii::$app->request->post())){
+            $foundModels = $formModel->search();
+        }
         /*panel datasources*/
         $pendingClaims = new ActiveDataProvider([
             'query' => MoneyActiveClaims::find()
@@ -182,7 +194,9 @@ class EntriesController extends \yii\web\Controller
         $viewBag = ArrayHelper::merge($viewBag, compact(
             'pendingClaims',
             'ongoingClaims',
-            'completedClaims'
+            'completedClaims',
+            'formModel',
+            'foundModels'
         ));
         return $this->render("new", $viewBag);
     }

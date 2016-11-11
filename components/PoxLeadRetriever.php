@@ -162,7 +162,7 @@ class PoxLeadRetriever extends Component
         $totalLeadsToday =$this->getLeadsToday();
         $totalPoxLeadsToday = $this->getTotalPoxToday();
         if($totalLeadsToday != 0 && $totalPoxLeadsToday != 0){
-            $retVal = \Yii::$app->formatter->asPercent(($totalLeadsToday / $totalPoxLeadsToday), 2);
+            $retVal = \Yii::$app->formatter->asPercent(($totalPoxLeadsToday/$totalLeadsToday), 2);
         }
         return $retVal;
     }

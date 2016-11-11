@@ -58,6 +58,8 @@ class AgentEntriesReport extends Component
             ->count();
 
         if ($totalLeads != 0 && $poxAll != 0) {
+            $poxAll = floatval($poxAll);
+            $totalLeads = floatval($totalLeads);
             $retVal = \Yii::$app->formatter->asPercent(($poxAll / $totalLeads), 2);
         } else {
             // throw new Exception("An error occured while retrieving this week's percentage report");

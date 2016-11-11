@@ -163,4 +163,45 @@ class AgentEntriesReport extends Component
         return $this->agent_name;
     }
 
+    public function getTodaysPoxSubmission()
+    {
+        $retValContainer = MoneyActiveClaims::find()->where([
+            'date_format(date_submitted,"%Y-%m-%d")' => date("Y-m-d"),
+            'outcome' => 'POX1',
+            'pb_agent' => $this->agent_name
+        ])->count();
+        if ($retValContainer == false) {
+            // throw new Exception("Can't compute total submission today");
+        }
+        return $retValContainer;
+    }
+
+    public function getWeekPoxSubmission()
+    {
+        $retValContainer = MoneyActiveClaims::find()->where([
+            'week(date_submitted)' => date('W', time()),
+            'outcome' => 'POX1',
+            'pb_agent' => $this->agent_name
+        ])->count();
+        if ($retValContainer == false) {
+            // throw new Exception("Can't compute total submission today");
+        }
+        return $retValContainer;
+    }
+
+    public function getMonthPoxSubmission()
+    {
+        $retValContainer = MoneyActiveClaims::find()->where([
+            'month(date_submitted)' => date("m"),
+            'outcome' => 'POX1',
+            'pb_agent' => $this->agent_name
+        ])->count();
+        if ($retValContainer == false) {
+            // throw new Exception("Can't compute total submission today");
+        }
+        return $retValContainer;
+
+
+    }
+
 } 

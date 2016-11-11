@@ -74,10 +74,14 @@ class EntriesController extends \yii\web\Controller
                 $todayPercentage = $agentReportRetriever->getTodaysPercentage();
                 $weekPercentage = $agentReportRetriever->getWeekPercentage();
                 $monthPercentage = $agentReportRetriever->getMonthPercentage();
-
+                /*all submission*/
                 $todaySubmission = $agentReportRetriever->getTodaysSubmission();
                 $weekSubmission = $agentReportRetriever->getWeekSubmission();
                 $monthSubmission = $agentReportRetriever->getMonthSubmission();
+                /*POX submissions*/
+                $todayPoxSubmission = $agentReportRetriever->getTodaysPoxSubmission();
+                $weekPoxSubmission = $agentReportRetriever->getWeekPoxSubmission();
+                $monthPoxSubmission = $agentReportRetriever->getMonthPoxSubmission();
                 
                return $this->render('index', compact(
                     'dataProvider', 
@@ -87,7 +91,10 @@ class EntriesController extends \yii\web\Controller
                     'monthPercentage',
                     'todaySubmission',
                     'weekSubmission',
-                    'monthSubmission'
+                    'monthSubmission',
+                    'todayPoxSubmission',
+                    'weekPoxSubmission',
+                    'monthPoxSubmission'
                 ));
             }
         } else {

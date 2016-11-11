@@ -71,10 +71,15 @@ class DashboardController extends Controller
          * @var $poxVsLeadRetriever PoxLeadRetriever
          */
         $poxVsLeadRetriever = Yii::$app->poxVsLeadRetriever;
+        /*POX today*/
+        $poxToday = $poxVsLeadRetriever->getTotalPoxToday();
+        $leadToday = $poxVsLeadRetriever->getLeadsToday();
+        $percentageToday = $poxVsLeadRetriever->getPoxPercentageToday();
         /*POX this week*/
-        $percentageThisWeek = $poxVsLeadRetriever->getPoxPercentageThisWeek();
         $poxThisWeek = $poxVsLeadRetriever->getTotalPoxThisWeek();
         $leadThisWeek = $poxVsLeadRetriever->getLeadsThisWeek();
+        $percentageThisWeek = $poxVsLeadRetriever->getPoxPercentageThisWeek();
+        /*POX this month*/
         $percentageThisMonth = $poxVsLeadRetriever->getPoxPercentageThisMonth();
         $poxThisMonth = $poxVsLeadRetriever->getTotalPoxThisMonth();
         $leadThisMonth = $poxVsLeadRetriever->getTotalLeadsThisMonth();
@@ -82,6 +87,9 @@ class DashboardController extends Controller
         return $this->render(
             'index',
             compact(
+                    'poxToday',
+                    'leadToday',
+                    'percentageToday',
                     'percentageThisWeek',
                     'poxThisWeek',
                     'leadThisWeek',

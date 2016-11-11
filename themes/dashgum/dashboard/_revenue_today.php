@@ -7,7 +7,6 @@
 		<h5>
 			REVENUE TODAY
 			<br>
-			<small>@TODO - how to compute</small>
 		</h5>
 	</div>
 	<h3 class="mt"  style="color: white"><i class="fa fa-money fa-3x"></i></h3>

@@ -51,7 +51,12 @@ class AgentEntriesReport extends Component
                 'outcome' => 'POX1'
             ])
             ->count();
-        $totalLeads = MoneyActiveClaims::find()->count();
+        $totalLeads = MoneyActiveClaims::find()
+            ->where([
+                'outcome' => 'POX1'
+            ])
+            ->count();
+
         if ($totalLeads != 0 && $poxAll != 0) {
             $retVal = \Yii::$app->formatter->asPercent(($poxAll / $totalLeads), 2);
         } else {

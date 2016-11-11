@@ -34,15 +34,14 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-aw
 <div class="row">
     <div class="col-lg-9 main-chart">
         <div class="row ">
-            <div class="col-md-4 col-sm-4 mb hidden">
+            <div class="col-md-4 col-sm-4 mb">
                 <!-- Revenue Today -->
                 <?php 
-                    //$this->render('_revenue_today', compact('total_revenue_today')); 
+                    // $this->render('_revenue_today', compact('total_revenue_today')); 
                 ?>
-                <!-- pox vs all leads -->
-                <?php 
-                // 
-                    //$this->render('_pox1_percent_all', compact('pox_vs_lead','poxLeadPercentage')); 
+                <!-- pox vs all today -->
+                <?= 
+                    $this->render('_percentage_today', compact('poxToday','leadToday','percentageToday')); 
                 ?>
             </div>
             <!-- /col-md-4 -->

@@ -52,7 +52,6 @@ class MTAgentEntriesReport extends Component{
         $totalLeads = MoneyActiveClaims::find()
             ->where([
                 'submitted_by' => $this->mt_agent,                
-                'outcome' => 'POX1'
             ])
             ->count();
         if ($totalLeads != 0 && $poxAll != 0) {

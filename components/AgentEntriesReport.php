@@ -53,8 +53,7 @@ class AgentEntriesReport extends Component
             ->count();
         $totalLeads = MoneyActiveClaims::find()
             ->where([
-                'pb_agent' => $this->agent_name,
-                'outcome' => 'POX1'
+                'pb_agent' => $this->agent_name
             ])
             ->count();
 

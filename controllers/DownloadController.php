@@ -43,7 +43,7 @@ class DownloadController extends \yii\web\Controller
         $tempNameContainer = tempnam(sys_get_temp_dir(), "asd");
         $fileres = fopen($tempNameContainer, "r+");
         $resultArr = MoneyActiveClaims::find()
-            ->select(["date_submitted", "concat(title,' ',firstname,' ',surname)", "postcode", "address", "mobile", "tm", "acc_rej", "outcome", "packs_out"])
+            ->select(["date_submitted", "concat(title,' ',firstname,' ',surname)", "postcode", "address", "mobile", "tm", "acc_rej", "outcome", "packs_out","pb_agent"])
             ->asArray(true)
             ->all();
         header("Pragma: public");
@@ -63,6 +63,7 @@ class DownloadController extends \yii\web\Controller
             'ACC/REJ',
             'OUTCOME',
             'PACKS OUT',
+            'Agents',
         ];
 
         fputcsv($fileres, $headers);

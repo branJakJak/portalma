@@ -63,7 +63,8 @@ class MoneyActiveClaims extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'firstname', 'surname', 'submitted_by'], 'required'],
-            [['approx_month','approx_date','approx_year','paid_per_month','submitted_by'], 'integer'],
+            [['approx_month','approx_date','approx_year','submitted_by'], 'integer'],
+            [['paid_per_month'], 'number'],
             [['title', 'firstname', 'surname', 'postcode', 'address', 'tm', 'acc_rej', 'outcome', 'packs_out' ,'mobile', 'claim_status','pb_agent','date_of_birth','email','bank_name','bank_account_type'], 'string', 'max' => 255],
             [['date_submitted']  ,'safe','on'=>self::MONEY_ACTIVE_CLAIM_STATUS_API_IMPORT ],
             [['submitted_by'], 'exist', 'skipOnError' => true, 'targetClass' => UserAccount::className(), 'targetAttribute' => ['submitted_by' => 'id']],

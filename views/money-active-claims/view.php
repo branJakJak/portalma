@@ -56,22 +56,20 @@ if (Yii::$app->user->can("admin")) {
             'date_of_birth',
             'email',
             'bank_name',
-            'approx_month',
-            'approx_date',
-            'approx_year',
+            // 'approx_month',
+            // 'approx_date',
+            // 'approx_year',
             'paid_per_month',
             'pb_agent',
             'bank_account_type',            
+            'notes',            
+            'comment',
             [
                 'label'=>'Submitted by',
                 'value'=>$model->submittedBy->username
             ],
-            [
-                'label'=>'Submitted',
-                'value'=>Yii::$app->formatter->asDatetime($model->date_submitted)
-            ],
-            // 'date_submitted',
-            'updated_at',
+            'date_submitted:datetime',
+            'updated_at:datetime',
         ],
     ]) ?>
 

@@ -41,12 +41,14 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'outcome')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'paid_per_month')->textInput(['maxlength' => true]) ?>
-    
+
     <?= $form->field($model, 'packs_out')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'notes')->textarea(['maxlength' => true,'style'=>'margin-top: 0px; margin-bottom: 0px; height: 140px;']) ?>
 
     <?= $form->field($model, 'comment')->textarea(['maxlength' => true,'style'=>'margin-top: 0px; margin-bottom: 0px; height: 140px;']) ?>
+    
+    <?= $form->field($model, 'date_submitted')->textarea(['maxlength' => true,'style'=>'margin-top: 0px; margin-bottom: 0px; height: 140px;']) ?>
 
     <div class="form-group">
         <h1>

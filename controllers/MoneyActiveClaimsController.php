@@ -15,36 +15,36 @@ use yii\filters\VerbFilter;
  */
 class MoneyActiveClaimsController extends Controller
 {
-    // /**
-    //  * @inheritdoc
-    //  */
-    // public function behaviors()
-    // {
-    //     return [
-    //         'access' => [
-    //             'class' => AccessControl::className(),
-    //             'only' => ['index','new'],
-    //             'rules' => [
-    //                 [
-    //                     'allow' => true,
-    //                     'actions' => ['index','view','create','update','delete'],
-    //                     'roles' => ['admin'],
-    //                 ],
-    //                 [
-    //                     'allow' => true,
-    //                     'actions' => ['view'],
-    //                     'roles' => ['agent'],
-    //                 ],
-    //             ],
-    //         ],        
-    //         'verbs' => [
-    //             'class' => VerbFilter::className(),
-    //             'actions' => [
-    //                 'delete' => ['POST'],
-    //             ],
-    //         ],
-    //     ];
-    // }
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index','new'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index','view','create','update','delete'],
+                        'roles' => ['admin'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['view'],
+                        'roles' => ['agent'],
+                    ],
+                ],
+            ],        
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
+    }
 
     /**
      * Lists all MoneyActiveClaims models.

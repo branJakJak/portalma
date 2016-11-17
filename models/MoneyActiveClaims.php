@@ -75,6 +75,7 @@ class MoneyActiveClaims extends \yii\db\ActiveRecord
         return [
             'default'=>["id" ,"title","firstname","surname","postcode","address","mobile","tm","acc_rej","outcome","packs_out","claim_status","notes","comment","pb_agent","date_of_birth","email","bank_name","approx_month","approx_date","approx_year","paid_per_month","bank_account_type","submitted_by"],
             self::MONEY_ACTIVE_CLAIM_STATUS_API_IMPORT=>[ "title","firstname","surname","postcode","address","mobile","tm","acc_rej","outcome","packs_out","claim_status","notes","comment","pb_agent","date_of_birth","email","bank_name","approx_month","approx_date","approx_year","paid_per_month","bank_account_type","submitted_by","date_submitted"]
+            'update'=>[ "title","firstname","surname","postcode","address","mobile","tm","acc_rej","outcome","packs_out","claim_status","notes","comment","pb_agent","date_of_birth","email","bank_name","approx_month","approx_date","approx_year","paid_per_month","bank_account_type","submitted_by","date_submitted"]
         ];
     }
 
@@ -140,6 +141,9 @@ class MoneyActiveClaims extends \yii\db\ActiveRecord
                 $this->updated_at = date("Y-m-d H:i:s",time());
             }
         } 
+        if ($this->scenario === "update") {
+            $this->date_submitted = strtotime($this->date_submitted);
+        }
         return parent::beforeSave($insert);
     }
 }

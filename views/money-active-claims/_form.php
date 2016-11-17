@@ -48,7 +48,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'comment')->textarea(['maxlength' => true,'style'=>'margin-top: 0px; margin-bottom: 0px; height: 140px;']) ?>
     
-    <?= $form->field($model, 'date_submitted')->textarea(['maxlength' => true,'style'=>'margin-top: 0px; margin-bottom: 0px; height: 140px;']) ?>
+    <?= $form->field($model, 'date_submitted') ?>
 
     <div class="form-group">
         <h1>

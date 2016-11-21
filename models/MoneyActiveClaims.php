@@ -47,10 +47,11 @@ class MoneyActiveClaims extends \yii\db\ActiveRecord
     const MONEY_ACTIVE_CLAIM_STATUS_ONGOING = 'ongoing';
     const MONEY_ACTIVE_BANK_ACCOUNT_TYPE_SINGLE = 'single';
     const MONEY_ACTIVE_BANK_ACCOUNT_TYPE_JOINT = 'joint';
+    /*scenarios*/
     const MONEY_ACTIVE_CLAIM_STATUS_API_IMPORT = 'api_import';
+    const MONEY_ACTIVE_CLAIM_SCENARIO_EMERGENCY_INPUT = 'emergency_input';
     /**
-     * @inheritdoc
-     */
+     * @inheritdoc     */
     public static function tableName()
     {
         return 'ma_claims';
@@ -75,6 +76,7 @@ class MoneyActiveClaims extends \yii\db\ActiveRecord
         return [
             'default'=>["id" ,"title","firstname","surname","postcode","address","mobile","tm","acc_rej","outcome","packs_out","claim_status","notes","comment","pb_agent","date_of_birth","email","bank_name","approx_month","approx_date","approx_year","paid_per_month","bank_account_type","submitted_by"],
             self::MONEY_ACTIVE_CLAIM_STATUS_API_IMPORT=>[ "title","firstname","surname","postcode","address","mobile","tm","acc_rej","outcome","packs_out","claim_status","notes","comment","pb_agent","date_of_birth","email","bank_name","approx_month","approx_date","approx_year","paid_per_month","bank_account_type","submitted_by","date_submitted"],
+            self::MONEY_ACTIVE_CLAIM_SCENARIO_EMERGENCY_INPUT=>[ "title","firstname","surname","postcode","address","mobile","tm","acc_rej","outcome","packs_out","claim_status","notes","comment","pb_agent","date_of_birth","email","bank_name","approx_month","approx_date","approx_year","paid_per_month","bank_account_type","submitted_by","date_submitted"],
             'update'=>[ "title","firstname","surname","postcode","address","mobile","tm","acc_rej","outcome","packs_out","claim_status","notes","comment","pb_agent","date_of_birth","email","bank_name","approx_month","approx_date","approx_year","paid_per_month","bank_account_type","submitted_by","date_submitted"]
         ];
     }
@@ -135,10 +137,10 @@ class MoneyActiveClaims extends \yii\db\ActiveRecord
         if ($this->isNewRecord) {
             if ($this->scenario === self::MONEY_ACTIVE_CLAIM_STATUS_API_IMPORT) {
                 $this->claim_status = self::MONEY_ACTIVE_CLAIM_STATUS_DONE;
-            } 
-            else {
-                $this->date_submitted = date("Y-m-d H:i:s",time());
-                $this->updated_at = date("Y-m-d H:i:s",time());
+            }
+            if ($this->scenario === self::MONEY_ACTIVE_CLAIM_SCENARIO_EMERGENCY_INPUT) {
+                $this->date_of_birth = date("Y-m-d H:i:s",strtotime($this->date_of_birth));
+                $this->date_submitted = date("Y-m-d H:i:s",strtotime($this->date_submitted));
             }
         } 
         return parent::beforeSave($insert);

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\MoneyActiveClaims */
@@ -32,12 +33,19 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'paid_per_month'); ?>
-
     <?= $form->field($model, 'bank_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'date_of_birth') ?>
 
+    <?= 
+        $form->field($model, 'date_of_birth')->widget(DatePicker::classname(), [
+            'options' => ['placeholder' => 'Date submitted'],
+            'pluginOptions' => [
+                'autoclose'=>true,
+                'format' => 'dd-mm-yyyy'
+            ]
+        ])->hint("Format: dd-mm-yyyy");
+    ?>
+    
     <?= $form->field($model, 'outcome')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'paid_per_month')->textInput(['maxlength' => true]) ?>
@@ -47,8 +55,16 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'notes')->textarea(['maxlength' => true,'style'=>'margin-top: 0px; margin-bottom: 0px; height: 140px;']) ?>
 
     <?= $form->field($model, 'comment')->textarea(['maxlength' => true,'style'=>'margin-top: 0px; margin-bottom: 0px; height: 140px;']) ?>
-    
-    <?= $form->field($model, 'date_submitted') ?>
+
+    <?= 
+        $form->field($model, 'date_submitted')->widget(DatePicker::classname(), [
+            'options' => ['placeholder' => 'Date submitted'],
+            'pluginOptions' => [
+                'autoclose'=>true,
+                'format' => 'dd-mm-yyyy'
+            ]
+        ])->hint("Format: dd-mm-yyyy");
+    ?>
 
     <div class="form-group">
         <h1>

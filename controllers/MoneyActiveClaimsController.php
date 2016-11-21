@@ -9,6 +9,9 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\UserAccount;
+use app\models\QuickLeadSearchForm;
+
 
 /**
  * MoneyActiveClaimsController implements the CRUD actions for MoneyActiveClaims model.
@@ -52,13 +55,17 @@ class MoneyActiveClaimsController extends Controller
      */
     public function actionIndex()
     {
+        $queryComm = MoneyActiveClaims::find();
+        $searchForm = new QuickLeadSearchForm();
+        if ($searchForm->load(Yii::$app->request->post()) ) {
+            $searchForm->search();
+            $queryComm = $searchForm->getQueryInstance();
+        }
         $dataProvider = new ActiveDataProvider([
-            'query' => MoneyActiveClaims::find(),
+            'query' => $queryComm,
         ]);
 
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-        ]);
+        return $this->render('index', compact('dataProvider','searchForm'));
     }
 
     /**
@@ -80,9 +87,12 @@ class MoneyActiveClaimsController extends Controller
      */
     public function actionCreate()
     {
-        $model = new MoneyActiveClaims();
+        $model = new MoneyActiveClaims(['scenario'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_SCENARIO_EMERGENCY_INPUT]);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $userAccount = UserAccount::find()->where(['username' => 'moneyactive'])->one();
+            $model->submitted_by = $userAccount->id;
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [

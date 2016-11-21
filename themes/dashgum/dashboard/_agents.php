@@ -12,12 +12,7 @@ use yii\grid\GridView;
         ],
         'columns' => [
             // ['class' => 'yii\grid\SerialColumn'],
-            [
-                'attribute'=>'date_submitted',
-                'value'=>function($model){
-                    return \Yii::$app->formatter->asDatetime($model->date_submitted, "php:d/m/y H:i:s");
-                },
-            ],
+            'date_submitted:datetime',
             'pb_agent',
             'title',
             'firstname',

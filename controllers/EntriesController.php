@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\components\AgentEntriesReport;
 use app\components\PbDataRetriever;
+use app\dataproviders\LeadCallbackDataProvider;
 use app\models\MoneyActiveClaims;
 use app\models\QuickLeadSearchForm;
 use app\models\UserAccount;
@@ -115,7 +116,8 @@ class EntriesController extends \yii\web\Controller
         $formModel = new QuickLeadSearchForm();
         $foundModels = null;
         if($formModel->load(Yii::$app->request->post())){
-            $foundModels = $formModel->search();
+            $formModel->search();
+            $foundModels = $formModel->getResults();
         }
         /*panel datasources*/
         $pendingClaims = new ActiveDataProvider([
@@ -143,6 +145,7 @@ class EntriesController extends \yii\web\Controller
             'pagination' => ['pageSize' => 5]
 
         ]);
+        $callBackLeads = new LeadCallbackDataProvider();
 
         /*money active momdel*/
         $newFormEntry = new MoneyActiveClaims([
@@ -196,6 +199,7 @@ class EntriesController extends \yii\web\Controller
             'ongoingClaims',
             'completedClaims',
             'formModel',
+            'callBackLeads',
             'foundModels'
         ));
         return $this->render("new", $viewBag);

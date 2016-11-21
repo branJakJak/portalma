@@ -22,7 +22,8 @@
         "webvimark/module-user-management": "1.0.8",
         "yiisoft/yii2-jui": "^2.0",
         "vlucas/phpdotenv": "^2.4",
-        "kartik-v/yii2-widget-datepicker": "@dev"
+        "kartik-v/yii2-widget-datepicker": "@dev",
+        "yiidoc/yii2-timeago": "^2.0"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
@@ -59,7 +60,8 @@
     },
     "autoload":{
         "psr-4":{
-            "app\\components\\":"components"
+            "app\\components\\":"components",
+            "app\\dataproviders\\":"dataproviders"
         }
     }
 }

@@ -287,12 +287,11 @@ $outcomeDatasource = [
             </h3>
         </div>
         <div class="panel-body">
-
             <?=
-            ListView::widget([
-                'dataProvider' => $ongoingClaims,
-                'itemView' => '_ongoing',
-            ]);
+                ListView::widget([
+                    'dataProvider' => $ongoingClaims,
+                    'itemView' => '_ongoing',
+                ]);
             ?>
         </div>
     </div>
@@ -386,6 +385,19 @@ $outcomeDatasource = [
             ]);
             ?>
 
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">CALL BACKS</h3>
+        </div>
+        <div class="panel-body">
+            <?=
+                ListView::widget([
+                    'dataProvider' => $callBackLeads,
+                    'itemView' => '_call_back_agent_template',
+                ]);
+            ?>
         </div>
     </div>
 </div>

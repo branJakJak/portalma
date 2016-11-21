@@ -29,7 +29,7 @@ class QuickLeadSearchForm extends Model
     public function attributeLabels()
     {
         return [
-            'searchTerm'=>'Search term'
+            'searchTerm'=>'Search Term'
         ];
     }
     public function search(){
@@ -57,11 +57,14 @@ class QuickLeadSearchForm extends Model
      */
     public function getQueryInstance()
     {
+        if (is_null($this->queryInstance) || !isset($this->queryInstance)) {
+            $this->search();
+        }        
         return $this->queryInstance;
     }
     public function getResults()
     {
-        return $this->queryInstance->all();
+        return $this->getQueryInstance()->all();
     }
 
 } 

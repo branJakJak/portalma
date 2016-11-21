@@ -6,6 +6,7 @@ use app\components\MTAgentEntriesReport;
 use app\components\PoxLeadRetriever;
 use app\components\TotalRevenueTodayRetriever;
 use app\components\WeeklyRevenueRetriever;
+use app\dataproviders\LeadCallbackDataProvider;
 use app\models\MoneyActiveClaims;
 use app\models\UserAccount;
 use Faker\Provider\ka_GE\DateTime;
@@ -84,6 +85,9 @@ class DashboardController extends Controller
         $poxThisMonth = $poxVsLeadRetriever->getTotalPoxThisMonth();
         $leadThisMonth = $poxVsLeadRetriever->getTotalLeadsThisMonth();
 
+        /*callback data*/
+        $callbackDataProvider = new LeadCallbackDataProvider();
+
         return $this->render(
             'index',
             compact(
@@ -102,7 +106,8 @@ class DashboardController extends Controller
                     'agentSubmittionFilterModel',
                     'agentReportRetriever',
                     'mtAgentsCollection',
-                    'mTAgentEntriesReport'
+                    'mTAgentEntriesReport',
+                    'callbackDataProvider'
                 )
         );
     }

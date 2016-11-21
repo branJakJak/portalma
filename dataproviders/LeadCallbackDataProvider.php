@@ -20,7 +20,7 @@ class LeadCallbackDataProvider extends ActiveDataProvider{
     public function init()
     {
         $this->query = MoneyActiveClaims::find()->where(['outcome' => 'CALL BACK']);
-        $this->pagination->pageSize = 10;
+        $this->pagination->pageSize = 5;
         parent::init();
     }
 

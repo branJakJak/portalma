@@ -87,7 +87,7 @@ RIGHT SIDEBAR CONTENT
             ListView::widget([
                 'dataProvider' => $callbackDataProvider,
                 'itemView' => '_callbacks',
-                'layout' => "{pager}{summary}\n{items}\n{pager}",
+                'layout' => "{summary}\n{items}\n{pager}",
             ]);
         ?>
 

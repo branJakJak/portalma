@@ -35,9 +35,12 @@ class MonthlyRevenueRetriever extends Component{
         //using year , iterate through months .
         foreach (range(1,12) as $currentMonthIndex) {
             $rawDateContainer = strtotime(sprintf("%s-%s-%s", $this->getYear(), $currentMonthIndex, 1));
-            $count = MoneyActiveClaims::find()->where([
+            $count = MoneyActiveClaims::find()
+            ->where([
                 'date_format(date_submitted,"%Y-%m")'=>date("Y-m",$rawDateContainer)
-            ])->count();
+            ])
+           ->andWhere(['not',['outcome'=>null]])
+            ->count();
             $monthylRevCollection[date("F",$rawDateContainer)] = $count;
         }
         //using each month , compute total

@@ -55,6 +55,7 @@ class AgentEntriesReport extends Component
             ->where([
                 'pb_agent' => $this->agent_name
             ])
+            ->andWhere(['not',['outcome'=>null]])
             ->count();
 
         if ($totalLeads != 0 && $poxAll != 0) {
@@ -122,7 +123,11 @@ class AgentEntriesReport extends Component
     {
         $retValContainer = 0;
         $retValContainer = MoneyActiveClaims::find()
-            ->where(['pb_agent' => $this->agent_name, 'week(date_submitted)' => date('W', time())])
+            ->where([
+                'pb_agent' => $this->agent_name, 
+                'week(date_submitted)' => date('W', time()),
+            ])
+            ->andWhere(['not',['outcome'=>null]])
             ->count();
         if (!$retValContainer) {
             // throw new Exception("Cant compute total week submission");
@@ -134,7 +139,11 @@ class AgentEntriesReport extends Component
     {
         $retValContainer = 0;
         $retValContainer = MoneyActiveClaims::find()
-            ->where(['pb_agent' => $this->agent_name, 'month(date_submitted)' => date("m")])
+            ->where([
+                'pb_agent' => $this->agent_name, 
+                'month(date_submitted)' => date("m")
+            ])
+            ->andWhere(['not',['outcome'=>null]])
             ->count();
         if (!$retValContainer) {
             // throw new Exception("Cant compute total month submission");
@@ -145,7 +154,10 @@ class AgentEntriesReport extends Component
     public function getTotalLead()
     {
         if ($this->total_leads == 0) {
-            $this->total_leads = MoneyActiveClaims::find()->where(['pb_agent' => $this->agent_name])->count();
+            $this->total_leads = MoneyActiveClaims::find()
+            ->where(['pb_agent' => $this->agent_name])
+            ->andWhere(['not',['outcome'=>null]])
+            ->count();
             if ($this->total_leads == 0) {
                 // throw new Exception("No total lead computed");
             }

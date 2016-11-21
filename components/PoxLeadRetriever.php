@@ -29,9 +29,12 @@ class PoxLeadRetriever extends Component
             'pox' => 0,
             'leads' => 0,
         ];
-        $poxCount = MoneyActiveClaims::find()->where([
+        $poxCount = MoneyActiveClaims::find()
+        ->where([
             'outcome' => 'POX1'
-        ])->count();
+        ])
+        ->andWhere(['not',['outcome'=>null]])
+        ->count();
         $this->pox_count = $poxCount ? $poxCount : 0;
         $retVal['pox'] = $this->pox_count;
 
@@ -114,8 +117,10 @@ class PoxLeadRetriever extends Component
     public function getLeadsThisWeek()
     {
         return MoneyActiveClaims::find()->where([
-            'week(date_submitted)'=>date("W"),
-        ])->count();
+            'week(date_submitted)'=>date("W")
+        ])
+        ->andWhere(['not',['outcome'=>null]])
+        ->count();
     }
 
     public function getTotalPoxThisWeek()
@@ -123,14 +128,18 @@ class PoxLeadRetriever extends Component
         return MoneyActiveClaims::find()->where([
             'week(date_submitted)'=>date("W"),
             'outcome'=>"POX1",
-        ])->count();
+        ])
+        ->count();
     }
 
     public  function getTotalLeadsThisMonth()
     {
-        return MoneyActiveClaims::find()->where([
-            'month(date_submitted)'=>date("m"),
-        ])->count();
+        return MoneyActiveClaims::find()
+        ->where([
+            'month(date_submitted)'=>date("m")
+        ])
+        ->andWhere(['not',['outcome'=>null]])
+        ->count();
     }
 
     public function getTotalPoxThisMonth()
@@ -152,8 +161,10 @@ class PoxLeadRetriever extends Component
     public function getLeadsToday()
     {
         return MoneyActiveClaims::find()->where([
-            'date(date_submitted)'=>date("Y-m-d"),
-        ])->count();
+            'date(date_submitted)'=>date("Y-m-d")
+        ])
+        ->andWhere(['not',['outcome'=>null]])
+        ->count();
     }
 
     public function getPoxPercentageToday()

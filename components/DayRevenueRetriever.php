@@ -32,7 +32,10 @@ class DayRevenueRetriever extends Component{
     public function getValue()
     {
         $value = 0;
-        $value = MoneyActiveClaims::find()->where(['date(date_submitted)' => $this->date])->count();
+        $value = MoneyActiveClaims::find()
+        ->where(['date(date_submitted)' => $this->date])
+        ->andWhere(['not',['outcome'=>null]])
+        ->count();
         return $value;
     }
 

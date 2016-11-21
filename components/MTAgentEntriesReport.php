@@ -49,10 +49,11 @@ class MTAgentEntriesReport extends Component{
                 'outcome' => 'POX1'
             ])
             ->count();
-        $totalLeads = MoneyActiveClaims::find()
+            $totalLeads = MoneyActiveClaims::find()
             ->where([
                 'submitted_by' => $this->mt_agent,                
             ])
+            ->andWhere(['not',['outcome'=>null]])
             ->count();
         if ($totalLeads != 0 && $poxAll != 0) {
             $retVal = \Yii::$app->formatter->asPercent(($poxAll / $totalLeads), 2);
@@ -102,10 +103,13 @@ class MTAgentEntriesReport extends Component{
 
     public function getTodaysSubmission()
     {
-        $retValContainer = MoneyActiveClaims::find()->where([
+        $retValContainer = MoneyActiveClaims::find()
+        ->where([
             'date_format(date_submitted,"%Y-%m-%d")' => date("Y-m-d"),
             'submitted_by' => $this->mt_agent
-        ])->count();
+        ])
+            ->andWhere(['not',['outcome'=>null]])
+        ->count();
         if ($retValContainer == false) {
             // throw new Exception("Can't compute total submission today");
         }
@@ -117,6 +121,7 @@ class MTAgentEntriesReport extends Component{
         $retValContainer = 0;
         $retValContainer = MoneyActiveClaims::find()
             ->where(['submitted_by' => $this->mt_agent, 'week(date_submitted)' => date('W', time())])
+            ->andWhere(['not',['outcome'=>null]])
             ->count();
         if (!$retValContainer) {
             // throw new Exception("Cant compute total week submission");
@@ -129,6 +134,7 @@ class MTAgentEntriesReport extends Component{
         $retValContainer = 0;
         $retValContainer = MoneyActiveClaims::find()
             ->where(['submitted_by' => $this->mt_agent, 'month(date_submitted)' => date("m")])
+            ->andWhere(['not',['outcome'=>null]])
             ->count();
         if (!$retValContainer) {
             // throw new Exception("Cant compute total month submission");
@@ -139,7 +145,10 @@ class MTAgentEntriesReport extends Component{
     public function getTotalLead()
     {
         if ($this->total_leads == 0) {
-            $this->total_leads = MoneyActiveClaims::find()->where(['submitted_by' => $this->mt_agent])->count();
+            $this->total_leads = MoneyActiveClaims::find()
+            ->where(['submitted_by' => $this->mt_agent])
+            ->andWhere(['not',['outcome'=>null]])
+            ->count();
             if ($this->total_leads == 0) {
                 // throw new Exception("No total lead computed");
             }

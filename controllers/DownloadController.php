@@ -111,6 +111,8 @@ class DownloadController extends \yii\web\Controller
 //                'PACKS OUT',
 //                'Date Submitted',
 //            ];
+
+            
             $headers = ['title', 'firstname', 'surname', 'postcode', 'address', 'mobile', 'tm', 'acc_rej', 'outcome', 'notes', 'comment', 'packs_out', 'date_submitted'];
             fputcsv($fileres, $headers);
             foreach ($resultArr as $currentRow) {

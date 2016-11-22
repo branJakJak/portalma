@@ -118,8 +118,9 @@ class MoneyActiveClaimsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->scenario = "update";
+
         if ($model->load(Yii::$app->request->post())) {
-            $model->scenario = "update";
             if(strtotime($model->date_of_birth) !== false){
                 $model->date_of_birth = date("Y-m-d H:i:s",strtotime($model->date_of_birth));
             }else{
@@ -130,9 +131,12 @@ class MoneyActiveClaimsController extends Controller
             }else{
                 throw new Exception("Please use correct date format");
             }
+
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            $model->date_of_birth = date("d-m-Y",strtotime($model->date_of_birth));
+            $model->date_submitted = date("d-m-Y",strtotime($model->date_submitted));
             return $this->render('update', [
                 'model' => $model,
             ]);

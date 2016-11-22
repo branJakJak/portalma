@@ -53,7 +53,7 @@ if (Yii::$app->user->can("admin")) {
             'packs_out',
             'notes',
             'comment',
-            'date_of_birth',
+            'date_of_birth:date',
             'email',
             'bank_name',
             // 'approx_month',

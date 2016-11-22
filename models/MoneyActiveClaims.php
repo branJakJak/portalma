@@ -67,7 +67,13 @@ class MoneyActiveClaims extends \yii\db\ActiveRecord
             [['approx_month','approx_date','approx_year','submitted_by'], 'integer'],
             [['paid_per_month'], 'number'],
             [['title', 'firstname', 'surname', 'postcode', 'address', 'tm', 'acc_rej', 'outcome', 'packs_out' ,'mobile', 'claim_status','pb_agent','date_of_birth','email','bank_name','bank_account_type'], 'string', 'max' => 255],
-            [['date_submitted']  ,'safe','on'=>self::MONEY_ACTIVE_CLAIM_STATUS_API_IMPORT ],
+            [['title', 'firstname', 'surname', 'postcode', 'address', 'tm', 'acc_rej', 'outcome', 'packs_out' ,'mobile', 'claim_status','pb_agent','date_of_birth','email','bank_name','bank_account_type'], 'string', 'max' => 255,'on'=>self::MONEY_ACTIVE_CLAIM_STATUS_API_IMPORT],
+            [['title', 'firstname', 'surname', 'postcode', 'address', 'tm', 'acc_rej', 'outcome', 'packs_out' ,'mobile', 'claim_status','pb_agent','date_of_birth','email','bank_name','bank_account_type'], 'string', 'max' => 255,'on'=>self::MONEY_ACTIVE_CLAIM_SCENARIO_EMERGENCY_INPUT],
+            [['title', 'firstname', 'surname', 'postcode', 'address', 'tm', 'acc_rej', 'outcome', 'packs_out' ,'mobile', 'claim_status','pb_agent','date_of_birth','email','bank_name','bank_account_type'], 'string', 'max' => 255,'on'=>'update'],
+            [['date_submitted']  ,'safe'],
+            [['date_submitted']  ,'safe','on'=>self::MONEY_ACTIVE_CLAIM_STATUS_API_IMPORT],
+            [['date_submitted']  ,'safe','on'=>self::MONEY_ACTIVE_CLAIM_SCENARIO_EMERGENCY_INPUT],
+            [['date_submitted']  ,'safe','on'=>'update' ],
             [['submitted_by'], 'exist', 'skipOnError' => true, 'targetClass' => UserAccount::className(), 'targetAttribute' => ['submitted_by' => 'id']],
         ];
     }

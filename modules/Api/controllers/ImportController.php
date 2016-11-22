@@ -32,10 +32,6 @@ class ImportController extends Controller{
         if ( !is_null(\Yii::$app->request->post('API_KEY',null))  && \Yii::$app->request->post('API_KEY') === \Yii::$app->params['API_KEY']) {
             $model = new MoneyActiveClaims();
             if ($model->load(\Yii::$app->request->post())) {
-                //because php
-                if($model->scenario !== MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_API_IMPORT){
-                    $model->scenario = MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_API_IMPORT;
-                }
                 //add default submitted by
                 $userAccount = UserAccount::find()->where(['username' => 'moneyactive'])->one();
                 if (isset($model->tm)) {
@@ -45,7 +41,7 @@ class ImportController extends Controller{
                 }
                 $model->submitted_by = $userAccount->id;
                 $model->claim_status = MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_PENDING;
-                $model->date_submitted = date("Y-m-d H:i:s", time());
+                $model->date_submitted = date("Y-m-d H:i:s");
 
                 if($model->save()){
                     $jsonMessage = [

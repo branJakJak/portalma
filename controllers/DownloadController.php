@@ -2,7 +2,9 @@
 
 namespace app\controllers;
 
+use app\components\ForceDownloadCsv;
 use app\components\PbDataRetriever;
+use app\components\QueryResultToCsv;
 use app\models\MoneyActiveClaims;
 use app\models\UserAccount;
 use Exception;
@@ -19,11 +21,11 @@ class DownloadController extends \yii\web\Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index'],
+                'only' => ['all','agent'],
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'agent'],
+                        'actions' => ['all', 'agent'],
                         'roles' => ['admin'],
                     ],
                 ],
@@ -34,7 +36,7 @@ class DownloadController extends \yii\web\Controller
     /**
      *
      */
-    public function actionIndex()
+    public function actionAll()
     {
         if (MoneyActiveClaims::find()->count() <= 0) {
             throw new Exception("Nothing to export");
@@ -105,8 +107,21 @@ class DownloadController extends \yii\web\Controller
         } else {
             throw new \yii\base\Exception("Agent doesnt exists");
         }
-
-
     }
+
+    public function actionCallbacks($filter='all')
+    {
+        $query = MoneyActiveClaims::find()->where(['outcome' => 'CALL BACK']);
+        $fileName = "callbacks." . date("Y-m-d").'-';
+        if ($filter === 'today') {
+            $fileName .= 'today';
+            $query->andWhere(['date(date_submitted)' => date("Y-m-d")]);
+        }
+        $queryResultArr = new QueryResultToCsv();
+        $fileOutput = $queryResultArr->writeToFile($query->asArray()->all());
+        //force download
+        ForceDownloadCsv::export($fileOutput , $fileName);
+    }
+
 
 }

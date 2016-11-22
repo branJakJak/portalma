@@ -279,9 +279,24 @@ DashGumAssetBundle::register($this);
                       <?= Html::a('<i class="fa fa-dashboard"></i><span>Dashboard</span>', ['/dashboard'], ['class' => '']); ?>   
                   </li>
                   <?php if (Yii::$app->user->can('admin')): ?>
-                    <li class="">
-                        <?= Html::a('<i class="fa fa-download"></i><span>Download All</span>', ['/download'], ['class' => '']); ?>   
-                    </li>
+
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-download"></i>
+                          <span>Download</span>
+                      </a>
+                      <ul class="sub">
+                          <li>
+                            <?= Html::a('<span>All</span>', ['/download/all'], ['class' => '']); ?>   
+                          </li>
+                          <li>
+                            <?= Html::a('<span>Callbacks</span>', ['/download/callbacks'], ['class' => '']); ?>   
+                          </li>
+                          <li>
+                            <?= Html::a('<span>Callbacks Today</span>', ['/download/callbacks?filter=today'], ['class' => '']); ?>   
+                          </li>
+                      </ul>
+                  </li>
                     <li class="">
                         <?= Html::a('<i class="fa fa-users"></i><span>User Accounts</span>', ['/user-accounts/index'], ['class' => '']); ?>   
                     </li>
@@ -294,18 +309,6 @@ DashGumAssetBundle::register($this);
                     <?= $this->blocks['mt_agents'] ?>
 
                   <?php endif ?>
-
-                  <li class="sub-menu hidden">
-                      <a href="javascript:;" >
-                          <i class="fa fa-desktop"></i>
-                          <span>UI Elements</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="general.html">General</a></li>
-                          <li><a  href="buttons.html">Buttons</a></li>
-                          <li><a  href="panels.html">Panels</a></li>
-                      </ul>
-                  </li>
 
                   <li class="sub-menu  hidden">
                       <a href="javascript:;" >

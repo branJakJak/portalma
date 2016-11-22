@@ -91,7 +91,7 @@ class DownloadController extends \yii\web\Controller
             $filename = sprintf("%s.%s.csv", Yii::$app->formatter->asDate(date("Y-m-d"), "long"), Yii::$app->name);
             $tempNameContainer = tempnam(sys_get_temp_dir(), "asd");
             $fileres = fopen($tempNameContainer, "r+");
-            $resultArr = MoneyActiveClaims::find()->where(['pb_agent' => $agentName])->select(['title', 'firstname', 'surname', 'postcode', 'address', 'mobile', 'tm', 'acc_rej', 'outcome', 'notes' ,'packs_out', 'date_submitted'])->asArray(true)->all();
+            $resultArr = MoneyActiveClaims::find()->where(['pb_agent' => $agentName])->select(['title', 'firstname', 'surname', 'postcode', 'address', 'mobile', 'tm', 'acc_rej', 'outcome', 'notes' ,'comment','packs_out', 'date_submitted'])->asArray(true)->all();
             header("Pragma: public");
             header("Expires: 0");
             header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
@@ -99,18 +99,19 @@ class DownloadController extends \yii\web\Controller
             header("Content-Type: application/octet-stream");
             header("Content-Disposition: attachment; filename=\"$filename.csv\";");
             header("Content-Transfer-Encoding: binary");
-            $headers = [
-                'Title',
-                'Name',
-                'Postcode',
-                'Address',
-                'Mobile',
-                'TM',
-                'ACC/REJ',
-                'OUTCOME',
-                'PACKS OUT',
-                'Date Submitted',
-            ];
+//            $headers = [
+//                'Title',
+//                'Name',
+//                'Postcode',
+//                'Address',
+//                'Mobile',
+//                'TM',
+//                'ACC/REJ',
+//                'OUTCOME',
+//                'PACKS OUT',
+//                'Date Submitted',
+//            ];
+            $headers = ['title', 'firstname', 'surname', 'postcode', 'address', 'mobile', 'tm', 'acc_rej', 'outcome', 'notes', 'comment', 'packs_out', 'date_submitted'];
             fputcsv($fileres, $headers);
             foreach ($resultArr as $currentRow) {
                 fputcsv($fileres, $currentRow);

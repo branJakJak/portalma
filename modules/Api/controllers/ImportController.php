@@ -46,6 +46,8 @@ class ImportController extends Controller{
                     }
                 }
                 $model->submitted_by = $userAccount->id;
+                $model->claim_status = MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_PENDING;
+                $model->date_submitted = date("Y-m-d H:i:s", time());
 
                 if($model->save()){
                     $jsonMessage = [

@@ -131,16 +131,6 @@ class MoneyActiveClaims extends \yii\db\ActiveRecord
     }
     public function beforeSave($insert)
     {
-        if ($this->isNewRecord) {
-            if ($this->scenario === self::MONEY_ACTIVE_CLAIM_STATUS_API_IMPORT) {
-                $this->claim_status = self::MONEY_ACTIVE_CLAIM_STATUS_PENDING;
-                $this->date_submitted = date("Y-m-d H:i:s", time());
-            }
-            if (  in_array($this->scenario , ['update',self::MONEY_ACTIVE_CLAIM_SCENARIO_EMERGENCY_INPUT])   ) {
-                $this->date_of_birth = date("Y-m-d H:i:s",strtotime($this->date_of_birth));
-                $this->date_submitted = date("Y-m-d H:i:s",strtotime($this->date_submitted));
-            }
-        }
         return parent::beforeSave($insert);
     }
 }

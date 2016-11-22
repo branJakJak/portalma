@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\MoneyActiveClaims;
+use yii\base\Exception;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -92,11 +93,12 @@ class MoneyActiveClaimsController extends Controller
      */
     public function actionCreate()
     {
-        $model = new MoneyActiveClaims(['scenario'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_SCENARIO_EMERGENCY_INPUT]);
-
+        $model = new MoneyActiveClaims();
         if ($model->load(Yii::$app->request->post())) {
             $userAccount = UserAccount::find()->where(['username' => 'moneyactive'])->one();
             $model->submitted_by = $userAccount->id;
+            $model->date_of_birth = date("Y-m-d H:i:s",strtotime($model->date_of_birth));
+            $model->date_submitted = date("Y-m-d H:i:s",strtotime($model->date_submitted));
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -110,13 +112,24 @@ class MoneyActiveClaimsController extends Controller
      * Updates an existing MoneyActiveClaims model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
+     * @throws \yii\base\Exception
      * @return mixed
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $model->scenario = "update";
         if ($model->load(Yii::$app->request->post())) {
+            $model->scenario = "update";
+            if(strtotime($model->date_of_birth) !== false){
+                $model->date_of_birth = date("Y-m-d H:i:s",strtotime($model->date_of_birth));
+            }else{
+                throw new Exception("Please use correct date format");
+            }
+            if (strtotime($model->date_of_birth) !== false) {
+                $model->date_submitted = date("Y-m-d H:i:s",strtotime($model->date_submitted));
+            }else{
+                throw new Exception("Please use correct date format");
+            }
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

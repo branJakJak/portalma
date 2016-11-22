@@ -33,6 +33,8 @@ use kartik\date\DatePicker;
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'claim_status')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'bank_name')->textInput(['maxlength' => true]) ?>
 
 

@@ -43,7 +43,6 @@ class ImportController extends Controller{
                 }
                 $model->submitted_by = $userAccount->id;
                 if($model->save()){
-                    $model->claim_status = MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_DONE;
                     $jsonMessage = [
                         "status"=>'success',
                         "message"=>'New claim saved',

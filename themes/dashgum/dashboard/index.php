@@ -65,7 +65,7 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-aw
             <!-- /col-md-4 -->
         </div>
         <!-- /row -->
-        <div class="ds content-panel">
+        <div class="ds content-panel" style="overflow: scroll;">
             <?= 
             $this->render('_agents', compact('dataSubmissiondataProvider','agentSubmittionFilterModel')); 
             ?>

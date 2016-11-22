@@ -50,7 +50,8 @@ class DashboardController extends Controller
         $agentSubmittionFilterModel = MoneyActiveClaims::find();
         $agentSubmittionFilterModel->orderBy("date_submitted DESC");
         $dataSubmissiondataProvider = new ActiveDataProvider([
-            'query' => $agentSubmittionFilterModel
+            'query' => $agentSubmittionFilterModel,
+            'pagination'=>['pageSize'=>10]
         ]);
 
         /*our agents*/

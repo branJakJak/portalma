@@ -15,7 +15,7 @@ $url = \yii\helpers\Url::to(["/leads/view", 'id' => $model->id]);
             </muted>
             <br/>
 
-            <a href="<?= $url ?>"><?= sprintf("%s %s %s",$model->title , $model->title,$model->surname) ?></a> <br/>
+            <a href="<?= $url ?>"><?= sprintf("%s %s",$model->title , $model->firstname) ?></a> <br/>
         </p>
     </div>
 </div>

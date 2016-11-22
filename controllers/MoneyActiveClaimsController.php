@@ -30,8 +30,13 @@ class MoneyActiveClaimsController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index','view','create','update','delete'],
+                        'actions' => ['index','view','create','update'],
                         'roles' => ['admin'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['delete'],
+                        'roles' => ['superadmin'],
                     ],
                     [
                         'allow' => true,
@@ -128,8 +133,8 @@ class MoneyActiveClaimsController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
 
+        $this->findModel($id)->delete();
         return $this->redirect(['index']);
     }
 

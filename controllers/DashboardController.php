@@ -49,9 +49,10 @@ class DashboardController extends Controller
         $mTAgentEntriesReport = new MTAgentEntriesReport();
         $agentSubmittionFilterModel = MoneyActiveClaims::find();
         $agentSubmittionFilterModel->orderBy("date_submitted DESC");
+        $itemsPerPage = isset($_GET['per-page']) ? intval($_GET['per-page']):10;
         $dataSubmissiondataProvider = new ActiveDataProvider([
             'query' => $agentSubmittionFilterModel,
-            'pagination'=>['pageSize'=>10]
+            'pagination'=>['pageSize'=>$itemsPerPage]
         ]);
 
         /*our agents*/

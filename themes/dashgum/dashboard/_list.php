@@ -4,9 +4,11 @@
  * @var $agentReportRetriever AgentEntriesReport
  */
 use yii\helpers\Url;
+use app\models\MoneyActiveClaims;
 
 $agentReportRetriever = Yii::$app->agentEntriesReport;
 $agentReportRetriever->setAgent($model['pb_agent']);
+$callbackCount = MoneyActiveClaims::find()->where(['outcome'=>'CALL BACK','pb_agent'=>$model['pb_agent']])->count();
 
 ?>
 <a href="<?php echo \yii\helpers\Url::to(["/entries/index","agent"=>$model['pb_agent']])?>">
@@ -17,10 +19,21 @@ $agentReportRetriever->setAgent($model['pb_agent']);
 	    <div class="details">
 	        <p>
 	        	<a href="<?= Url::to(["/entries","agent"=>$model['pb_agent']]) ?>">
-	        		<?= $model['pb_agent'] ?> | 
-		        	<?= $agentReportRetriever->getPercentageAll() ?>
+	        		<strong>
+		        		<?= $model['pb_agent'] ?>
+	        		</strong>
+	        		<br>
+		        	<b>
+		        		POX : 
+			        	<?= $agentReportRetriever->getPercentageAll() ?>
+		        	</b>
+		        	<br>
+		        	<strong>
+		        		Callback : <?= $callbackCount ?>
+		        	</strong>
+		        	<br />
+		        	<br />
 	        	</a>
-	        	<br/>
 	        </p>
 	    </div>
 	</div>

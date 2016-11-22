@@ -23,7 +23,8 @@
         "yiisoft/yii2-jui": "^2.0",
         "vlucas/phpdotenv": "^2.4",
         "kartik-v/yii2-widget-datepicker": "@dev",
-        "yiidoc/yii2-timeago": "^2.0"
+        "yiidoc/yii2-timeago": "^2.0",
+        "nterms/yii2-pagesize-widget": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

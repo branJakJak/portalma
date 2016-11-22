@@ -146,6 +146,7 @@ class EntriesController extends \yii\web\Controller
 
         ]);
         $callBackLeads = new LeadCallbackDataProvider();
+        $callBackLeads->query = $callBackLeads->query->andWhere(['submitted_by'=>Yii::$app->user->id]);
 
         /*money active momdel*/
         $newFormEntry = new MoneyActiveClaims([

@@ -2,6 +2,8 @@
 use yii\bootstrap\Html;
 use yii\grid\GridView;
 use yii\widgets\ListView;
+use app\models\MoneyActiveClaims;
+use yii\helpers\Url;
 
 $customCss = <<< SCRIPT
     .ds .desc {
@@ -115,12 +117,23 @@ RIGHT SIDEBAR CONTENT
 
 <?php $this->beginBlock('mt_agents') ?>
     <?php foreach ($mtAgentsCollection as $currentMtAgent): ?>
+        <?php 
+            $callbackCount = MoneyActiveClaims::find()->where(['outcome'=>'CALL BACK','submitted_by'=>$currentMtAgent->id])->count();
+        ?>
         <li>
-          <a href="javascript:;">
+          <a href="<?= Url::to(["/callback-report/agent",'agentName'=>$currentMtAgent->username]) ?>">
             <?php 
                 $mTAgentEntriesReport->setMtAgent($currentMtAgent->id);
             ?>
-            <?= $currentMtAgent->username ?> | <?= $mTAgentEntriesReport->getPercentageAll() ?>
+            <?= $currentMtAgent->username ?> 
+            <br> 
+            <strong>
+                POX : <?= $mTAgentEntriesReport->getPercentageAll() ?>
+            </strong>
+            <br> 
+            <strong>
+                Callback : <?= $callbackCount ?>
+            </strong>            
           </a>
         </li>
     <?php endforeach ?>

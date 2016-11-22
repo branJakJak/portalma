@@ -67,7 +67,7 @@ EOL;
 $customCss = <<< SCRIPT
   .team-members-panel {
     overflow: scroll;
-    height: 650px;
+    height: 548px;
   }
 SCRIPT;
 $this->registerCss($customCss);

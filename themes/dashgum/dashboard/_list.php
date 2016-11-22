@@ -8,7 +8,7 @@ use app\models\MoneyActiveClaims;
 
 $agentReportRetriever = Yii::$app->agentEntriesReport;
 $agentReportRetriever->setAgent($model['pb_agent']);
-$callbackCount = MoneyActiveClaims::find()->where(['outcome'=>'CALL BACK','pb_agent'=>$model['pb_agent']])->count();
+
 
 ?>
 <a href="<?php echo \yii\helpers\Url::to(["/entries/index","agent"=>$model['pb_agent']])?>">
@@ -27,11 +27,6 @@ $callbackCount = MoneyActiveClaims::find()->where(['outcome'=>'CALL BACK','pb_ag
 		        		POX : 
 			        	<?= $agentReportRetriever->getPercentageAll() ?>
 		        	</b>
-		        	<br>
-		        	<strong>
-		        		Callback : <?= $callbackCount ?>
-		        	</strong>
-		        	<br />
 		        	<br />
 	        	</a>
 	        </p>

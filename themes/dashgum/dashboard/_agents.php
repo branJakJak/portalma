@@ -1,5 +1,6 @@
 <?php 
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 ?>
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -18,15 +19,23 @@ use yii\grid\GridView;
             'firstname',
             'surname',
             'mobile',
-            'tm',
+            // 'tm',
             // 'postcode',
             // 'address',
-            'acc_rej',
-            'outcome',
-            'notes',
-            'comment'
+            // 'acc_rej',
+            // 'outcome',
+            // 'notes',
+            // 'comment'
+            [
+                'value'=>function($model){
+                    return Html::a('<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View',['/leads/view','id'=>$model->id],['target'=>'_blank','class'=>'btn btn-link']);
+                },
+                'encodeLabel'=>false,
+                'format'=>'html'
+            ]
         ]
     ]);
     ?>
+
 </div>
 <div class="clearfix"></div>

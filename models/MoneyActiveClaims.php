@@ -126,9 +126,6 @@ class MoneyActiveClaims extends \yii\db\ActiveRecord
             if (!isset($this->claim_status)) {
                 $this->claim_status = self::MONEY_ACTIVE_CLAIM_STATUS_PENDING;
             }
-            if ($this->scenario === self::MONEY_ACTIVE_CLAIM_STATUS_API_IMPORT) {
-                $this->claim_status = self::MONEY_ACTIVE_CLAIM_STATUS_DONE;
-            }
         }
         parent::init();
     }

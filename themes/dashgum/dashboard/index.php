@@ -80,9 +80,8 @@ RIGHT SIDEBAR CONTENT
 
 <div class="col-lg-3 ds ">
     <!--COMPLETED ACTIONS DONUTS CHART-->
-    <aside class="notification-area ">
+    <aside class="notification-area hidden">
         <h3>Callbacks</h3>
-
         <?=
             ListView::widget([
                 'dataProvider' => $callbackDataProvider,

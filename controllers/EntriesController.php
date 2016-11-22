@@ -83,6 +83,11 @@ class EntriesController extends \yii\web\Controller
                 $todayPoxSubmission = $agentReportRetriever->getTodaysPoxSubmission();
                 $weekPoxSubmission = $agentReportRetriever->getWeekPoxSubmission();
                 $monthPoxSubmission = $agentReportRetriever->getMonthPoxSubmission();
+
+                $callbackDataProvider = new ActiveDataProvider([
+                    'query' => MoneyActiveClaims::find()->where(['pb_agent' => $agent,'outcome'=>'CALL BACK'])
+                ]);
+
                 
                return $this->render('index', compact(
                     'dataProvider', 
@@ -95,11 +100,12 @@ class EntriesController extends \yii\web\Controller
                     'monthSubmission',
                     'todayPoxSubmission',
                     'weekPoxSubmission',
-                    'monthPoxSubmission'
+                    'monthPoxSubmission',
+                    'callbackDataProvider'
                 ));
             }
         } else {
-            throw new NotFoundHttpException("Sorry you are ");
+            throw new NotFoundHttpException("Sorry you are not allowed to be here");
         }
 
     }

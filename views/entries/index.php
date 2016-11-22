@@ -128,6 +128,35 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-aw
     <section class="wrapper">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="ds content-panel entries-agent">
+                    <h1>Callbacks</h1>
+                    <?= GridView::widget([
+                        'dataProvider' => $callbackDataProvider,
+                        'columns' => [
+                            ['class' => 'yii\grid\SerialColumn'],
+                            'title',
+                            'firstname',
+                            'surname',
+                            'postcode',
+                             'address',
+                             'mobile',
+                             'tm',
+                             'acc_rej',
+                             'outcome',
+                             'packs_out',
+                        // 'submitted_by',
+                        // 'date_submitted',
+                        // 'updated_at',
+                        ]
+                    ]);?>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <section class="wrapper">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 
                 <div class="ds content-panel entries-agent">
                         <h1>
@@ -139,23 +168,23 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-aw
                         <hr>
                         <p>
                         <?= GridView::widget([
-                        'dataProvider' => $dataProvider,
-                        'columns' => [
+                            'dataProvider' => $dataProvider,
+                            'columns' => [
                                 ['class' => 'yii\grid\SerialColumn'],
-                        'title',
-                        'firstname',
-                        'surname',
-                        'postcode',
-                         'address',
-                         'mobile',
-                         'tm',
-                         'acc_rej',
-                         'outcome',
-                         'packs_out',
-                        // 'submitted_by',
-                        // 'date_submitted',
-                        // 'updated_at',
-                        ]
+                                'title',
+                                'firstname',
+                                'surname',
+                                'postcode',
+                                 'address',
+                                 'mobile',
+                                 'tm',
+                                 'acc_rej',
+                                 'outcome',
+                                 'packs_out',
+                            // 'submitted_by',
+                            // 'date_submitted',
+                            // 'updated_at',
+                            ]
                         ]);?>
                         </p>
                 </div>

@@ -37,6 +37,7 @@ class DefaultController extends Controller
                 //add default submitted by
                 $userAccount = UserAccount::find()->where(['username' => 'moneyactive'])->one();
                 $model->submitted_by = $userAccount->id;
+                $model->date_submitted = date("Y-m-d H:i:s");
                 if($model->save()){
                     $jsonMessage = [
                         "status"=>'success',

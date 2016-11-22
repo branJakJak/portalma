@@ -30,9 +30,7 @@ class ImportController extends Controller{
         $jsonMessage = [];
         \Yii::$app->response->format = Response::FORMAT_JSON;
         if ( !is_null(\Yii::$app->request->post('API_KEY',null))  && \Yii::$app->request->post('API_KEY') === \Yii::$app->params['API_KEY']) {
-            $model = new MoneyActiveClaims([
-                'scenario'=>MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_API_IMPORT
-            ]);
+            $model = new MoneyActiveClaims();
             if ($model->load(\Yii::$app->request->post())) {
                 //because php
                 if($model->scenario !== MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_API_IMPORT){

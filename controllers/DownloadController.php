@@ -91,7 +91,7 @@ class DownloadController extends \yii\web\Controller
             $filename = sprintf("%s.%s.csv", Yii::$app->formatter->asDate(date("Y-m-d"), "long"), Yii::$app->name);
             $tempNameContainer = tempnam(sys_get_temp_dir(), "asd");
             $fileres = fopen($tempNameContainer, "r+");
-            $resultArr = MoneyActiveClaims::find()->where(['pb_agent' => $agentName])->select(['title', 'firstname', 'surname', 'postcode', 'address', 'mobile', 'tm', 'acc_rej', 'outcome', 'packs_out', 'date_submitted'])->asArray(true)->all();
+            $resultArr = MoneyActiveClaims::find()->where(['pb_agent' => $agentName])->select(['title', 'firstname', 'surname', 'postcode', 'address', 'mobile', 'tm', 'acc_rej', 'outcome', 'notes' ,'packs_out', 'date_submitted'])->asArray(true)->all();
             header("Pragma: public");
             header("Expires: 0");
             header("Cache-Control: must-revalidate, post-check=0, pre-check=0");

@@ -129,8 +129,4 @@ class MoneyActiveClaims extends \yii\db\ActiveRecord
         }
         parent::init();
     }
-    public function beforeSave($insert)
-    {
-        return parent::beforeSave($insert);
-    }
 }

@@ -293,8 +293,15 @@ DashGumAssetBundle::register($this);
                           <li>
                             <?= Html::a('<span>Callbacks</span>', ['/download/callbacks'], ['class' => '']); ?>   
                           </li>
+
                           <li>
                             <?= Html::a('<span>Callbacks Today</span>', ['/download/callbacks?filter=today'], ['class' => '']); ?>   
+                          </li>
+                          <li>
+                            <?= Html::a('<span>Drop Calls</span>', ['/download/dropcalls?filter=all'], ['class' => '']); ?>   
+                          </li>
+                          <li>
+                            <?= Html::a('<span>Drop Calls Today</span>', ['/download/dropcalls?filter=today'], ['class' => '']); ?>   
                           </li>
                       </ul>
                   </li>

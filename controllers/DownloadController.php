@@ -10,98 +10,74 @@ use app\models\UserAccount;
 use Exception;
 use Faker\Provider\zh_CN\DateTime;
 use Yii;
+use yii\db\ActiveQuery;
 use yii\db\Query;
 use yii\db\QueryBuilder;
 use yii\filters\AccessControl;
+use yii\web\NotFoundHttpException;
 
 class DownloadController extends \yii\web\Controller
 {
+    protected $exportCols = [
+        'title',
+        'firstname',
+        'surname' ,
+        'postcode',
+        'address',
+        'tm',
+        'acc_rej',
+        'outcome',
+        'packs_out',
+        'claim_status',
+        'notes',
+        'mobile',
+        'pb_agent',
+        'comment',
+        'date_of_birth',
+        'email',
+        'bank_name',
+        'approx_month',
+        'approx_date',
+        'approx_year',
+        'paid_per_month',
+        'bank_account_type',
+        'date_submitted',
+        'updated_at'
+    ];
     public function behaviors()
     {
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['all','agent'],
+                'only' => ['all','agent','callbacks','dropcalls'],
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['all', 'agent'],
+                        'actions' => ['all','agent','callbacks','dropcalls'],
                         'roles' => ['admin'],
                     ],
                 ],
             ],
         ];
     }
+    public function actionDropcalls($filter)
+    {
+        $query = MoneyActiveClaims::find()
+            ->select($this->exportCols)
+            ->where(['outcome' => 'DROPPED CALL']);
+        $this->downloadHelper($query, 'dropped-calls', $filter);
+    }
 
-    /**
-     *
-     */
     public function actionAll()
     {
-        $exportCols = [
-                'title',
-                'firstname',
-                'surname' ,
-                'postcode',
-                'address',
-                'tm',
-                'acc_rej',
-                'outcome',
-                'packs_out',
-                'claim_status',
-                'notes',
-                'mobile',
-                'pb_agent',
-                'comment',
-                'date_of_birth',
-                'email',
-                'bank_name',
-                'approx_month',
-                'approx_date',
-                'approx_year',
-                'paid_per_month',
-                'bank_account_type',
-                'date_submitted',
-                'updated_at'
-        ];
-
         if (MoneyActiveClaims::find()->count() <= 0) {
             throw new Exception("Nothing to export");
         }
-        $filename = sprintf("%s.%s.csv", Yii::$app->formatter->asDate(date("Y-m-d"), "long"), Yii::$app->name);
-        $tempNameContainer = tempnam(sys_get_temp_dir(), "asd");
-        $fileres = fopen($tempNameContainer, "r+");
-        $resultArr = MoneyActiveClaims::find()
-            ->select($exportCols)
-            ->asArray(true)
-            ->all();
-        header("Pragma: public");
-        header("Expires: 0");
-        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-        header("Cache-Control: private", false);
-        header("Content-Type: application/octet-stream");
-        header("Content-Disposition: attachment; filename=\"$filename.csv\";");
-        header("Content-Transfer-Encoding: binary");
-
-
-        foreach ($resultArr as $index => $currentRow) {
-            if ($index === 0) {
-                $headers = array_keys($currentRow);
-                fputcsv($fileres, $headers);
-            }
-            $curVals = array_values($currentRow);
-            fputcsv($fileres, $curVals);
-        }
-        fclose($fileres);
-        echo file_get_contents($tempNameContainer);
-        \Yii::$app->end();
+        $query = MoneyActiveClaims::find()
+            ->select($this->exportCols);
+        $this->downloadHelper($query, 'all', '', 'all-records');
     }
 
-    /**
-     * Agent specific download
-     * @param $agentName
-     * @throws \Exception
-     */
     public function actionAgent($agentName)
     {
         $agentId = null;
@@ -110,60 +86,10 @@ class DownloadController extends \yii\web\Controller
         }
         //check agentname
         if (MoneyActiveClaims::find()->where(['pb_agent' => $agentName])->exists()) {
-            $filename = sprintf("%s.%s.csv", Yii::$app->formatter->asDate(date("Y-m-d"), "long"), Yii::$app->name);
-            $tempNameContainer = tempnam(sys_get_temp_dir(), "asd");
-            $fileres = fopen($tempNameContainer, "r+");
-
-            $exportCols = [
-                    'title',
-                    'firstname',
-                    'surname' ,
-                    'postcode',
-                    'address',
-                    'tm',
-                    'acc_rej',
-                    'outcome',
-                    'packs_out',
-                    'claim_status',
-                    'notes',
-                    'mobile',
-                    'pb_agent',
-                    'comment',
-                    'date_of_birth',
-                    'email',
-                    'bank_name',
-                    'approx_month',
-                    'approx_date',
-                    'approx_year',
-                    'paid_per_month',
-                    'bank_account_type',
-                    'date_submitted',
-                    'updated_at'
-            ];
-
-
-            $resultArr = MoneyActiveClaims::find()
+            $query = MoneyActiveClaims::find()
                 ->where(['pb_agent' => $agentName])
-                ->select($exportCols)
-                ->asArray(true)
-                ->all();
-            header("Pragma: public");
-            header("Expires: 0");
-            header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-            header("Cache-Control: private", false);
-            header("Content-Type: application/octet-stream");
-            header("Content-Disposition: attachment; filename=\"$filename.csv\";");
-            header("Content-Transfer-Encoding: binary");
-
-            fputcsv($fileres, $exportCols);
-
-
-            foreach ($resultArr as $currentRow) {
-                fputcsv($fileres, $currentRow);
-            }
-            fclose($fileres);
-            echo file_get_contents($tempNameContainer);
-            \Yii::$app->end();
+                ->select($this->exportCols);
+            $this->downloadHelper($query, 'agent-' . $agentName, '');
         } else {
             throw new \yii\base\Exception("Agent doesnt exists");
         }
@@ -171,38 +97,16 @@ class DownloadController extends \yii\web\Controller
 
     public function actionCallbacks($filter='all')
     {
-        $exportCols = [
-                'title',
-                'firstname',
-                'surname' ,
-                'postcode',
-                'address',
-                'tm',
-                'acc_rej',
-                'outcome',
-                'packs_out',
-                'claim_status',
-                'notes',
-                'mobile',
-                'pb_agent',
-                'comment',
-                'date_of_birth',
-                'email',
-                'bank_name',
-                'approx_month',
-                'approx_date',
-                'approx_year',
-                'paid_per_month',
-                'bank_account_type',
-                'date_submitted',
-                'updated_at'
-        ];        
         $query = MoneyActiveClaims::find()
-            ->select($exportCols)
+            ->select($this->exportCols)
             ->where(['outcome' => 'CALL BACK']);
-        $fileName = "callbacks." . date("Y-m-d").'-';
+        $this->downloadHelper($query, 'callbacks', $filter);
+    }
+    protected function downloadHelper(ActiveQuery $query ,$type,$filter)
+    {
+        $fileName = "$type." . date("Y-m-d").'-';
         if ($filter === 'today') {
-            $fileName .= 'today';
+            $fileName .= '-today';
             $query->andWhere(['date(date_submitted)' => date("Y-m-d")]);
         }
         $queryResultArr = new QueryResultToCsv();

@@ -32,8 +32,8 @@ $this->registerJs($customScript, \yii\web\View::POS_READY);
                 '200'=>'200'
             ],
         'template'=>'{list} {label}'
-
     ]); ?>
+
     <hr>
     <?=
     GridView::widget([
@@ -61,7 +61,7 @@ $this->registerJs($customScript, \yii\web\View::POS_READY);
                     if (strlen($model->notes) > 10) {
                         $retVal = substr($model->notes, 0,10).'...';
                     }
-                    // return Html::a($retVal, "#", ['data-toggle'=>"popover",'data-placement'=>'top','data-content'=>$model->notes]);
+
                     return Html::tag('span', $retVal, [
                         'data-placement'=>'top',
                         'data-content'=> $model->notes,
@@ -95,7 +95,14 @@ $this->registerJs($customScript, \yii\web\View::POS_READY);
                 'encodeLabel'=>false,
                 'format'=>'html'
             ]
-        ]
+        ],
+        'rowOptions'=>function($model,$index,$widget,$grid){
+            $opts = ['class' => 'non-pox1-hit'];
+            if ($model->outcome === 'POX1') {
+                $opts = ['class' => 'pox1-hit'];
+            }
+            return $opts;
+        }
     ]);
     ?>
 

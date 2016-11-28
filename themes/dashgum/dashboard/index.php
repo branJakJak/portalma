@@ -27,6 +27,24 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-aw
     #pox-month{
         background: #444c57;
     }
+     .ds td a {
+        color: white !important;
+     }
+    .pox1-hit {
+        background: green;
+        color: white;
+    }
+    .pox1-hit .popover-content ,{
+        color: #808080;
+    }
+    .non-pox1-hit{
+        background: red !important;
+        color: white;
+    }
+    .non-pox1-hit .popover-content {
+        color: #808080;
+    }
+
 </style>
 
 

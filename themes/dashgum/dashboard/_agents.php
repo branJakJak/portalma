@@ -72,7 +72,7 @@ $this->registerJs($customScript, \yii\web\View::POS_READY);
                 'format'=>'raw',
             ],
             [
-                'header'=>'Notes',
+                'header'=>'Comments',
                 'value' => function($model){
                     $retVal = $model->comment;
                     if (strlen($model->comment) > 10) {

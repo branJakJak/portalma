@@ -340,7 +340,7 @@ $outcomeDatasource = [
 
                 <?= $form->field($model, 'acc_rej')->dropDownList(['ACC' => 'ACC', 'REJ' => 'REJ']) ?>
 
-                <?= $form->field($model,'outcome')->dropDownList($outcomeDatasource)?>
+                <?= $form->field($model,'outcome')->dropDownList($outcomeDatasource)->hint('POX2 = 2 Pack Outs') ?>
 
 
                 <hr>

@@ -33,19 +33,14 @@ $this->registerCssFile('//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-aw
     .pox1-hit {
         background: green !important;
         color: white;
-
     }
-    .pox1-hit .popover-content ,{
-        color: #808080;
+    .pox1-hit .popover-content , .non-pox1-hit .popover-content{
+        color: #808080 !important;
     }
     .non-pox1-hit{
         background: red !important;
         color: white;
     }
-    .non-pox1-hit .popover-content {
-        color: #808080;
-    }
-
 </style>
 
 

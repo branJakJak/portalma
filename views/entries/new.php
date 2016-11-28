@@ -197,6 +197,7 @@ SCRIPT;
 
 $outcomeDatasource = [
     "POX1"=>"POX1",
+    "POX2"=>"POX2",
     "CALL BACK"=>"CALL BACK",
     "NOT INTERESTED"=>"NOT INTERESTED",
     "DROPPED CALL" => "DROPPED CALL",

@@ -4,6 +4,9 @@ use yii\grid\GridView;
 use yii\widgets\ListView;
 use app\models\MoneyActiveClaims;
 use yii\helpers\Url;
+use yii\bootstrap\Modal;
+use kartik\date\DatePicker;
+use yii\bootstrap\ActiveForm;
 
 $customCss = <<< SCRIPT
     .ds .desc {
@@ -152,3 +155,43 @@ RIGHT SIDEBAR CONTENT
         </li>
     <?php endforeach ?>
 <?php $this->endBlock(); ?>
+
+
+<?php 
+    $modalObject = Modal::begin([
+        'header' => '<h2 style="color: white">Export range</h2>',
+        'toggleButton' => ['label' => 'Range'],
+    ]);
+?>
+<form action="/download/range" method="GET" role="form">
+
+    <label>From:</label>
+    <?= 
+        DatePicker::widget([
+            'name'  => 'date_from',
+            'pluginOptions' => [
+                'format' => 'dd-mm-yyyy',
+                'todayHighlight' => true
+            ]                                  
+        ]);
+    ?>
+    <br>
+    <label>To:</label>
+    <?= 
+        DatePicker::widget([
+            'name'  => 'date_to',
+            'pluginOptions' => [
+                'format' => 'dd-mm-yyyy',
+                'todayHighlight' => true
+            ]
+        ]);
+    ?>
+    <br>
+    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+</form>
+
+
+
+<?php
+    Modal::end();
+?>

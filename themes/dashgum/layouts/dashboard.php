@@ -8,6 +8,8 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
+use yii\bootstrap\Modal;
+use kartik\date\DatePicker;
 
 use app\assets\DashGumAssetBundle;
 
@@ -303,6 +305,13 @@ DashGumAssetBundle::register($this);
                           <li>
                             <?= Html::a('<span>Drop Calls Today</span>', ['/download/dropcalls?filter=today'], ['class' => '']); ?>   
                           </li>
+                          <li>
+                            <!-- todo trigger here -->
+                            <?= Html::a('<span>Range</span>', '#', ['data-toggle' => 'modal','data-target'=>'#w4']); ?>   
+                          </li>
+
+
+
                       </ul>
                   </li>
                     <li class="">
@@ -394,6 +403,7 @@ DashGumAssetBundle::register($this);
   </section>
   
   <?php $this->endBody() ?>
+
   </body>
 </html>
 <?php $this->endPage() ?>

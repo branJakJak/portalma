@@ -3,7 +3,7 @@ use yii\grid\GridView;
 use yii\helpers\Html;
 
 
-$this->registerJsFile('//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+// $this->registerJsFile('//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $customScript = <<< SCRIPT
 

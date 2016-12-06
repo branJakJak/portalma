@@ -49,16 +49,33 @@ class DownloadController extends \yii\web\Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['all','agent','callbacks','dropcalls'],
+                'only' => ['all','agent','callbacks','dropcalls','range'],
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['all','agent','callbacks','dropcalls'],
+                        'actions' => ['all','agent','callbacks','dropcalls','range'],
                         'roles' => ['admin'],
                     ],
                 ],
             ],
         ];
+    }
+    public function actionRange($date_from , $date_to)
+    {
+        if (isset($date_from) && isset($date_to)) {
+        $query = MoneyActiveClaims::find()
+            ->select($this->exportCols)
+            ->where([
+                    'between',
+                    'date_submitted',
+                    date("Y-m-d",strtotime($date_from)),
+                    date("Y-m-d",strtotime($date_to)),
+                ]);
+
+        $this->downloadHelper($query, 'range','range-records' ,'');
+        }else{
+            return $this->redirect('/dashboard');
+        }
     }
     public function actionDropcalls($filter)
     {

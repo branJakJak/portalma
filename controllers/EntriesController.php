@@ -182,22 +182,22 @@ class EntriesController extends \yii\web\Controller
 
         /*form submit*/
         if ($newFormEntry->load(Yii::$app->request->post())) {
+            $newFormEntry->submitted_by = Yii::$app->user->id;
             if ($newFormEntry->isNewRecord) {
                 $newFormEntry->claim_status = MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_PENDING;
-                $newFormEntry->submitted_by = Yii::$app->user->id;
-                $newFormEntry->save();
             } else {
+                $newFormEntry->scenario = "quality_check";
                 $newFormEntry->claim_status = MoneyActiveClaims::MONEY_ACTIVE_CLAIM_STATUS_DONE;
-                $newFormEntry->submitted_by = Yii::$app->user->id;
                 $newFormEntry->updated_at = date("Y-m-d H:i:s");
-                $newFormEntry->update(false);
             }
-            //create url to view submitted data
-            $viewSubmittedDataLink = Html::a("View submitted data", ['/money-active-claims/view', 'id' => $newFormEntry->id], ['class' => 'btn btn-default']);
-            $messcontainer = sprintf("Success! New claim was saved . %s", $viewSubmittedDataLink);
-            Yii::$app->session->setFlash("success", $messcontainer);
-            $newFormEntry = new MoneyActiveClaims;
-            return $this->redirect(['entries/new']);
+            if ($newFormEntry->save()) {
+                //create url to view submitted data
+                $viewSubmittedDataLink = Html::a("View submitted data", ['/money-active-claims/view', 'id' => $newFormEntry->id], ['class' => 'btn btn-default']);
+                $messcontainer = sprintf("Success! New claim was saved . %s", $viewSubmittedDataLink);
+                Yii::$app->session->setFlash("success", $messcontainer);
+                $newFormEntry = new MoneyActiveClaims;
+                return $this->redirect(['entries/new']);
+            }
         }
 
         $viewBag = ['model' => $newFormEntry];

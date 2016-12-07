@@ -64,16 +64,19 @@ class MoneyActiveClaims extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'firstname', 'surname', 'submitted_by'], 'required'],
+            [['title', 'firstname', 'surname', 'submitted_by','outcome'], 'required','on'=>'quality_check','message'=>'Please select outcome. *required'],
             [['approx_month','approx_date','approx_year','submitted_by'], 'integer'],
             [['paid_per_month'], 'number'],
             [['title', 'firstname', 'surname', 'postcode', 'address', 'tm', 'acc_rej', 'outcome', 'packs_out' ,'mobile', 'claim_status','pb_agent','date_of_birth','email','bank_name','bank_account_type'], 'string', 'max' => 255],
             [['title', 'firstname', 'surname', 'postcode', 'address', 'tm', 'acc_rej', 'outcome', 'packs_out' ,'mobile', 'claim_status','pb_agent','date_of_birth','email','bank_name','bank_account_type'], 'string', 'max' => 255,'on'=>self::MONEY_ACTIVE_CLAIM_STATUS_API_IMPORT],
             [['title', 'firstname', 'surname', 'postcode', 'address', 'tm', 'acc_rej', 'outcome', 'packs_out' ,'mobile', 'claim_status','pb_agent','date_of_birth','email','bank_name','bank_account_type'], 'string', 'max' => 255,'on'=>self::MONEY_ACTIVE_CLAIM_SCENARIO_EMERGENCY_INPUT],
             [['title', 'firstname', 'surname', 'postcode', 'address', 'tm', 'acc_rej', 'outcome', 'packs_out' ,'mobile', 'claim_status','pb_agent','date_of_birth','email','bank_name','bank_account_type'], 'string', 'max' => 255,'on'=>'update'],
+            [['title', 'firstname', 'surname', 'postcode', 'address', 'tm', 'acc_rej', 'outcome', 'packs_out' ,'mobile', 'claim_status','pb_agent','date_of_birth','email','bank_name','bank_account_type'], 'string', 'max' => 255,'on'=>'quality_check'],
             [['date_submitted']  ,'safe'],
             [['date_submitted']  ,'safe','on'=>self::MONEY_ACTIVE_CLAIM_STATUS_API_IMPORT],
             [['date_submitted']  ,'safe','on'=>self::MONEY_ACTIVE_CLAIM_SCENARIO_EMERGENCY_INPUT],
             [['date_submitted']  ,'safe','on'=>'update' ],
+            [['date_submitted']  ,'safe','on'=>'quality_check' ],
             [['submitted_by'], 'exist', 'skipOnError' => true, 'targetClass' => UserAccount::className(), 'targetAttribute' => ['submitted_by' => 'id']],
         ];
     }
@@ -83,7 +86,8 @@ class MoneyActiveClaims extends \yii\db\ActiveRecord
             'default'=>["id" ,"title","firstname","surname","postcode","address","mobile","tm","acc_rej","outcome","packs_out","claim_status","notes","comment","pb_agent","date_of_birth","email","bank_name","approx_month","approx_date","approx_year","paid_per_month","bank_account_type","submitted_by"],
             self::MONEY_ACTIVE_CLAIM_STATUS_API_IMPORT=>[ "title","firstname","surname","postcode","address","mobile","tm","acc_rej","outcome","packs_out","claim_status","notes","comment","pb_agent","date_of_birth","email","bank_name","approx_month","approx_date","approx_year","paid_per_month","bank_account_type","submitted_by","date_submitted"],
             self::MONEY_ACTIVE_CLAIM_SCENARIO_EMERGENCY_INPUT=>[ "title","firstname","surname","postcode","address","mobile","tm","acc_rej","outcome","packs_out","claim_status","notes","comment","pb_agent","date_of_birth","email","bank_name","approx_month","approx_date","approx_year","paid_per_month","bank_account_type","submitted_by","date_submitted"],
-            'update'=>[ "title","firstname","surname","postcode","address","mobile","tm","acc_rej","outcome","packs_out","claim_status","notes","comment","pb_agent","date_of_birth","email","bank_name","approx_month","approx_date","approx_year","paid_per_month","bank_account_type","submitted_by","date_submitted"]
+            'update'=>[ "title","firstname","surname","postcode","address","mobile","tm","acc_rej","outcome","packs_out","claim_status","notes","comment","pb_agent","date_of_birth","email","bank_name","approx_month","approx_date","approx_year","paid_per_month","bank_account_type","submitted_by","date_submitted"],
+            'quality_check'=>[ "title","firstname","surname","postcode","address","mobile","tm","acc_rej","outcome","packs_out","claim_status","notes","comment","pb_agent","date_of_birth","email","bank_name","approx_month","approx_date","approx_year","paid_per_month","bank_account_type","submitted_by","date_submitted"]
         ];
     }
 

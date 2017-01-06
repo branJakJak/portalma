@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = "Leads";
             <?= Html::a('<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add record', ['create'], ['class' => 'btn btn-link']) ?>
         </h1>
         <hr>
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3 class="panel-title"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -26,37 +26,45 @@ $this->params['breadcrumbs'][] = "Leads";
                 </div>
                 <div class="panel-body">
                     <?php $form = ActiveForm::begin([]); ?>
-                        <?= $form->field($searchForm, 'searchTerm') ?>
-                        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary btn-block']) ?>
+                      <div class="input-group">
+                            <?= $form->field($searchForm, 'searchTerm') ?>
+                            <span class="input-group-btn">
+                                <?= Html::submitButton('Submit', ['class' => 'btn btn-primary btn-block','style'=>'    margin-top: 24px;']) ?>
+                            </span>
+                      </div>                    
+                        
                     <?php ActiveForm::end(); ?>
                 </div>
             </div>
         </div>
-        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-        <?= GridView::widget([
-            'dataProvider' => $dataProvider,
-            'columns' => [
-                // ['class' => 'yii\grid\SerialColumn'],
-                'id',
-                'title',
-                'firstname',
-                'surname',
-                // 'postcode',
-                'notes',
-                // 'address',
-                'mobile',
-                'tm',
-                'acc_rej',
-                'outcome',
-                'packs_out',
-                // 'submitted_by',
-                // 'date_submitted',
-                // 'updated_at',
-
-                ['class' => 'yii\grid\ActionColumn'],
-            ],
-        ]); ?>
-            
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'columns' => [
+                    // ['class' => 'yii\grid\SerialColumn'],
+                    'id',
+                    'title',
+                    'firstname',
+                    'surname',
+                    // 'postcode',
+                    'notes',
+                    // 'address',
+                    'mobile',
+                    'tm',
+                    'acc_rej',
+                    'outcome',
+                    'packs_out',
+                    // 'submitted_by',
+                    'date_submitted:datetime',
+                    [
+                        'attribute'=>'updated_at',
+                        'label'=>'Last updated',
+                    ],
+                    'updated_at:datetime',
+                    ['class' => 'yii\grid\ActionColumn'],
+                ],
+            ]); 
+            ?>
         </div>
     </div>
 </div>

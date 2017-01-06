@@ -72,16 +72,16 @@ $this->registerJs($customScript, \yii\web\View::POS_READY);
                 'format'=>'raw',
             ],
             [
-                'header'=>'Comments',
+                'header'=>'Outcome',
                 'value' => function($model){
-                    $retVal = $model->comment;
-                    if (strlen($model->comment) > 10) {
-                        $retVal = substr($model->comment, 0,10).'...';
+                    $retVal = $model->outcome;
+                    if (strlen($model->outcome) > 10) {
+                        $retVal = substr($model->outcome, 0,10).'...';
                     }
-                    // return Html::a($retVal, "#", ['data-toggle'=>"popover",'data-placement'=>'top','data-content'=>$model->comment]);
+
                     return Html::tag('span', $retVal, [
                         'data-placement'=>'top',
-                        'data-content'=> $model->comment,
+                        'data-content'=> $model->outcome,
                         'data-toggle'=>'popover',
                         'style'=>'text-decoration: underline; cursor:pointer;'
                     ]);

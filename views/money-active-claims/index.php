@@ -59,8 +59,12 @@ $this->params['breadcrumbs'][] = "Leads";
                     [
                         'attribute'=>'updated_at',
                         'label'=>'Last updated',
+                        'value'=>function($model){
+                            return Yii::$app->formatter->asDate($model->updated_at,'php:M d,Y g:i:s A');
+                        },
+                        'format'=>'raw'
                     ],
-                    'updated_at:datetime',
+                    // 'updated_at:datetime',
                     ['class' => 'yii\grid\ActionColumn'],
                 ],
             ]); 

@@ -4,9 +4,10 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
-use yii\behaviors\TimestampBehavior;
 use yii\db\BaseActiveRecord;
 use yii\db\Expression;
+use yii\behaviors\TimestampBehavior;
+
 
 /**
  * This is the model class for table "ma_claims".
@@ -139,4 +140,17 @@ class MoneyActiveClaims extends \yii\db\ActiveRecord
         }
         parent::init();
     }
+    public function behaviors()
+    {
+     return [
+         [
+            'class' => TimestampBehavior::className(),
+            'createdAtAttribute' => 'date_submitted',
+            'updatedAtAttribute' => 'updated_at',
+            'value' => new Expression('NOW()'),
+         ],
+
+
+     ];
+    }    
 }
